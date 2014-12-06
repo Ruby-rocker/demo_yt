@@ -1,0 +1,43 @@
+%section.container_wrapper
+  %section.columns.clearfix
+    = render "list_view_header_calendar", path: appointment_view_week_calendars_path
+  .view_calendar_name
+    = "#{@cal_name} Calendar"
+  %section.columns.clearfix
+    %section.column.col-34#ajax_view
+      %section.apptviewWeek
+        %section.apptviewWeekWrap
+          .monthBar
+            = link_to image_tag("arrow_l_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), appointment_view_week_calendars_path(date: @week.first.prev_day.to_s, calendar_id: params[:calendar_id]), class: "prev"
+            = link_to image_tag("arrow_r_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), appointment_view_week_calendars_path(date: @week.last.next.to_s, calendar_id: params[:calendar_id]), class: "next"
+            %h2 
+              = "#{@week.first.strftime('%b %d')} - #{@week.last.strftime('%b %d')}, #{@week.first.year}"
+          %section.apptviewWeekTable
+            %section.apptviewWeekTablehead
+              %ul
+                - @week.each do |day|
+                  - date = day.strftime('%Y-%m-%d')
+                  %li
+                    = link_to day.strftime('%a'), daily_path(date), style: 'color:#FFFFFF;',class: 'weekly_date_header'
+                    %span
+                      = day.strftime('%m-%d-%Y')
+            %section.apptviewWeekbody
+              %ul
+                - @week.each_with_index do |day, index|
+                  %li{class: "#{day.strftime('%m/%d/%Y') == params[:appointment_search_date] ? 'current' : ''}"}
+                    - @time_inter[index].each do |time|
+                      - available = (@working_hour.week_days.include?(day.strftime('%a').upcase) ?  "" : "active")
+                      - available = check_appt_window(time, day.strftime('%a').upcase) if available.blank?
+                      - available = check_availability(time, @blocked[index]) if available.blank?
+                      - block = @calendar.blocked_timings.find_by_appt_time_and_appt_date_and_status(time.strftime("%I:%M%P"), day.strftime('%Y-%d-%m'), [0, 1])
+                      - (available = block.status == 1 ? "" : "active") if block.present?
+                      - if check_working_hours(time, @working_hour) == ""
+                        = content_tag(:a, href: "javascript:;", onclick: "set_availability('#{day.strftime('%Y-%d-%m')}', '#{time.strftime("%I:%M%P")}', this)", class: "#{available}") do
+                          %b 
+                            = time.strftime("%I:%M%P")
+                          %i
+                            - if available == "active"
+                              = image_tag("btn_close@2x.png", width: "15")
+                            - else
+                              = image_tag("btn_plus@2x.png", width: "15")
+    = render :partial => "list_view_right_calendar", locals: {calendars: @calendars}

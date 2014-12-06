@@ -1,0 +1,20 @@
+/ bof page title
+%section.page_title
+  Pick a Number
+  / eof page title
+/ bof pick number Boxes
+%section.pick-number
+  %p.pnBox
+    Pick a new phone number for this voicemail box:
+    %span (This is where callers will be routed to receive your voicemail box).
+  = render partial: 'settings/shared/search_number', locals: {phone_number: @phone_menu, toll_free: true, swap: false}
+  / bof Displaying results
+  %section.displaying_results#displaying_results_local
+  %section.displaying_results#displaying_results_tollfree
+  / eof Displaying results
+/ eof pick number Boxes
+%section.form_action
+  %ul
+    %li
+      = link_to raw('<span>Previous</span>'), edit_settings_phone_menu_path(@phone_menu), :class => "prev_btn"
+/ eof container

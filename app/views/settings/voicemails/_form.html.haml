@@ -1,0 +1,77 @@
+/ bof page title
+%section.page_title
+  Voicemail Boxes
+/eof page title
+
+/ bof Voicemail Boxes Edit
+%section.voicemail-boxes-edit
+  = nested_form_for [:settings, @voicemail], html: {id: :phone_script_form} do |f|
+    %section.voicemail_name
+      %label What business are your callers calling?
+      = f.collection_select :business_id, @businesses, :id, :name, prompt: 'Select business name'
+    %section.voicemail_name
+      %label What would you like to name this voicemail box?
+      = f.hidden_field :id
+      = f.text_field :name
+    %section.voicemail_recordings
+      %label Where would you like the recordings of the voicemail messages sent to?
+      - flag = true
+      %ul#email_id_fields
+        = f.fields_for :email_ids, :wrapper => false do |email|
+          %li.remove_email_id
+            = email.email_field :emails, class: 'email_input', placeholder: 'Email id'
+            - if flag
+              = f.link_to_add image_tag( "btn_plus@2x.png", width: '19'), :email_ids, data: { target: "#email_id_fields", nested_wrapper_class: 'email_ids-wrapper' },
+                 style: (@voicemail.email_ids.size >= TOTAL_SMS_EMAIL) ? 'display: none' : ''
+            - else
+              = email.link_to_remove image_tag( "btn_close@2x.png", width: '19'), id: 'remove_email_id'
+            - flag = false
+      %br
+      %label SMS/Text
+      - flag = true
+      %ul#notify_numbers
+        = f.fields_for :notify_numbers, :wrapper => false do |sms|
+          %li.remove_notify_number
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tr
+                %td.call15 (
+                %td.call50
+                  = sms.text_field :area_code, class: 'inputBar sms_input', maxlength: 3
+                %td.call15 )
+                %td.call50
+                  = sms.text_field :phone1, class: 'inputBar sms_input', maxlength: 3
+                %td.call15 -
+                %td.call50
+                  = sms.text_field :phone2, class: 'inputBar sms_input', maxlength: 4
+                %td.call25
+                  - if flag
+                    = f.link_to_add image_tag( "btn_plus@2x.png", width: '19'), :notify_numbers, :data => { :target => "#notify_numbers" },
+                      style: (@voicemail.notify_numbers.size >= TOTAL_SMS_EMAIL) ? 'display: none' : ''
+                  - else
+                    = sms.link_to_remove image_tag( "btn_close@2x.png", width: '19'), id: 'remove_notify_number'
+                  - flag = false
+    -#%section.voicemail_transcribed
+    -#  %label Would you like your voicemail messages transcribed?
+    -#  %ul
+    -#    %li
+    -#      = f.radio_button(:transcribe, true)
+    -#      = f.label(:transcribe, 'Yes', value: 'true')
+    -#    %li
+    -#      = f.radio_button(:transcribe, false)
+    -#      = f.label(:transcribe, 'No', value: 'false')
+    %section.voicemail_upload
+      %label Upload the audio file for your voicemail greeting here:
+      %div.upload_file
+        = f.fields_for :audio_file do |audio|
+          .audio_player
+            %audio#default_audio{:controls => "control", :preload => "none", :src => @voicemail.audio_file.try(:record), :type => "audio/x-m4a"}
+          = audio.file_field :record, value: @voicemail.audio_file.try(:record_file_name)
+        %p NOTE: Acceptable formats are .wav or MP3 files.
+    %section.form_action
+      %ul
+        %li
+          = link_to raw("<span>Previous</span>"), settings_voicemails_path, :class => "prev_btn"
+        %li
+          -#= f.submit 'Save', disable_with: 'Wait..'
+          = f.button 'Save', disable_with: 'Wait..', :class => "save_btn"
+/ eof Voicemail Boxes Edit

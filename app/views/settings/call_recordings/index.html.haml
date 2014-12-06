@@ -1,0 +1,49 @@
+= form_tag update_recordings_settings_call_recordings_path, method: :put do
+  %section.recordingAccount
+    %h2 Call Recording
+    %span Would you like to add Call Recording to your account?
+    -#%ul
+      %li
+        -#%label
+        -#  = radio_button_tag 'add_on[status]', "inactive", (@add_on.present? || @add_on.status == "inactive")
+        -#  No thanks
+
+      %li
+        -#%label
+        -#  = radio_button_tag 'add_on[status]', "active", (@add_on.status == "active")
+        -#  Yes, please add ($10/month)
+
+    %section.call_recording
+      - if @add_on && @add_on.alive?
+        %section.unsubscribe
+          = button_tag "Unsubscribe", disable_with: 'Wait..', data: { confirm: 'Are you sure want to Unsubscribe?' }
+      - else
+        %section.subscribe.table_body
+          %span.priceBuy
+            %b
+              $10/
+              %i month
+            = button_tag "Buy", disable_with: 'Wait..', data: { confirm: 'Are you sure want to Subscribe?' }, style: 'width: 48px;text-transform: none;font-size: 23px;margin: 0px 4px;padding: 8px 25px;'
+            -#= link_to "Buy", "javascript:;", onclick: "subscribe_call_recording(this);"
+
+  %section.container
+    %section.recordingAccountWrap
+      %section.callIncludeswrap
+        %div.callIncludes
+          %div.iconIncludes
+            = image_tag "icon_recordings@2x.png", :width => "115px"
+          %h2 YesTrak Call Recording Includes:
+          %ul
+            %li Listen to recordings on your computer or mobile device.
+            %li Simple interface lets you and your team monitor calls for quality control.
+            %li Recordings can be filtered by your different marketing efforts.
+            %li Easy playback and the ability to download calls creates a great staff training tool.
+        %div.screen
+          = image_tag "screen_call@2x.jpg"
+
+    %section.form_action
+      %ul
+        %li
+          = link_to raw('<span>Previous</span>'), settings_dashboard_index_path, :class => "prev_btn"
+        -#%li
+          -#= submit_tag 'Save'

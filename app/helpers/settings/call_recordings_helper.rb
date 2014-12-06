@@ -1,0 +1,2 @@
+module Settings::CallRecordingsHelper
+end

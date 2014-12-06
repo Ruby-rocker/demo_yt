@@ -1,0 +1,93 @@
+%section.container_wrapper
+  %section.columns.clearfix
+    = render "header_calendar", path: weekly_path(calendar_id: params[:calendar_id])
+  .view_calendar_name
+    - if @cal_name.eql? "All"
+      = "#{@cal_name} Calendars"
+    - else
+      = "#{@cal_name} Calendar"
+  %section.columns.clearfix
+    %section.column.col-34
+      %section.calender_month
+        %table.month_title{border: "0", cellpadding: "0", cellspacing: "0", width: "98%"}
+          %tr
+            %td{height: "30", valign: "middle"}
+              = link_to image_tag("arrow_l_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), weekly_path(@week.first.prev_day.to_s, calendar_id: params[:calendar_id])
+            %td{align: "center", height: "30", valign: "middle"}
+              = "#{@week.first.strftime('%b %d')} - #{@week.last.strftime('%b %d')}, #{@week.first.year}"
+            %td{align: "right", height: "30", valign: "middle"}
+              = link_to image_tag("arrow_r_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), weekly_path(@week.last.next.to_s, calendar_id: params[:calendar_id])
+        .calendar_week
+          .week_time
+            .weel_time_head Time
+            - TIME.each do |t|
+              .weel_time_bot
+                - [nil,30].each_with_index do |m,index|
+                  - time = m.nil? ? "#{t.to_i}:#{'00'}#{t[-2,2]}" : "#{t.to_i}:#{m}#{t[-2,2]}"
+                  -# if @synced_cal.nil? || @synced_cal && @synced_cal.working_hours_check?(set_time(time))
+                  = m.nil? ? t : "#{t.to_i}:#{m}"
+            .clear
+          .week_event
+            .week_event_head
+              %ul
+                - @week.each do |day|
+                  - date = day.strftime('%Y-%m-%d')
+                  %li
+                    %b
+                      = link_to day.strftime('%a - %d'), daily_path(date), style: 'color:#FFFFFF;',class: 'weekly_date_header'
+                    %span
+                      = link_to (day.strftime('%a')[0..-2]+"-"+day.strftime('%d')), daily_path(date), style: 'color:#FFFFFF;',class: 'weekly_date_header'
+            - TIME.each do |t|
+              .week_event_bot
+                - @week.each_with_index do |day,ind|
+                  .week_event_wrap
+                    - [nil,30].each_with_index do |m,index|
+                      - a = ""
+                      - am_pm = t[-2,2]
+                      - if m.nil?
+                        - cls_str = "existingEventTop"
+                        - time = "#{t.to_i}:#{'00'}#{am_pm}"
+                      - else
+                        - cls_str = "existingEventBot"
+                        - time = "#{t.to_i}:#{m}#{am_pm}"
+                      -# if @synced_cal.nil? || @synced_cal && @synced_cal.working_hours_check?(set_time(time))
+                      - @day = day.strftime('%-d')
+                      - @month = day.strftime('%-m')
+                      - @year = day.strftime('%Y')
+                      - rec_back = false
+                      - rec_v, rec_path = ""
+                      - appointments_cal = []
+                      - curr_date = "#{@day}-#{@month}-#{@year} #{time}".to_time
+                      - find_calendars(@calendar_id).each do |calendar|
+                        - appointments = calendar.appointments.where(repeat: false)
+                        - res_appointments_cal = appointments.where("CONVERT_TZ(start_at,'+00:00', '#{ActiveSupport::TimeZone.new(calendar.timezone.to_s).to_s[4,6]}') = ? or (CONVERT_TZ(start_at,'+00:00', '#{ActiveSupport::TimeZone.new(calendar.timezone.to_s).to_s[4,6]}') < ? and CONVERT_TZ(end_at,'+00:00', '#{ActiveSupport::TimeZone.new(calendar.timezone.to_s).to_s[4,6]}') > ?)", curr_date, curr_date, curr_date)
+                        - appointments_cal << res_appointments_cal if res_appointments_cal.present?
+                      - if @r_hash[curr_date.to_date.to_s]
+                        - @r_hash[curr_date.to_date.to_s].each do |k,v|
+                          - cal_timezone = Appointment.find(k).calendar.timezone.to_s
+                          - a = curr_date.to_date - v['start_time'].to_date
+                          - revised_start_time = v['start_time']+a.to_s.split("/")[0].to_i.days
+                          - revised_end_time = v['end_time']+a.to_s.split("/")[0].to_i.days
+                          - if Time.parse("0000-01-01 #{curr_date.strftime("%H:%M")}") >= Time.parse("0000-01-01 #{(revised_start_time.utc+ActiveSupport::TimeZone.new(cal_timezone.to_s).utc_offset).strftime("%H:%M")}") && Time.parse("0000-01-01 #{curr_date.strftime("%H:%M")}") < Time.parse("0000-01-01 #{(revised_end_time.utc+ActiveSupport::TimeZone.new(cal_timezone.to_s).utc_offset).strftime("%H:%M")}")
+                            - rec_back = true
+                            - rec_v = v
+                      -# if @synced_cal.nil? || @synced_cal && @synced_cal.include_in_working_days?(day.strftime('%a').upcase)
+                      = link_to new_appointment_path+"?day="+@day.to_s+"&month="+@month.to_s+"&year="+@year.to_s+"&time="+time.to_s+"&type=weekly", class: 'fancybox.ajax fancybox addNewEvent' do
+                        %div{class: "#{(index%2).zero? ? 'wrap_top' : 'wrap_bot'}", style: "background-color:#{'#E8E5E5' if (appointments_cal.present? || rec_back) }", id: "cal_cell_#{@day.to_s}_#{@month.to_s}_#{time.gsub(':','_')}"}
+                          &nbsp;
+                      %div{class: cls_str}
+                        - if rec_back
+                          - @r_hash[curr_date.to_date.to_s].each do |k,v|
+                            - rec_v = v
+                            - rec_path = k
+                            - revised_start_time = v['start_time']+a.to_s.split("/")[0].to_i.days
+                            - revised_end_time = v['end_time']+a.to_s.split("/")[0].to_i.days
+                            = render partial: 'appointment_weekly_recurring', locals: {time: time, type: 'weekly', curr_date: curr_date, rec_v: rec_v, rec_path: rec_path}
+                        = render partial: 'appointment_weekly', locals: {time: time, type: 'weekly', appointments_cal: appointments_cal, curr_date: curr_date, rec_v: rec_v, rec_path: rec_path}
+                      / - else
+                      /   %div{class: "#{(index%2).zero? ? 'wrap_top' : 'wrap_bot'}"}
+                      /     &nbsp;
+            .clear
+          .clear
+        .clear
+    = render :partial => "right_calendar", locals: {calendars: @calendars}

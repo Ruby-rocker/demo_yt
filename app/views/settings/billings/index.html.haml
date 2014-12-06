@@ -1,0 +1,72 @@
+%section.container
+  %section.page_title
+    Billing Overview
+  %section.billingOverview
+    %section.myAccount
+      %div.myAccountHead
+        My Account
+      %div.myAccountbody
+        %div.leftBar
+          %h2
+            = @business.name
+            %span
+              = "Member Since: " + @business.created_at.strftime("%B %d, %Y")
+        %div.rightBar
+          %div.currentPackage
+            %span
+              %i Current Package:
+              - if @tenant.plan_bid == "200minutes"
+                = "200 minutes of monthly talk time - $250/month"
+              - elsif @tenant.plan_bid == "500minutes"
+                = "500 minutes of monthly talk time - $500/month"
+              - else
+                = "Pay as you go - $1.50/minute"
+            = link_to "Upgrade/Downgrade", upgrade_downgrade_settings_billings_path, class: "fancybox fancybox.ajax"
+
+    %section.billingBox
+      %div.billingInfo
+        %h2
+          Billing Info
+        %div.billingInfoWrap
+          %ul
+            - @billing_info.each do |b|
+              %li
+                %span
+                  Billing Contact:
+                = b.first_name + ' ' + b.last_name
+              %li
+                %span
+                  Billing Address:
+                = b.address.street
+                %br
+                = b.address.suite
+                %br
+                = b.address.city + ', ' + b.address.state + ' ' + b.address.zip_code
+              %li
+                %span
+                  Credit Card on File:
+                - if (b.last_4).present?
+                  = "xxxx-xxxx-xxxx-" + b.last_4
+              %div.action
+                = link_to "View/Edit Billing Info", edit_settings_billing_path(b), class: "greyLink"
+            %br
+            %div.action
+              %li
+                = link_to "I need to cancel my service", user_cancellation_settings_users_path, class: "greyLink"
+      %div.recentInvoices
+        %h2
+          Recent Invoices
+        %div.recentInvoicesWrap
+          %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+            - @billing_transactions.each do |bt|
+              %tr
+                %td
+                  = bt.created_on.strftime('%B %d, %Y')
+                %td{class: bt.show_status.eql?('PAID') ? :colorgreen : :colorRed}
+                  = bt.show_status
+                %td
+                  = "$" + number_with_precision(bt.amount,precision: 2).to_s
+                %td
+                  = link_to (image_tag "icon_more@2x.png", width: "15", alt: ""), view_invoice_settings_billings_path(bt)
+          %div.action
+            = link_to "View All Payments", view_all_payments_settings_billings_path, class: "greyLink"

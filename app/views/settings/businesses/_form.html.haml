@@ -1,0 +1,85 @@
+%section.page_title
+  Business Info
+-if @business.errors.any?
+  #error_explanation
+    %ul
+      - @business.errors.full_messages.each do |msg|
+        %li= msg
+%section.business_info_form
+  = form_for @business, html: {id: :frm_save_business}, url: path do |f|
+    = f.hidden_field :id
+    = f.fields_for :address do |address|
+      %section.container
+        %section.columns.clearfix
+          %section.column.col-12
+            %label Business Name:
+            = f.text_field :name, placeholder: "ABC Practice", class: :inputBar
+          %section.column.col-12
+            %label Country:
+            = address.select(:country, COUNTRIES.collect {|p| [ p.last, p.first ] },{prompt: 'Select Country'}, class: 'selectBar')
+        
+        %section.columns.clearfix.top_space
+          %section.column.col-12
+            %label Street Address:
+            = address.text_field :street, placeholder: "1224 Happy Lane", class: :inputBar
+          %section.column.col-12
+            %label Suite/Floor:
+            = address.text_field :suite, placeholder: "1st floor", class: :inputBar
+
+        %section.columns.clearfix.top_space
+          %section.column.col-12
+            %label City:
+            = address.text_field :city, placeholder: "Schaumburg", class: :inputBar
+          %section.column.col-12
+            %label State/Province:
+            -#= address.select(:state, US_STATES.collect {|p| [ p.last, p.first ] },{prompt: 'Select State/Province'}, class: 'selectBar')
+            = select_tag(:us_state, options_for_select(US_STATES.collect {|p| [ p.last, p.first ] },@business.address.state),{prompt: 'Select State/Province', class: 'selectBar us_states', style: "display: #{@business.address.country.eql?('US') ? 'block' : 'none'};"})
+            = select_tag(:ca_state, options_for_select(CA_STATES.collect {|p| [ p.last, p.first ] },@business.address.state),{prompt: 'Select State/Province', class: 'selectBar ca_states', style: "display: #{@business.address.country.eql?('CA') ? 'block' : 'none'};"})
+            = text_field_tag :other_state, (@business.address.country.eql?('US') || @business.address.country.eql?('CA')) ? '' : @business.address.state, class: 'inputBar other_states', style: "display: #{(@business.address.country.eql?('US') || @business.address.country.eql?('CA')) ? 'none' : 'block'};"
+
+        %section.columns.clearfix.top_space
+          %section.column.col-12
+            %label Zip/Postal Code:
+            = address.text_field :zip_code, placeholder: "60172", class: :inputBar
+          %section.column.col-12
+            %label Time Zone:
+            = address.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones,{:default => 'Pacific Time (US & Canada)'}, class: 'selectBar'
+
+      = f.fields_for :phone_number do |phone_number|
+        %section.columns.clearfix.top_space
+          %section.column.col-12
+            %label Phone Number:
+            %table.phone_number_input{width: "189", border: "0", cellspacing: "0", cellpadding: "0"}
+              %tr
+                %td{style: "width:10px;"} (
+                %td{style: "width:53px;"}
+                  = phone_number.text_field :area_code, placeholder: "123", maxlength: 3, class: :inputBar
+                %td{style: "width:10px;"} )
+                %td{style: "width:53px;"}
+                  = phone_number.text_field :phone1, placeholder: "456", maxlength: 3, class: :inputBar
+                %td{style: "width:10px;"} -
+                %td{style: "width:53px;"}
+                  = phone_number.text_field :phone2, placeholder: "2359", maxlength: 4, class: :inputBar
+
+          %section.column.col-12
+            %label Website:
+            = f.text_field :website, placeholder: "http://happysmiles.com", class: :inputBar
+
+        %section.columns.clearfix.top_space
+          %label
+            Landmark Info
+            %span (So our agents can help callers find your business location):
+          = f.text_area :landmark, placeholder: "Located next to the Gas Station on Route 17.", class: :textareaBar
+
+        %section.columns.clearfix.top_space
+          %label
+            Business Description
+            %span (So our agents know more about your business):
+          = f.text_area :description, placeholder: "We are a small dental practice specializing in ....", class: :textareaBar
+
+    %section.form_action
+      %ul
+        %li
+          = link_to raw('<span>Previous</span>'), settings_businesses_path, :class => "prev_btn"
+        %li
+          = f.button "Save", disable_with: 'Wait..', :class => "save_btn"

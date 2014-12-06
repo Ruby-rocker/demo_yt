@@ -1,0 +1,19 @@
+%section.container
+  %section.container_wrapper.graphpage
+    %section.columns.clearfix
+      %section.column.col-34
+        -#= form_tag embedded_signing_partners_partner_docusign_index_path do
+        -#= form_for @agreement, :url => upload_agreement_partners_partner_docusign_index_path, :html => { :multipart => true } do |f|
+          %section.form_action
+            %ul
+              %li
+                = link_to 'Download Agreement', '/partneragreement.pdf', target: '_blank'
+                %br
+                = f.file_field :record
+                = submit_tag "Upload the signed agreement", disable_with: 'Wait..', :class => "save_btn"
+
+        = form_tag embedded_signing_partners_partner_docusign_index_path do
+          %section.form_action
+            %ul
+              %li
+                = submit_tag "Click to sign agreement", disable_with: 'Wait..', :class => "save_btn"

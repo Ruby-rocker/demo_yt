@@ -1,0 +1,16 @@
+.viewContactDetails
+  .all_popup.custom_range_main
+    .add_new_popup.custom_range_popup
+      .add_new_popup_head
+        %h1 CUSTOM DATE RANGE
+      .add_new
+        .custom_range_div_main
+          %label.label.label1{for: ""} Select Start Date:
+          %label.label.label2{for: ""} Select End Date:
+        .custom_range_datepicker
+          #custom_range_from
+          #custom_range_to
+        .action
+          = link_to "Save",'javascript:void(0);', onclick: 'filter_custom_voicemail_range();', class: 'btn_search fancybox'
+          = link_to 'Reset', 'javascript:void(0);', onclick: 'reset_custom_voicemail_range();', class: 'reset fancybox'
+        .clear

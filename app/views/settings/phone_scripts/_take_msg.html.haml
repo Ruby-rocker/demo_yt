@@ -1,0 +1,147 @@
+%section.bigAns
+  %section.bigavtar
+    = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      Hello, my name is (agent name),
+      %br
+      %br I'm part of the answering team for
+    = f.text_field :buss_name, placeholder: 'ENTER YOUR BUSINESS NAME'
+    %b &rdquo;
+    %br
+    %br
+    = f.text_area :not_available_excuse, placeholder: "ENTER THE REASON YOU CAN'T BE REACHED. For example: 'The office is closed now' or 'Dr. Jones is unavailable.'"
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      My job is to take a message
+    = f.text_area :desired_action, placeholder: "OPTIONAL: DEFINE A RESPONSE TIME. For example: 'so the office can get back to you soon' or 'The message will be sent to the Doctor immediately'"
+    %b &rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "sm_avtar_3@2x.jpg", class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please start with your phone number in case we get disconnected?&rdquo;
+    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES PHONE NUMBER"}
+      %span &ldquo;Great.&rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "sm_avtar_3@2x.jpg", class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please have your first name?&rdquo;
+    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES FIRST NAME"}
+      %span &ldquo;Thank you.&rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "sm_avtar_3@2x.jpg", class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please have your last name?&rdquo;
+    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES LAST NAME"}
+  .clear
+%section.top_space_40
+  %section.addQue
+    %section.bigavtar
+      = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+    %section.andInput
+      %span &ldquo;Thanks, Now that we have your contact info, what's the message you'd like me to take?&rdquo;
+    .clear
+%section.addQue
+  %section.bigavtar
+    = image_tag "sm_avtar_3@2x.jpg", class: 'img-35'
+  %section.andInput
+    %input.sminput{:disabled => "", :type => "text", :value => 'CALLER PROVIDES MESSAGE'}
+  .clear
+%section.top_space_40
+  %section.addQue
+    %section.bigavtar
+      = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+    %section.andInput
+      %span Okay -- let me repeat that to you.
+      %br Agent repeats message
+      %br &ldquo;Is that correct?&rdquo;
+    .clear
+%section.top_space_40
+  %section.addQue
+    %section.bigavtar
+      = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+    %section.andInput
+      %span &ldquo;Great. One last question: what is the best time to reach you by phone?&rdquo;
+    .clear
+%section.addQue
+  %section.bigavtar
+    = image_tag "sm_avtar_3@2x.jpg", class: 'img-35'
+  %section.andInput
+    %input.sminput{:disabled => "", :type => "text", :value => 'CALLER PROVIDES BEST TIME TO RETURN CALL'}
+  .clear
+%section.top_space_40
+  %section.bigAns
+    %section.bigavtar
+      = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+    %section.andInput
+      %span
+        %i> &ldquo;
+        Thanks, I'll send your answers through now
+      = f.text_area :next_step, placeholder: "DESCRIBE THE NEXT STEP FOR YOUR CALLER. For example, 'you can expect a call from the office in the nect hour.' or 'Don't forget to download the forms on our website.'"
+    .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      My name is (agent name), and it's been a pleasure assisting you. Is there anything else we can do for you today?
+      %br
+      %br
+        Thanks for calling and have a great day!
+        %b &rdquo;
+      %br
+      %br
+        OBJECTION RESPONSE: I'm sorry, we're just the answering service. The best thing I can do is get your message over to office so the right person can call you back shortly. How does that sound?
+  .clear
+-#%section.bigAns
+-#  %section.bigavtar
+-#    = image_tag "sm_avtar_3@2x.jpg", class: 'img-35'
+-#  %section.andInput
+-#    %span &ldquo;May I please have the message you would like me to take?&rdquo;
+-#    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES MESSAGE"}
+-#      %span &ldquo;Thank you.&rdquo;
+-#  .clear
+-#%section.bigAns
+-#  %section.bigavtar
+-#    = image_tag "sm_avtar_3@2x.jpg", class: 'img-35'
+-#  %section.andInput
+-#    %span &ldquo;May I please have the best time to reach you back?&rdquo;
+-#    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES BEST TIME TO RETURN CALL"}
+-#      %span &ldquo;Thank you.&rdquo;
+-#  .clear
+-#%section.bigAns
+-#  %section.bigavtar
+-#    = image_tag "big_avtar_3@2x.jpg", class: 'img-60'
+-#  %section.andInput
+-#    %span
+-#      %i> &ldquo;
+-#      I will send your message through now. My name is (xxxxxx) and it’s been a pleasure assisting you. Is there anything else I can do for you today? Thanks for calling and have a great day!
+-#    %b &rdquo;
+-#  .clear
+-#%section.bigAns
+-#  %section.andInput
+-#    %a.agent_message{:href => "#"} Agent will then send through the message.
+-#  .clear
+-#%section.bigAns
+-#  %section.andInput
+-#    %label Are there any key alerts our agents should be aware of?
+-#    = f.text_field :buss_alerts, placeholder: 'INSERT KEY BUSINESS ALERTS HERE'
+-#  .clear
+-#%section.bigAns
+-#  %section.andInput
+-#    %label How should our agents handle any objection a caller may raise?
+-#    = f.text_area :caller_objection, placeholder: 'INSERT THE EXACT RESPONSE DESIRED HERE.'
+-#  .clear

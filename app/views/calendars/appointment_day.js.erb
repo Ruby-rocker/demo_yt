@@ -1,0 +1,3 @@
+$("#appot_time").html("<%=j render partial: 'appoint_time_list', locals: {time_array: @time_inter, index_limit: @index_limit} %>")
+$(".availableAppointments").show()
+$("#calendar_id").val("<%= params[:calendar_id]%>")

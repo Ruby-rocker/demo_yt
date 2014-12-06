@@ -1,0 +1,20 @@
+- date = "#{@date.year}-#{month}-#{day}".to_time.to_date
+%i
+  = link_to day, daily_path(date), style: 'background:none;color:#222222;font-weight:bold;font-size:12px;'
+-# if @synced_cal.nil? || @synced_cal && @synced_cal.include_in_working_days?(date.strftime('%a').upcase)
+- curr_date = "#{day}-#{month}-#{@date.year}".to_time.to_date
+- find_calendars(calendar_id).each do |calendar|
+  - appointments = calendar.appointments.where(repeat: false)
+  - appointments_cal = appointments.where("DATE(CONVERT_TZ(start_at,'+00:00', '#{ActiveSupport::TimeZone.new(calendar.timezone.to_s).to_s[4,6]}')) = ?",curr_date)
+  - appointments_cal.each do |a|
+    = link_to edit_appointment_path(a.id), style: "color:#{calendar.color};", :class => "fancybox.ajax fancybox" do
+      - if (a.contact).present?
+        = "#{a.contact.first_name}, #{a.start_at.in_time_zone(calendar.timezone.to_s).strftime('%l:%M%P')}"
+        %br
+- if @r_hash[date.to_s]
+  - @r_hash[date.to_s].each do |k,v|
+    - cal_timezone = Appointment.find(k).calendar.timezone.to_s
+    = link_to edit_appointment_path(k), style: "color:#{v['color']};", :class => "fancybox.ajax fancybox" do
+      = "#{v['name']}, #{v['start_time'].in_time_zone(cal_timezone).strftime('%l:%M%P')}"
+    %br
+= link_to " ", new_appointment_path+"?day="+day.to_s+"&month="+month.to_s+"&year="+@date.year.to_s, :class => "no_bg fancybox.ajax fancybox"

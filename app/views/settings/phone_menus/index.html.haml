@@ -1,0 +1,41 @@
+/ bof page title
+%section.page_title Phone menus
+/eof page title
+
+/ bof Voicemail Boxes
+%section.voicemail-boxes
+  %p.vmBox Here is a list of your current phone menus:
+  %section.list_voicemail
+    %section.table_head
+      %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+        %tr
+          %th{width: "32%"} Menu Name
+          %th{width: "37%"} Phone Number
+          %th{width: "31%"} Edit/Delete
+    = render partial: 'settings/shared/index_table', locals: {phone_numbers: @phone_menu}
+    %section.table_body
+      %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+        %tr
+          %td.menuName{width: "32%"} Add New Phone menu
+          %td{width: "37%"} &nbsp;
+          %td{width: "31%"}
+            - if @free_phone_menu
+              = link_to "Add", new_settings_phone_menu_path, class: "add"
+            - else
+              %span.priceBuy
+                %b
+                  $10/
+                  %i month
+                = link_to "Buy", new_settings_phone_menu_path, data: { confirm: 'Are you sure want to buy Phone Menu?' }
+
+  %section.voicemailIncludeWrap
+    .voicemailBox
+      .boxIcon
+        = image_tag "icon_menu@2x.png", :width => "115px"
+      %h2 YesTrak Phone Menus Include:
+      %ul
+        %li Quick and easy set-up.
+        %li Program each button of phone's keypad to forward callers to right destination.
+        %li Record greeting in your own voice.
+        %li Change your menus of options at any time, from your computer or mobile device.
+/ eof Voicemail Boxes

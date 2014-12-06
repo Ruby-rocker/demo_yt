@@ -1,0 +1,155 @@
+%section.container
+  %section.invoiceWrapper
+    %section.invoiceBody
+      %section.invoiceNumber
+        %div
+          = @billing_transaction.created_on.strftime("%-m/%d/%y")
+          %br
+            %span Invoice #:
+            = @billing_transaction.transaction_bid
+          %br
+            %span Plan:
+            = @subscription.try(:plan_bid)
+      %section.invoiceAdd
+        %section.invoiceBill
+          .billLabel
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+              %tr
+                %td{:align => "center"} Bill to:
+                %td
+                  - @billing_info.each do |b|
+                    = b.first_name + " " + b.last_name
+                    %br
+                      - if b.address.suite.present?
+                        = b.address.suite + " " + b.address.street
+                      %br
+                      = b.address.city + ', ' + b.address.state + ' ' + b.address.zip_code
+      %section.curentCharges
+        -#%h4 Details:
+        %section.curentChargesTable
+          %section.curentChargesTableHead
+            .cal30
+              .cal20 id
+              .cal80 Service item
+            .cal70
+              .cal25 Date Range
+              .cal25 Unit Price
+              .cal25 Quantity
+              .cal25 Total Due
+          %section.curentChargesTableBody
+            - if @subscription
+              %section.curentChargesTableBodyRow
+                .cal30
+                  .cal20
+                    = "S#{@subscription.id}"
+                  .cal80
+                    = "Monthly Subscription"
+                .cal70
+                  .cal25
+                    = @billing_transaction.billing_period_start_date.strftime("%-m/%-d/%y") + " - " + @billing_transaction.billing_period_end_date.strftime("%-m/%-d/%y")
+                  .cal25
+                    = "$25.00"
+                  .cal25 1
+                  .cal25
+                    = "$25.00"
+              %section.curentChargesTableBodyRow
+                .cal30
+                  .cal20
+                    = "S#{@subscription.id}"
+                  .cal80
+                    = "Plan Price"
+                .cal70
+                  .cal25
+                    = @billing_transaction.billing_period_start_date.strftime("%-m/%-d/%y") + " - " + @billing_transaction.billing_period_end_date.strftime("%-m/%-d/%y")
+                  .cal25
+                    = number_to_currency(PackageConfig::PLAN_PRICE[@subscription.plan_bid], precision: 2)
+                  .cal25 1
+                  .cal25
+                    = number_to_currency(PackageConfig::PLAN_PRICE[@subscription.plan_bid], precision: 2)
+            - @transactions.each do |transaction|
+              - if transaction.chargeable_type.eql?('CallCharge')
+                %section.curentChargesTableBodyRow
+                  .cal30
+                    .cal20
+                      = "A#{transaction.id}"
+                    .cal80
+                      = service_name(transaction)
+                  .cal70
+                    .cal25
+                      = transaction.start_date.strftime("%-m/%-d/%y") + " - " + transaction.end_date.strftime("%-m/%-d/%y")
+                    .cal25
+                      = number_to_currency(transaction.amount, precision: 2)
+                    .cal25 1
+                    .cal25
+                      = number_to_currency(transaction.amount, precision: 2)
+                  %br
+                  .cal30
+                    .cal20
+                      &nbsp;
+                    .cal80
+                      Total Minutes
+                  .cal70
+                    .cal25
+                      = transaction.chargeable.total_min
+                  %br
+                  .cal30
+                    .cal20
+                      &nbsp;
+                    .cal80
+                      Free Minutes
+                  .cal70
+                    .cal25
+                      = "-#{transaction.chargeable.free_min}"
+                  %br
+                  .cal30
+                    .cal20
+                      &nbsp;
+                    .cal80
+                      Credit Minutes
+                  .cal70
+                    .cal25
+                      = "-#{transaction.chargeable.credit_min}"
+                  %br
+                  .cal30
+                    .cal20
+                      &nbsp;
+                    .cal80
+                      &nbsp;
+                  .cal70
+                    .cal25
+                      = "-------------------"
+                  %br
+                    .cal30
+                      .cal20
+                        &nbsp;
+                      .cal80
+                        = "Rate: #{get_rate(transaction, @subscription.try(:plan_bid))}"
+                    .cal70
+                      .cal25
+                        = transaction.chargeable.total_min - transaction.chargeable.credit_min - transaction.chargeable.free_min
+              - else
+                %section.curentChargesTableBodyRow
+                  .cal30
+                    .cal20
+                      = "A#{transaction.id}"
+                    .cal80
+                      = service_name(transaction)
+                  .cal70
+                    .cal25
+                      = transaction.start_date.strftime("%-m/%-d/%y") + " - " + transaction.end_date.strftime("%-m/%-d/%y")
+                    .cal25
+                      = number_to_currency(transaction.amount, precision: 2)
+                    .cal25 1
+                    .cal25
+                      = number_to_currency(transaction.amount, precision: 2)
+          %section.curentChargesTableFooter
+            .cal60 Balance
+            .cal40
+              = number_to_currency(@billing_transaction.balance, precision: 2)
+          %br
+          %br
+          %br
+          %section.curentChargesTableFooter
+            .cal60 Total Current Charges:
+            .cal40
+              = number_to_currency(@billing_transaction.amount, precision: 2)

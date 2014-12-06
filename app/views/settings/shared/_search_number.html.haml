@@ -1,0 +1,55 @@
+#tab-container.tab-container
+  %ul.etabs
+    %li.tab
+      = link_to 'Local', '#local', id: 'tab_local'
+    - if toll_free
+      %li.tab= link_to 'Toll-Free', '#toll-free', id: 'tab_tollfree'
+  #local.panel-container
+    .search_number
+      = form_tag [:search_local_number, :settings, phone_number], method: :post, :remote => true, :class => "search_phone_number", :id => "search_local_number" do
+        = hidden_field_tag :swap, swap
+        .search_phone_number_input
+          -#= collection_select(:local, :search_type, {number: '# Number', location: 'Location'}, :first, :last,{}, class: 'area_code_sign')
+          .number_hash
+            = "# Number"
+          =# collection_select(:local, :search_type, {number: '# Number'}, :first, :last,{}, class: 'area_code_sign')
+          .phone_wrapper{style: "width:78%;"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tr
+                %td{:style => "width:10px;"} (
+                %td.area_code
+                  = text_field_tag :'local[area_code]', nil, maxlength: 3
+                %td{:style => "width:10px;"} )
+                %td.digits_phrases_number
+                  = text_field_tag :'local[keyword]', nil, :in => 10..9999999, maxlength: 7
+        = button_tag 'Search', disable_with: "Search", class: 'btn_search', onclick: "$('#local_loading').show();$('section#displaying_results_local').html('');"
+        = image_tag "loading_tw.gif", id: 'local_loading', style: 'display: none'
+        .search_notes Search by area code
+        .area_code_notes
+          %h2
+            Area code
+            %span Enter the entire area code.
+          -#%p Don’t know an area code? Search by location instead.
+        .clearfix
+  - if toll_free
+    #toll-free.panel-container
+      .search_number
+        = form_tag [:search_tollfree_number, :settings, phone_number], method: :post, :remote => true, :class => "search_phone_number", :id => "search_tollfree_number" do |f|
+          = hidden_field_tag :swap, swap
+          .search_phone_number_input
+            = collection_select(:tollfree, :code, TwilioNumber::TOLL_FREE_CODE, :last, :first,{include_blank: '# Any'}, class: 'area_code_sign')
+            .phone_wrapper
+              %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                %tr
+                  %td.digits_phrases
+                    = text_field_tag :'tollfree[keyword]', nil, :in => 10..9999999, maxlength: 7
+          = button_tag 'Search', disable_with: "Search", class: 'btn_search', onclick: "$('#tollfree_loading').show();$('section#displaying_results_tollfree').html('');"
+          = image_tag "loading_tw.gif", id: 'tollfree_loading', style: 'display: none'
+          .search_notes Search by prefix
+          .area_code_notes
+            %h2
+              Area code
+              %span Enter the entire area code.
+            -#%p Don’t know an area code? Search by location instead.
+          .clearfix
+      / content

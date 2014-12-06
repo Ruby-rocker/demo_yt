@@ -1,0 +1,20 @@
+= form_tag send_announcement_announcements_path do
+  %fieldset.inputs
+    %legend
+      %span Send Announcement via Email
+    %ol
+      %li#user_first_name_input.string.input.required.stringish
+        %label.label{:for => "user_first_name"} Select User
+        = select_tag :user_id, options_for_select(User.unscoped.all.collect{ |u| [u.full_name, u.id] }), {prompt: 'All'}
+      %li#user_first_name_input.string.input.required.stringish
+        %label.label{:for => "user_first_name"} Email Content
+        = cktext_area_tag :email_content
+      -#%li#user_first_name_input.string.input.required.stringish
+      -#  %label.label{:for => "user_first_name"} SMS Content
+      -#  = cktext_area_tag :sms_content
+  %fieldset.actions
+    %ol
+      %li#user_submit_action.action.input_action
+        = submit_tag 'Send'
+      %li.cancel
+        = link_to 'Cancel', announcements_path

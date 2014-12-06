@@ -1,0 +1,15 @@
+= form_for(user, url: settings_user_path(user), :method => :put) do |f|
+  .row
+    .rowName
+      = f.text_field :full_name
+    .rowEmail
+      = f.text_field :email
+    - if user.role == 1
+      .rowType Owner
+    - else
+      .rowType
+        = f.select :role, User::USER_LIST
+    .rowAction
+      = f.button "Save", onclick: "form_to_validate_users_fields(this)"
+      - if user.role != 1
+        = link_to (image_tag "btn_close@2x.png", width: "20"), settings_user_path(user), confirm: "Are you sure you want to delete this user?", method: :delete

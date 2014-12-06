@@ -1,0 +1,40 @@
+%section.container_wrapper
+  %section.columns.clearfix
+    = render "list_view_header_calendar", path: appointment_view_month_calendars_path
+  .view_calendar_name
+    = "#{@cal_name} Calendar"
+  %section.columns.clearfix
+    %section.column.col-34#ajax_view
+      %section.calendar-apptview
+        %section.calendarView
+          .monthBar
+            = link_to image_tag("arrow_l_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), appointment_view_month_calendars_path(view_type: "Month",year: (@date-1.month).year,month: (@date-1.month).month, calendar_id: params[:calendar_id]), method: :get, class: "prev"
+            = link_to image_tag("arrow_r_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), appointment_view_month_calendars_path(view_type: "Month",year: (@date+1.month).year,month: (@date+1.month).month, calendar_id: params[:calendar_id]), method: :get, class: "next"
+            %h2
+              = @date.strftime("%B %Y")
+          %table{border: "0", cellpadding: "0", cellspacing: "0"}
+            %thead
+              %tr
+                %th s
+                %th m
+                %th t
+                %th w
+                %th th
+                %th f
+                %th s
+            %tbody
+              - @calendar.each do |cal|
+                %tr
+                  - cal.each_pair do |day,month|
+                    %td{class: "#{"prev_month" unless @date.month.eql?(month)}"}
+                      - date = "#{@date.year}-#{month}-#{day}".to_date
+                      - day_format = Date.new(@date.year, month, day).strftime("%A, %B %d")
+                      = link_to day, appointment_day_calendars_path(date: date, calendar_id: params[:calendar_id]), remote: true, onclick: "set_appointment_timing('#{day_format}', this)"
+        %section.availableAppointments
+          %section.availableapptView
+            %h2
+              %span#date_text Tuesday, September 5
+              %span.text Available Appointments:
+            %span#appot_time
+
+    = render :partial => "list_view_right_calendar", locals: {calendars: @calendars}

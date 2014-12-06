@@ -1,0 +1,18 @@
+- time_array.each_slice(index_limit) do |time_ar|
+  %ul
+    %li{style: 'width:40%;'}
+      - time_ar.each do |time|
+        %span
+          - date = params[:date].split("-")
+          - available = (@working_hour.week_days.include?(Date.new(date[0].to_i, date[2].to_i, date[1].to_i).strftime('%a').upcase) ? check_working_hours(time, @working_hour) : "active")
+          - available = check_appt_window(time, Date.new(date[0].to_i, date[2].to_i, date[1].to_i).strftime('%a').upcase) if available.blank?
+          - available = check_availability(time, @blocked_hash) if available.blank?
+          - block = BlockedTiming.find_by_appt_time_and_appt_date_and_calendar_id_and_status(time.strftime("%I:%M%P"), params[:date], params[:calendar_id], [0, 1])
+          - (available = block.status == 1 ? "" : "active") if block.present?
+          - if available.blank?
+            -#= content_tag(:a, href: new_appointment_path+"?day="+date[1]+"&month="+date[2]+"&year="+date[0]+"&time="+time.strftime("%-I:%M%P"), target: '_blank') do
+            = content_tag(:a, href: "javascript:;", onclick: "window.open('#{new_appointment_path+"?day="+date[1]+"&month="+date[2]+"&year="+date[0]+"&time="+time.strftime("%-I:%M%P")+"&from=call_center"+"&cal_id="+params[:calendar_id]+"&auth="+params[:auth]}','_blank','scrollbars=yes,width=480,height=650')") do
+              %b
+                = time.strftime("%I:%M%P")
+              %i
+                = image_tag("btn_plus@2x.png", width: "15")

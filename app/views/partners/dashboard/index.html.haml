@@ -1,0 +1,73 @@
+%section.container
+  %section.page_title PARTNER DASHBOARD
+  %section.columns.clearfix
+    %section.column.col-34
+      %section.dashboard
+        %section.row
+          %label My Affiliate Link:
+          %div
+            = text_field_tag :affiliate_link, "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", class: 'inputBar', readonly: 'readonly', onclick: 'this.select();', onfocus: 'this.select();'
+            = link_to '', "#", class: 'clipboard', id: 'clipboard_affiliate_link', "data-clipboard-target" => "affiliate_link", :title => "Click To Copy"
+        %section.row
+          %label My Coupon Code:
+          %div
+            = text_field_tag :coupon_code, @coupon_code, class: 'inputBar', readonly: 'readonly', onclick: 'this.select();', onfocus: 'this.select();'
+            = link_to '', "#", class: 'clipboard', id: 'clipboard_coupon_code', "data-clipboard-target" => "coupon_code", :title => "Click To Copy"
+        %section.row
+          %label Commissions:
+          %div
+            = text_field_tag :commissions, "$100.00", class: 'inputBar', readonly: 'readonly' 
+        %section.row
+          %label Upload your logo:
+          .upload_logo
+            %section.size Maximum file size - 100px high x 320px wide
+            %section.uploaded_logo
+              - if @partner.partner_logo.present?
+                = image_tag @partner.partner_logo.logo.url
+            = form_for @partner, :url => upload_logo_partners_dashboard_index_path, :html => { id: :partner_logo_upload, :multipart => true } do |form|
+              = form.file_field :logo, class: 'inputBar', style: "display:block;"
+              .note
+                *NOTE: Acceptable Formats are .jpeg, .png, .gif files
+                %span
+                  %a{:href => "#"}
+                    = image_tag "partners/help_image.png"
+              - if @partner.partner_logo.present?
+                = link_to 'Delete', partners_dashboard_path(@partner.partner_logo.id), confirm: "Are you sure you want to delete this logo?", method: :delete, style: "background: #C30000; border: 0 none; padding: 5px;color: #ffffff;text-transform: uppercase;margin-left:10px;"
+              - else
+                = form.submit "Upload", style: "background: #A1C53E; border: 0 none; padding: 5px; color: #ffffff;text-transform: uppercase;margin-left:10px;"
+
+    %section.column.col-14
+      %section.quick_status
+        %h2 QUICK STATS
+        %ul
+          %li
+            %label Clicks Referred:
+            %span 
+              = @total
+          %li
+            %label Sales Referred:
+            %span 
+              - if @total_sale.present?
+                = @total_sale
+              - else
+                0
+          %li
+            %label Refunds:
+            %span
+              - if $total_correction.present?
+                = number_to_currency(@total_correction)
+              - else
+                $0.00
+          %li
+            %label Net Commisions:
+            %span 
+              - if @total_comm.present? 
+                = number_to_currency(@total_comm)
+              - else
+                $0.00
+        %section.search_contant
+          %input.input{:name => "", :type => "text", :value => "SEARCH"}
+            -#%input{:name => "Search", :src => "search.png", :type => "image", :value => "Search"}
+            = image_submit_tag "partners/search.png"
+      %a.visit_your_page_bt{:href => "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", :target => "_blank"}
+        %span VISIT YOUR PAGE

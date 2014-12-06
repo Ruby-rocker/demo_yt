@@ -1,0 +1,188 @@
+/* #font face */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* new Fonts */
+@font-face {
+    font-family: 'latoblack';
+    src: url('partners/lato-bla-webfont.eot');
+    src: url('partners/lato-bla-webfont.eot?#iefix') format('embedded-opentype'),
+    url('partners/lato-bla-webfont.woff') format('woff'),
+    url('partners/lato-bla-webfont.ttf') format('truetype'),
+    url('partners/lato-bla-webfont.svg#latoblack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'latolight';
+    src: url('partners/lato-lig-webfont.eot');
+    src: url('partners/lato-lig-webfont.eot?#iefix') format('embedded-opentype'),
+    url('partners/lato-lig-webfont.woff') format('woff'),
+    url('partners/lato-lig-webfont.ttf') format('truetype'),
+    url('partners/lato-lig-webfont.svg#latolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'latoregular';
+    src: url('partners/lato-reg-webfont.eot');
+    src: url('partners/lato-reg-webfont.eot?#iefix') format('embedded-opentype'),
+    url('partners/lato-reg-webfont.woff') format('woff'),
+    url('partners/lato-reg-webfont.ttf') format('truetype'),
+    url('partners/lato-reg-webfont.svg#latoregular') format('svg');
+
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Conv_Futura-Book';
+    src: url('partners/Futura-Book.eot');
+    src: local('☺'),
+    url('partners/Futura-Book.woff') format('woff'),
+    url('partners/Futura-Book.ttf') format('truetype'),
+    url('partners/Futura-Book.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Conv_futurastd-bold-webfont';
+    src: url('partners/futurastd-bold-webfont.eot');
+    src: local('☺'),
+    url('partners/futurastd-bold-webfont.woff') format('woff'),
+    url('partners/futurastd-bold-webfont.ttf') format('truetype'),
+    url('partners/futurastd-bold-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Conv_futura-light';
+    src: url('partners/futura-light.eot');
+    src: local('☺'),
+    url('partners/futura-light.woff') format('woff'),
+    url('partners/futura-light.ttf') format('truetype'),
+    url('partners/futura-light.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+#partner .container{ width:990px;}
+#partner header{ background:#a1c53e;}
+#partner .head_right li a{ font-family:'Conv_Futura-Book'; color:#ffffff; font-size:14px; letter-spacing:1px; padding:0 17px;}
+#partner .head_right li a:hover{ background:none; color:#000000;}
+#partner .head_right li{ border:0;}
+#partner .head_right li.userInfo{ width:175px; background:#010101;}
+#partner .head_right li.userInfo li{ border:0;}
+#partner .head_right li.userInfo li a{ padding:10px 0; border-bottom: 1px dotted #060606; margin:0 10px;}
+#partner .head_right li.userInfo a:hover{ color:#a1c53e; background:url(icon_setting.png) no-repeat center right;}
+#partner .quick_status{ background:#ffffff; padding:15px 10px;}
+#partner .head_right li.userInfo li a {color: #929292;
+    font: 14px Arial,Helvetica,sans-serif;}
+#partner .head_right li.userInfo a {padding: 0 30px 0 10px;}
+#partner .quick_status li{ padding:10px 0; border-bottom: 1px dotted #a8a5a5; overflow:hidden; clear:both;}
+#partner .quick_status h2{ font-family:'Conv_futurastd-bold-webfont'; color:#747678; font-size:17px; font-weight:normal; border-bottom: 1px dotted #ACACAC; padding-bottom:5px; background:url(partners/quick_stats_icon.png) no-repeat center right; color:#747678}
+#partner .quick_status label{ color:#25b0d8; font-size:14px; font-weight:normal}
+#partner .quick_status span{ color:#868487; font-size:14px; font-weight:normal; float:right;}
+#partner .quick_status .search_contant{ margin:30px 0 10px 0;}
+#partner .quick_status .search_contant .input{width:69%; }
+#partner .quick_status .search_contant input{border-radius:0;
+    -webkit-box-shadow:none;}
+#partner .search_contant .input{box-shadow:none; border-color:#d1d1d2; color:#d1d1d2; border-radius:0; -webkit-box-shadow:none;}
+#partner .page_title{ padding:58px 0; font-family:'Conv_futurastd-bold-webfont';}
+#partner .visit_your_page_bt{ height:58px; line-height:58px; text-align:center; display:block; background:#d1d1d2; margin-top:30px;}
+#partner .visit_your_page_bt span{ background:url(partners/visit_your_page_arrow.png) no-repeat center right; padding-right:23px; color:#78787a; text-transform:uppercase;}
+#partner .dashboard{ width:606px; padding: 0px;}
+#partner .dashboard .row{ margin-bottom:28px;}
+#partner .dashboard .row div{ background:#ffffff; padding:12px;}
+#partner .dashboard label{ font-family:Arial, Helvetica, sans-serif; color:#25b0d8; font-size:15px; margin-bottom:5px; display:inline-block;}
+#partner .dashboard .inputBar{   border: 1px solid #AFAFAF;
+    padding: 8px 5px;
+    width: 60%;
+    color:#78787a;
+    font-size:15px;
+    border-radius:0;
+    -webkit-box-shadow:none;
+}
+#partner .dashboard .clipboard{ background:url(partners/clipboard_icon.png) no-repeat top left; width:13px; height:16px; display:inline-block; margin-left:32px;}
+#partner .site-footer{ margin-top:30px;}
+#partner .site-footer a{color:#bebdbd; font-family:'Conv_Futura-Book'; font-size:13px; margin:0px;}
+#partner .site-footer  a:hover{color:#a1c53e;}
+#partner .site-footer .right {color:#bebdbd; font-family:'Conv_Futura-Book'; font-size:13px;}
+#partner .graphpage ul.dateRange li select{ width:202px;}
+#partner .graphpage .inputBar{border-radius:0; -webkit-box-shadow:none;font-size: 15px;color: #000000;}
+#partner .whitebox{ background:#ffffff; padding:20px 15px; margin-top:25px;}
+#partner .graphpart{ margin:0 auto; text-align:center; padding:0 0 20px 0;}
+#partner .graphpart img{ max-width:100%;}
+#partner .graph_table{display:table; width:100%;}
+#partner .graph_table .row{ display:table-row; }
+#partner .graph_table .row section{ display:table-cell; padding:10px; border-bottom:dotted 1px #bbb9b8; color:#010101; font-size:15px; font-family:Arial, Helvetica, sans-serif;}
+#partner .graph_table .thead,.graph_table .tfoot{ background:#737477;}
+#partner .graph_table .thead section,.graph_table .tfoot section{ color:#ffffff !important;}
+#partner .balance_info{ color:#737477; font-size:15px; line-height:20px;}
+#partner .balance_info label{ color:#23B0D8;}
+#partner .balance_info span{ float:right;}
+
+#partner .links_banners h2 {
+    background: none repeat scroll 0 0 #777779;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+#partner .links_banners li{ margin-top:35px;}
+#partner .links_banners .row{ margin-bottom:28px; background:#ffffff;  padding:12px; }
+#partner .links_banners label{ font-family:Arial, Helvetica, sans-serif; color:#25b0d8; font-size:15px; margin-bottom:5px; display:block;}
+
+#partner .links_banners .inputBar{   border: 1px solid #AFAFAF;
+    padding: 8px 5px;
+    width: 57%;
+    color:#78787a;
+    font-size:15px;
+}
+#partner .links_banners .clipboard{ background:url(partners/clipboard_icon.png) no-repeat top left; width:13px; height:16px; display:inline-block; margin-left:32px;}
+#partner .links_banners .target{ color:#231f20; font-size:15px; font-family:Arial, Helvetica, sans-serif; margin-bottom:4px;}
+#partner .links_banners .target span{ font-weight:bold;}
+#partner .links_banners .link{ margin-top:10px; color:#78787a; font-size:15px; font-family:Arial, Helvetica, sans-serif; margin-bottom:4px;}
+#partner .links_banners .link a{ color:#25B0D8;}
+#partner .links_banners .box{ background:#d1d1d2;}
+#partner .links_banners .s125to125{width:125px; height:125px;}
+#partner .links_banners .s160to600{width:160px; height:600px;}
+#partner .links_banners .s300to250{width:300px; height:250px;}
+
+#partner .upload_logo .size{
+    color: #78787A;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-style:italic;
+}
+#partner .upload_logo .inputBar{ border:0 !important; margin-top:10px;}
+#partner .upload_logo .note{color: #78787A; font-size:12px; font-style:italic;}
+#partner .upload_logo .note img{ vertical-align:middle}
+
+.billingInfo .billingForm li label.account_label {font-size: 15px;}
+.billingInfo .billingForm li.phoneNumberInputbar table td input.account_short {font-size: 15px;}
+.billingInfo .billingForm li .account_select {font-size: 15px;border-radius: 0px;-webkit-border-radius: 0px;}
+
+#partner .links_banners a.edit_partner_page_copy {
+    display:block; background:#a1c53e; text-align:center; padding:5px 0 8px 0;
+    font-size:21px; font-family:Arial, Helvetica, sans-serif; color:#ffffff; text-transform:uppercase;
+    text-decoration: underline;
+}
+#partner .links_banners a.edit_partner_page_copy:hover {
+    background:#23b0d8;
+}
+
+#partner .partner_page_copy{width: 45%;}
+#partner .editpartnerpage{padding:25px;}
+#partner .editpartnerpage .currentPackage{color:#23b0d8; font-size:14px; position:relative; padding:10 10 10 120px; overflow:hidden; margin: 1px; padding: 2px;}
+#partner .editpartnerpage .btnSubmit{overflow:hidden;}
+#partner .editpartnerpage .btnSubmit button{
+    background: none repeat scroll 0 0 #A1C53E;
+    color: #FFFFFF;
+    display: block;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    padding: 5px 25px;
+    text-align: center;
+    text-transform: uppercase;
+    border:0; cursor:pointer;
+    margin-top: 10px;
+}
+#partner .editpartnerpage .btnSubmit input:hover{background:#23b0d8}

@@ -1,0 +1,31 @@
+/ bof page title
+%section.page_title_step
+  %h2 STEP 1 of 4:
+  %h3 Choose Your Desired Outcome
+  / eof page title
+%section.outComeStepOne
+  = form_for [:settings, @phone_script], html: {id: :phone_script_form} do |f|
+    -#= @phone_script.errors.full_messages
+    = f.hidden_field :id
+    .business_callers
+      %label What business are your callers calling?
+      = f.collection_select :business_id, @businesses, :id, :name, prompt: 'Select business name'
+    .types_callers
+      %label How would you classify (or name) these types of callers?
+      = f.text_field :name, placeholder: 'ENTER THEM AS A PHONE SCRIPT NAME HERE.  (New clients, existig clients, etc.)'#, class: :inputBar
+    - if @phone_script.new_record?
+      .like_agents_calls
+        %label What would you like our agents to do with these calls?
+        = f.collection_select :script_id, PhoneScript::SCRIPT_ID, :first, :last, {prompt: 'Choose the desired outcome'}, {disabled: (params[:action] == "edit")}
+    - else
+      .like_agents_calls
+        %label
+          = @phone_script.script_name
+    %section.form_action
+      %ul
+        %li
+          = link_to raw('<span>Previous</span>'), settings_phone_scripts_path, :class => "prev_btn"
+        %li
+          -#%a{:href => pick_number_settings_phone_script_path(1)} Save
+          = f.button 'Save', disable_with: 'Wait..', :class => "save_btn"
+/ eof container

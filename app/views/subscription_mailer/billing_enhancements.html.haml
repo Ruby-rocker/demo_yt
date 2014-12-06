@@ -1,0 +1,80 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+      %title YesTrak - Welcome
+      :css
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body, html {
+            background: #f2f2f2;
+            font: normal 14px Arial, Helvetica, sans-serif;
+        }
+    %body
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "background:#f2f2f2; text-align:center;", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+            = render partial: 'mailer_partials/email_header'
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width:800px; margin:0 auto;"}
+                  %tr
+                    %td{:style => "height:45px; line-height:0; font-size:0;"}
+                  %tr
+                    %td{:style => "background:#ffffff; text-align:center;"}
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                        %tr
+                          %td{:style => "width:27px;"}
+                          %td{:style => "width:70px; vertical-align:top;"}
+                            %img{:alt => "", :src => "#{APP_CONFIG['image_url']}icon_03.png", :width => "70"}/
+                          %td{:style => "width:32px;"}
+                          %td{:style => "width:644px; vertical-align:top; text-align:left;"}
+                            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                              %tr
+                                %td{:style => "font:normal 25px Arial, Helvetica, sans-serif; color:#21afd7; text-transform:uppercase;"} Subscription Billing Enhancements
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Dear #{@name}:
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  To better serve you, we are updating our billing and subscription process. By doing so, your account will be charged one combined amount for your subscription plan and add-on products (such as call recordings, phone menus or voicemail) at the end of each billing period, rather than multiple smaller charges. This adjustment has been requested by many clients, and we’re delighted to make this change for you.
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  As a result, any past due amounts for add-on products in your account will be added to the cost of your monthly plan in your next billing cycle.
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  Please note that this change does not affect the amount of your bill, only the manner in which your charges are processed.
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  If you have any questions, please feel free to contact us.
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  Best,
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  The YesTrak Customer Care Team
+
+                              = render partial: 'mailer_partials/dotted_line'
+                              = render partial: 'mailer_partials/tag_line'
+                              = render partial: 'mailer_partials/social_links'
+                          %td{:style => "width:27px;"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                  = render partial: 'mailer_partials/unsubscribe_line'

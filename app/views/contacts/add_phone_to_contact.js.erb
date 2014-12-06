@@ -1,0 +1,8 @@
+if($(".cls_contact_phone_number").find("li").length < 3)
+{
+	$(".cls_contact_phone_number").append("<%=j render 'phone', count: @count %>")
+}
+else
+{
+	alert("You cannot add more than 3 phone numbers")
+}

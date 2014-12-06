@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  calendar: 
+  contact: 
+  user: 
+  schedule: MyText
+  phone_script: 
+  repeat: false
+  start_at: 2013-12-04 14:44:33
+  end_at: 2013-12-04 14:44:33
+
+two:
+  tenant: 
+  calendar: 
+  contact: 
+  user: 
+  schedule: MyText
+  phone_script: 
+  repeat: false
+  start_at: 2013-12-04 14:44:33
+  end_at: 2013-12-04 14:44:33

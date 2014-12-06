@@ -1,0 +1,66 @@
+defaults: &defaults
+  site_url: http://account.yestrak.com/
+  pricing_page: http://yestrak.com/pricing/
+  root_url: http://yestrak.com/
+  admin_emails: Shweta Aagja <shweta.aagja@softwebsolutions.com>, mayank.jani@softwebsolutions.com
+  developer_emails: Shweta Aagja <shweta.aagja@softwebsolutions.com>, Mayank Jani <mayank.jani@softwebsolutions.com>
+  head_email: Mayank Jani <mayank.jani@softwebsolutions.com>
+  braintree:
+    environment: :sandbox
+#    merchant_id: "cwdkg8vsfr7x7cb7"
+#    public_key:  "524dt96hqp3tm8cq"
+#    private_key: "3ecd28219555995c888ec984dae9bc03"
+    merchant_id: "xghpmnxkg7skhfyg"
+    public_key:  "hq6p6kggqq423b2v"
+    private_key: "79eaf4fe3b19d9618b1bae1a7c72c4fa"
+  google_oauth2:
+    client_id: '1073251541724-ikejr64h8m6cr7nkpc6t1mj26kvf2hd0.apps.googleusercontent.com'
+    client_secret: '3qkdIQxg3cuy0wKu3p6Fhe1e'
+  image_url: http://account.yestrak.com/assets/
+  admin_subdomain: 'admin'
+  partner_subdomain: 'partner'
+  admin_url: http://admin.lvh.me:3000/
+  partner_url: http://partner.lvh.me:3000/
+
+
+development:
+  <<: *defaults
+  site_url: http://mjavia.lvh.me:3000/
+  google_oauth2:
+        client_id: '134433254539-dgjjhg6f5p6fmlafsvkgv08nh8hnsb58.apps.googleusercontent.com'
+        client_secret: 'rN8ExTMDfW0yDMCf3qRHs9pV'
+
+
+production:
+  <<: *defaults
+  admin_emails: support@yestrak.com, mayank.jani@softwebsolutions.com
+  head_email: spencer@yestrak.com
+  braintree:
+      environment: :production
+      merchant_id: "482cc558vmdtnbh2"
+      public_key:  "mgqyrgd4ytv2qwc2"
+      private_key: "3c1a36274caee41c35266d6ecba74b06"
+  admin_url: http://admin.yestrak.com/
+  partner_url: http://partner.yestrak.com/
+
+
+staging:
+  <<: *defaults
+  site_url: http://stagingaccount.yestrak.com/
+  admin_emails: support@yestrak.com
+  head_email: spencer@yestrak.com
+  google_oauth2:
+      client_id: '472302952723.apps.googleusercontent.com'
+      client_secret: '1rVsh5XmXIqVLs6EC-H-MY1F'
+  admin_subdomain: 'stagingadmin'
+  partner_subdomain: 'stagingpartner'
+  admin_url: http://stagingadmin.yestrak.com/
+  partner_url: http://stagingpartner.yestrak.com/
+
+
+test:
+  <<: *defaults
+  site_url: http://softweb.lvh.me:3000/
+  google_oauth2:
+        client_id: '1073251541724-ikejr64h8m6cr7nkpc6t1mj26kvf2hd0.apps.googleusercontent.com'
+        client_secret: '3qkdIQxg3cuy0wKu3p6Fhe1e'      

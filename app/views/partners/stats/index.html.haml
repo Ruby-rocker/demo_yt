@@ -1,0 +1,98 @@
+= javascript_include_tag "highcharts"
+= javascript_include_tag "highcharts/highcharts-more"
+%section.container
+  %section.container_wrapper.graphpage
+    %section.columns.clearfix
+      %section.column.col-34
+        %section.columns.clearfix
+          %ul.dateRange
+            %li Select the period you want to view:
+            %li
+              = render partial: 'custom_filters'
+    %section.columns.clearfix
+      %section.whitebox
+        %section.graphpart
+          //%div{:id => "container", :style => "min-width: 310px; height: 400px; margin: 0 auto", :data => {:my_data => @clicks}}
+          = content_tag "div", :id => "container", :data => {:my_data => @clicks} do
+            = #image_tag "partners/graph_image.jpg"
+          
+        %section.graph_table.recordings_table.visit.clearfix
+          %section.recordingsheadtable.thead.row
+            %section.col1 DATE
+            %section.col2 CLICKS
+            %section.col3 UNIQUES
+            / %section.col4 TRANSACTIONS
+            / %section.col5 COMMISSIONS
+            //%section.col5 TOTAL
+          - if @partner_state.present?
+            = render partial: 'partner_state_list', locals: {partner_state: @partner_state, uniques:@uniques, commission: @commission}
+          - else
+            = render partial: 'partner_state_not_found'
+            
+  / eof container
+:javascript
+/ $(function () {
+/     $(document).ready(function() {
+/         Highcharts.setOptions({
+/             global: {
+/                 useUTC: false
+/             }
+/         });
+/         var click = JSON.parse("#{@clicks}");
+  
+
+/          var chart;
+/        $('#container').highcharts({
+/             chart: {
+/                 type: 'area'
+/             },
+/             title: {
+/                 text: 'Monthly Average Clicks'
+/             },
+/            xAxis: {
+/             title: {
+/                type: 'day',
+/                minTickInterval: 1
+/                },
+/                labels: {
+/                     formatter: function() {
+/                         return this.value * 35 ;
+/                     }
+/                 }
+            
+  
+        
+/             },
+/             yAxis: {
+/                 title: {
+/                     text: 'Clicks'
+/                 },
+/                 labels: {
+/                     formatter: function() {
+/                         return this.value * 20;
+/                     }
+/                 }
+/             },
+/             tooltip: {
+/                 shared: true,
+/                 valueSuffix: 'clicks'
+/             },
+/             plotOptions: {
+/                 area: {
+/                     stacking: 'normal',
+/                     lineColor: '#4068E0',
+/                     lineWidth: 2,
+/                     marker: {
+/                         lineWidth: 1,
+/                         lineColor: '#4068E0'
+/                     }
+/                 }
+/             },
+/             series: [{
+/                 name: 'Visit',
+/                 data: click,
+/                 color: 'SKYBLUE'
+/             }]
+/         });
+/     });
+/ });

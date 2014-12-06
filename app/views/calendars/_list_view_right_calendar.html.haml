@@ -1,0 +1,45 @@
+%section.column.col-14
+  %div
+    - if params[:calendar_id].present?
+      - calendar_id = params[:calendar_id]
+    - else
+      - calendar_id = 0
+
+  %div{id: "dialog-confirm", title: "Confirm sync cancellation", style: "display: none;"}
+    %p
+      %span{class: "ui-icon ui-icon-alert", style: "float: left; margin: 0 7px 130px 0;"}
+      Are you sure you want to stop syncing
+      %span{style: "font-weight: bold;"}
+        - if @synced_cal.present?
+          #{@synced_cal.google_authentication_name} 
+      with your YesTrak calendar? <br /><br />
+      YesTrak will no longer automatically see new data added to the Google calendar currently set to sync, or vice-versa, if you continue with this process. Please be sure this is what you want; this step is final and irreversible.
+  %section.syncCalenderSidebar
+    %h2
+      %ul
+        - if params[:calendar_id].present?
+          - if @synced_cal.google_authentication_token.nil?
+            %li
+              = link_to "Sync with Google Calendar", (APP_CONFIG['site_url'] + "/auth/google_oauth2?state=#{calendar_id},#{current_user.id}"), class: 'sync'
+              = image_tag "icon_help.png"
+          - else
+            %li
+              -#= link_to "Sync with #{@synced_cal.google_authentication_name}", (APP_CONFIG['site_url'] + "/auth/google_oauth2?state=#{calendar_id},#{current_user.id}"), class: 'sync'
+              = link_to "Sync with #{@synced_cal.google_authentication_name}", ("http://#{current_tenant.subdomain}.yestrak.com" + "/auth/google/callback?state=#{calendar_id},#{current_user.id}"), class: 'sync'
+              = image_tag "icon_help.png"
+            -#%li
+              = link_to "Cancel sync with #{@synced_cal.google_authentication_name}", "javascript:void(0);", class: 'sync_icon_cancel sync_cancel', id: 'cancel_google_sync'
+              = image_tag "icon_help.png"
+    %ul
+      - calendars.each do |calendar|
+        %li
+          - if params[:appointment_search_date]
+            - if params[:calendar_id].to_i == calendar.id.to_i
+              = link_to raw("<span class='color' style='background-color:#{calendar.color};'><span class='selected'></span></span>#{calendar.name}"), "?view_type=#{params[:view_type]}&calendar_id=#{calendar.id}&appointment_search_date=#{params[:appointment_search_date]}", class: "view_cal"
+            - else
+              = link_to raw("<span class='color' style='background-color:#{calendar.color};'></span>#{calendar.name}"), "?view_type=#{params[:view_type]}&calendar_id=#{calendar.id}&appointment_search_date=#{params[:appointment_search_date]}", class: "view_cal"
+          - else
+            - if params[:calendar_id].to_i == calendar.id.to_i
+              = link_to raw("<span class='color' style='background-color:#{calendar.color};'><span class='selected'></span></span>#{calendar.name}"), "?view_type=#{params[:view_type]}&calendar_id=#{calendar.id}", class: "view_cal"
+            - else
+              = link_to raw("<span class='color' style='background-color:#{calendar.color};'></span>#{calendar.name}"), "?view_type=#{params[:view_type]}&calendar_id=#{calendar.id}", class: "view_cal"

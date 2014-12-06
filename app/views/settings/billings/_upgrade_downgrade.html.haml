@@ -1,0 +1,19 @@
+#upgradeDowngrade
+  .upgradeDowngrade
+    .UDlogo
+      = image_tag "yestrak-logo-black.png", alt: "", width: "150"
+    = form_for @tenant, url: upgrade_downgrade_settings_billings_path do |f|
+      -#= f.hidden_field :id
+      .currentPackage
+        %label Current Package:
+        %span
+          - if @tenant.plan_bid == "200minutes"
+            = "200 minutes of monthly talk time - $250/month"
+          - elsif @tenant.plan_bid == "500minutes"
+            = "500 minutes of monthly talk time - $500/month"
+          - else
+            = "Pay as you go - $1.50/minute"
+      .newPlanSelectbar
+        = f.select :plan_bid, PackageConfig::PLANS.collect {|p| [ p.last, p.first ] }, prompt: "Select New Plan"
+      .btnSubmit
+        = f.button "Submit", disable_with: 'Wait..'

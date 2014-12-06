@@ -1,0 +1,23 @@
+/ bof page title
+%section.page_title_step
+  %h2 Hooray!
+  %h2 Your Phone Script is now complete
+  %i You will receive an email when this script is officially up and running so that you can start sending calls our way.
+  / eof page title
+%section.completeScript
+  %ul
+    %li
+      %span
+        = image_tag "icon_another@2x.png", width: '100'
+      %h2 Create Another Phone Script
+      = link_to "Add", new_settings_phone_script_path, class: "add"
+      -#.buyMonth
+      -#  %i
+      -#    $10/
+      -#    %u> month
+      -#  = link_to 'Buy', new_settings_phone_script_path
+    %li
+      %span
+        = image_tag "icon_play@2x.png", width: '100'
+      %h2 No Thank You i'm Finished
+      = link_to 'Main Menu', settings_phone_scripts_path, class: :blutLink

@@ -1,0 +1,9 @@
+<% if @recordings.present? %>
+	$('section.recordingsbodytable').html('<% call_recording_inner_records(@recordings) %>')
+	$('#span_currenty_viewing').text('<%=@displaying_range %>')
+<% else %>
+	$('section.recordingsbodytable').html('<% call_recordings_no_records %>')
+	$('#span_currenty_viewing').text('<%=@displaying_range%>')
+<% end %>
+
+// $('#span_currenty_viewing').append(<%=@displaying_range%>+"-"+<%= Time.new.strftime("%Y-%m-%d %H:%M:%S") %>)

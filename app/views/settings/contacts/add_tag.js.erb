@@ -1,0 +1,2 @@
+$(".tagTableBody").append("<%= escape_javascript(render('tag'))%>")
+$("#tag").first().find("#tag_action a").attr("href", "/settings/contacts/add_tag?index="+<%= @index.to_i+1%>)

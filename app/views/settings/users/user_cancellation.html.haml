@@ -1,0 +1,22 @@
+%section.container
+  %section.page_title_step
+    %h2 We’re sorry to see you go...
+  %section.cancellationWrap
+    = form_for @tenant_cancellation, url: submit_suggestion_settings_users_path, method: "post" do |f|
+      %section.clientSys
+        %label Is there anything we can do to keep you as a client?
+        = f.text_area :suggestion
+        %div
+          = f.button "I'm not Ready to cancel just yet..."
+          %span Or Call (800) 620-5877 and Let us Help
+    = form_for @tenant_cancellation, url: cancellation_settings_users_path, method: "post" do |c|
+      %section.subscription
+        %label Why do you want to cancel your subscription?
+        = c.select(:reason_master_id, reasons_list, {}, onchange: "check_others(this)")
+      %section.reason_to_cancel{style: display_status}
+        = c.text_field :other_reason
+      %section.suggestionsService
+        %label Do you have any suggestions for improving this service?
+        = c.text_area :suggestion_to_cancel
+        = c.button "Process Cancellation"
+        %span NOTE: Cancellations are final once you click this button.

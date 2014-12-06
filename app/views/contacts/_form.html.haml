@@ -1,0 +1,106 @@
+= javascript_include_tag "load_token_input"
+= javascript_include_tag "load_country_state"
+#viewContactDetails
+  .viewContactDetails
+    %h1 Contact Info
+    = form_for @contact, html: {id: :frm_save_contact} do |f|
+      = f.hidden_field :id
+      %ul
+        = f.fields_for :address do |address|
+          %li
+            %label First Name:
+            .input
+              = f.text_field :first_name, placeholder: "Charlie", class: :inputBar
+          %li
+            %label Last Name:
+            .input
+              = f.text_field :last_name, placeholder: "Customer", class: :inputBar
+          %li
+            %label Country:
+            .select
+              = address.select(:country, COUNTRIES.collect {|p| [ p.last, p.first ] },{ prompt: 'Select Country'}, class: 'selectBar')
+          %li
+            %label Street Address:
+            .input
+              = address.text_field :street, placeholder: "62 Harberlay Court", class: :inputBar
+          %li
+            %label Apt/Suite/Floor:
+            .input
+              = address.text_field :suite, placeholder: "101", class: :inputBar
+          %li
+            %label City:
+            .input
+              = address.text_field :city, placeholder: "Schaumburg", class: :inputBar
+          %li
+            %label State/Province:
+            .select
+              -#= address.select(:state, US_STATES.collect {|p| [ p.last, p.first ] },{prompt: 'Select State/Province'}, class: 'selectBar')
+              = select_tag(:us_state, options_for_select(US_STATES.collect {|p| [ p.last, p.first ] },@contact.address.state),{prompt: 'Select State/Province', class: 'selectBar us_states', style: "display: #{@contact.address.country.eql?('US') ? 'block' : 'none'};"})
+              = select_tag(:ca_state, options_for_select(CA_STATES.collect {|p| [ p.last, p.first ] },@contact.address.state),{prompt: 'Select State/Province', class: 'selectBar ca_states', style: "display: #{@contact.address.country.eql?('CA') ? 'block' : 'none'};"})
+            .input
+              = text_field_tag :other_state, (@contact.address.country.eql?('US') || @contact.address.country.eql?('CA')) ? '' : @contact.address.state, class: 'inputBar other_states', style: "display: #{(@contact.address.country.eql?('US') || @contact.address.country.eql?('CA')) ? 'none' : 'block'};"
+          %li
+            %label Zip/Postal Code:
+            .input
+              = address.text_field :zip_code, placeholder: "40194", class: :inputBar, maxlength: 7
+          %li
+            %label Status:
+            .select
+              = f.select(:status_label_id, @status_labels.map{|s| [ s.name, s.id ]} ,{prompt: 'Select Status'}, class: 'selectBar')
+          %li
+            %label Tags:
+            .tag_input
+              = f.text_field(:tag_tokens, "data-pre" => @tags)
+          .cls_contact_phone_number
+            - index = 0
+            = f.fields_for :phone_numbers do |phone_number|
+              - index += 1
+              %li
+                %label Phone:
+                .phoneBar
+                  = hidden_field_tag "index_phone_value", "#{index}", class: "index_phone_count"
+                  %table{border: "0", cellpadding: "0", cellspacing: "0"}
+                    %tr
+                      %td{width: "89"}
+                        = phone_number.select :name, options_for_select(PHONE_TYPE, selected: (@phone_numbers[index-1][:name] if @phone_numbers.present?)), class: 'selectBar'
+                      %td{width: "10"} (
+                      %td{width: "45"}
+                        = phone_number.text_field(:area_code, placeholder: "123", maxlength: 3, class: :inputBar)
+                      %td{align: "left", width: "10"} )
+                      %td{width: "55"}
+                        = phone_number.text_field(:phone1, placeholder: "456", maxlength: 3, class: :inputBar)
+                      %td{width: "10"} -
+                      %td{width: "55"}
+                        = phone_number.text_field(:phone2, placeholder: "7891", maxlength: 4, class: :inputBar)
+                .action_add_delete
+                  - if index.eql? 1
+                    = link_to (image_tag "btn_plus@2x.png", width: "19", onclick: 'add_phone_to_contact()'), "javascript:;"
+                  - else
+                    = image_tag "btn_close@2x.png", width: "19", :onclick => "hard_remove_raw_contacts(#{@phone_numbers[index-1][:id]}, this, 'destroy_phone', 'contact_phone_numbers_attributes_#{index-1}_id')", class: :cr_point
+          .cls_contact_email_id
+            - index = 0
+            = f.fields_for :email_ids do |email|
+              - index += 1
+              %li
+                %label Email:
+                = hidden_field_tag "index_email_value", "#{index}", class: "index_email_count"
+                .input
+                  = email.text_field :emails, placeholder: "charlie@newclient.com", class: :inputBar
+                .action_add_delete
+                  - if index.eql? 1
+                    = link_to (image_tag "btn_plus@2x.png", width: "19", onclick: 'add_email_to_contact()'), "javascript:;"
+                  - else
+                    = image_tag "btn_close@2x.png", width: "19", :onclick => "hard_remove_raw_contacts(#{@email_ids[index-1][:id]}, this, 'destroy_email', 'contact_email_ids_attributes_#{index-1}_id')", class: :cr_point
+
+        = f.fields_for :address do |address|
+          %li
+            %label Timezone:
+            .select
+              = address.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones,{:default => 'Pacific Time (US & Canada)'}, class: 'selectBar'
+      - if @notes.present?
+        = render :partial => "show_notes"
+      .addNoteTextarea
+        %label Add your new note:
+        = text_area_tag "content", "", cols: "", rows: ""
+      .actionButton
+        = f.button "Save", onclick: "return frm_validate_contact()"

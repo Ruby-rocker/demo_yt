@@ -1,0 +1,29 @@
+%section.column.col-14
+  %section.add_new_contact
+    = link_to content_tag(:h2, "Add New Contact"), new_contact_path, :class => "view fancybox fancybox.ajax"
+    
+    %ul
+     
+      
+      = form_for :status_labels ,:html => { :id => 'contact_form' }, url: find_statuslabels_contacts_path do |f|
+        %li
+          = link_to "Status", "javascript:;", :class => "toggle_status", :id => "toggle_status"
+        %div{:id => "status_all", :class => "content"}
+          - statuslabels.each do |status|
+            = fields_for "statuslabels[#{status.id}]", status do |st|
+              %li
+                = st.check_box :id, checked: @status_label_id.include?(status.id.to_s) ? true : false, value: status.id, onclick: "refreshpage($('#contact_form'));"
+                %label{for: 'statuslabels_'+"#{status.id}"+'_id',style: "background-color:#{status.color};margin-left: 37px;margin-top: 10px;margin-bottom: 10px;"}
+                  %span
+                = status_checkbox(status)
+                
+        %li
+          = link_to "Tags", "javascript:;", :class => "toggle_tag", :id => "toggle_tag"
+        %div{:id => "tag_all", :class => "content_tag"}
+          - tags.each do |tag|
+            = fields_for "tags[#{tag.id}]", tag do |tg|
+              %li
+                = tg.check_box :id, checked: @tag_id.include?(tag.id.to_s) ? true : false, value: tag.id, onclick: "refreshpage($('#contact_form'));"
+                %label{for: 'tags_'+"#{tag.id}"+'_id',style: "background-color:#{tag.color};margin-left: 37px;margin-top: 10px;margin-bottom: 10px;"}
+                  %span
+                = tag_checkbox(tag)

@@ -1,0 +1,70 @@
+%section.container
+  %section.container_wrapper.graphpage
+    %section.columns.clearfix
+      %section.column.col-34
+        %section.links_banners
+          %h2 LINKS & BANNERS
+          %ul
+            %li
+              %section.target
+                %span Partner Page Copy:
+              %section.row
+                %div.partner_page_copy
+                  = link_to 'EDIT PARTNER PAGE COPY', edit_partner_page_partners_custom_links_path, class: 'edit_partner_page_copy fancybox fancybox.ajax' 
+                %section.link
+                  Visit Your Page:
+                  %a{:href => "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", :target => "_blank"} Partner Link
+            %li
+              %section.target
+                %span Target URL:
+                http://www.yestrak.com
+              %section.row
+                %div
+                  %label Code:
+                  %input.inputBar{:name => "", :type => "text", id: 'partner_link', :value => "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", readonly: 'readonly', onclick: 'this.select();', onfocus: 'this.select();'}
+                    = link_to '', "#", class: 'clipboard', id: 'clipboard_partner_link', "data-clipboard-target" => "partner_link", :title => "Click To Copy"
+                %section.link
+                  Visit Your Page:
+                  %a{:href => "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", :target => "_blank"} Partner Link
+            %li
+              %section.target
+                %span Target URL:
+                http://www.yestrak.com
+              %section.row
+                %div
+                  %label Code:
+                  - img_tag = image_tag "#{root_url}partner_custom_links/yestrak-125x125.jpg", width: "125", height: "125"
+                  %input.inputBar{:name => "", :type => "text", id: 'code_125', :value => "<a href=http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}>#{img_tag}</a>", readonly: 'readonly', onclick: 'this.select();', onfocus: 'this.select();'}
+                    = link_to '', "#", class: 'clipboard', id: 'clipboard_code_125', "data-clipboard-target" => "code_125", :title => "Click To Copy"
+                %section.link
+                  Button Preview:
+                  %a{:href => "#"} 125 x 125
+                = link_to (image_tag "#{root_url}partner_custom_links/yestrak-125x125.jpg", width: "125", height: "125"), "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", target: "_blank"
+            %li
+              %section.target
+                %span Target URL:
+                http://www.yestrak.com
+              %section.row
+                %div
+                  %label Code:
+                  - img_tag = image_tag "#{root_url}partner_custom_links/yestrak-160x600.jpg", width: "160", height: "600"
+                  %input.inputBar{:name => "", :type => "text", id: 'code_160', :value => "<a href=http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}>#{img_tag}</a>", readonly: 'readonly', onclick: 'this.select();', onfocus: 'this.select();'}
+                    = link_to '', "#", class: 'clipboard', id: 'clipboard_code_160', "data-clipboard-target" => "code_160", :title => "Click To Copy"
+                %section.link
+                  Button Preview:
+                  %a{:href => "#"} 160 x 600
+                = link_to (image_tag "#{root_url}partner_custom_links/yestrak-160x600.jpg", width: "160", height: "600"), "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", target: "_blank"
+            %li
+              %section.target
+                %span Target URL:
+                http://www.yestrak.com
+              %section.row
+                %div
+                  %label Code:
+                  - img_tag = image_tag "#{root_url}partner_custom_links/yestrak-300x250.jpg", width: "300", height: "250"
+                  %input.inputBar{:name => "", :type => "text", id: 'code_300', :value => "<a href=http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}>#{img_tag}</a>", readonly: 'readonly', onclick: 'this.select();', onfocus: 'this.select();'}
+                    = link_to '', "#", class: 'clipboard', id: 'clipboard_code_300', "data-clipboard-target" => "code_300", :title => "Click To Copy"
+                %section.link
+                  Button Preview:
+                  %a{:href => "#"} 300 x 250
+                = link_to (image_tag "#{root_url}partner_custom_links/yestrak-300x250.jpg", width: "300", height: "250"), "http://www.yestrak.com/partner-landing/?partner_coupon_code=#{@coupon_code}", target: "_blank"

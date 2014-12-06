@@ -1,0 +1,7 @@
+= semantic_form_for @business  do |f|
+	= f.inputs do
+		= f.input :name
+		= f.input :website
+		= f.input :description, :as => :text, :input_html => { :class => 'autogrow', :rows => 5, :cols => 20  }
+		= f.input :landmark, :as => :text, :input_html => { :class => 'autogrow', :rows => 5, :cols => 20  }
+	= f.actions

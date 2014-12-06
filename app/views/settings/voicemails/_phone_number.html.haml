@@ -1,0 +1,213 @@
+/ bof page title
+%section.page_title
+  Pick a Number
+/ eof page title
+
+/ bof pick number Boxes
+%section.pick-number
+  %section.current_number
+    %label The current phone number for this voicemail box is:
+    %input{name: "", value: "+1 646-736-6529", type: "text"}
+
+  %section.swap_number
+    %span Do you need to swap out this phone number?
+    %ul
+      %li
+        %input{name: "", type: "checkbox", value: "no"} <label>No</label>
+      %li
+        %input{name:"", type: "checkbox", value: "yes"} <label>Yes</label>
+
+  %p.pnBox
+    Pick a new phone number for this voicemail box:
+    %span (This is where callers will be routed to hear your voicemail box).
+
+  %div#tab-container.tab-container
+    %ul.etabs
+      %li.tab
+        %a{href: "#local"} Local
+      %li.tab
+        %a{href: "#toll-free"} Toll-Free
+
+    %div#local.panel-container
+      %div.search_number
+        %form.search_phone_number
+          %div.search_phone_number_input
+            %select.area_code_sign{name: ""}
+              %option #
+              %option +
+
+            %div.phone_wrapper
+              %table{border: "0", cellspacing: "0", cellpadding: "0"}
+                %tr
+                  %td{style: "width:10px;"} (
+                  %td.area_code
+                    %input{name: "", type: "text"}
+                  %td{style: "width:10px;"} )
+                  %td.digits_phrases
+                    %input{name: "", type: "text"}
+
+          %input.btn_search{name: "Search", type: "button", value: "Search"}
+          %div.search_notes Search by area code, digits and phrases
+
+        %div.clearfix
+          %div.area_code_notes
+            %h2
+              Area code
+              %span Enter the entire area code.
+            -#%p Don’t know an area code? Search by location instead.
+
+          %div.digits_phrases_notes
+            %h2
+              Digits &amp; phrases
+              %span Enter at least three characters to search for a specific pattern.
+            %p Tip: Get more results with shorter patterns.
+
+    / content
+    %div#toll-free{style: "display:none;", class: "panel-container"}
+      %div.search_number
+        %form.search_phone_number
+          %div.search_phone_number_input
+            %select.area_code_sign{name: ""}
+              %option #
+              %option +
+
+            %div.phone_wrapper
+              %table{border: "0", cellspacing: "0", cellpadding: "0"}
+                %tr
+                  %td{style: "width:10px;"} (
+                  %td.area_code
+                    %input{name: "", type: "text"}
+                  %td{style: "width:10px;"} )
+                  %td.digits_phrases
+                    %input{name: "", type: "text"}
+
+          %input.btn_search{name: "Search", type: "button", value: "Search"}
+          %div.search_notes Search by area code, digits and phrases
+
+        %div.clearfix
+          %div.area_code_notes
+            %h2
+              Area code
+              %span Enter the entire area code.
+            -#%p Don’t know an area code? Search by location instead.
+
+          %div.digits_phrases_notes
+            %h2
+              Digits &amp; phrases
+              %span Enter at least three characters to search for a specific pattern.
+            %p Tip: Get more results with shorter patterns.
+    / content
+
+  / bof Displaying results
+  %section.displaying_results
+    %h1
+      Displaying results for >>
+      %span 646
+      in
+      %span United States
+    %ul
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+      %li
+        %div.result_punber
+          +1 646-736-6529
+          %span
+            %i
+              +1<u>646</u>7366529
+            %b NEW YORK, NY
+        %div.btn_process_swap
+          %a{href: "#"} PROCESS SWAP
+
+    %div.btn_prev
+      %a{href: "#"}
+        %span
+          = image_tag "arrow_left.png", alt: ""
+        Previous
+  / eof Displaying results
+/ eof pick number Boxes
+
+:javascript
+  $(document).ready(function(){
+    $(document).ready( function() {
+        $('#tab-container').easytabs('animate:false', 'transitionIn:fadeIn');
+      });
+  });

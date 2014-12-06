@@ -1,0 +1,32 @@
+%section.container
+  %section.page_title
+    Manage Users
+  %section.manageUsers
+    %section.addUser
+      = form_for(User.new, url: settings_users_path, method: :pust) do |f| 
+        .inputBar
+          .inputName 
+            = f.text_field :full_name, value: "", placeholder: "Enter Full Name"
+          .inputEmail
+            = f.text_field :email, placeholder: "charlie@newuser.com"
+        .selectBar
+          = f.select :role, User::USER_LIST
+        .actionButton
+          = f.hidden_field :subdomain, value: current_user.subdomain
+          = f.hidden_field :status, value: "pending"
+          = f.button "Add", onclick: "frm_validate_users_manage()"
+          -#= f.button "Save", onclick: "form_to_validate_users_fields(this)"
+      %span
+        Note:
+        %b ADMINISTRATORS
+        will have access to everything in your account,whereas
+        %b USERS
+        will not be able to view the “Settings” tab.
+    %section.manageUserTable
+      %section.manageUserTableHead
+        .row Name
+        .row Email
+        .row User Type
+      %section.manageUserTablebody
+        - @users.each do |user|
+          = render "form_for_multiple_user", user: user

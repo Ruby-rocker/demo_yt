@@ -1,0 +1,41 @@
+<html>
+<head>
+  <style>
+    .email_container {width:750px;height:auto;padding-bottom: 10px;margin:20px auto;-moz-box-shadow:0 0 3px 0px #888; -webkit-box-shadow:0 0 3px 0px #888; box-shadow:0 0 3px 0px #888;}
+    .email_header {height:135px;background-color:#231f20;}
+    .email_logo {padding-left:40px;padding-top:30px;}
+    .email_content {}
+    .email_content p.email_please{margin: 50px 50px 0px 50px;border-bottom:1px dashed #292929;padding-bottom: 70px;color:#000000;}
+    .email_footer {}
+    .email_footer p {color:#c9c9c9;font-size:20px;margin: 20px 50px;font-family: futuramedium;}
+    table td { border: 1px solid #DADADA; padding: 1px; text-align: center; }
+    table {width: 100%; border-collapse: collapse;margin: 25px 0 0px;}
+    table thead th { background-color: #C9C9C9; }
+    table thead td { font-weight: bold; }
+    table thead td { font-weight: bold; }
+  </style>
+</head>
+<body>
+<div class="email_container" style="width:750px;margin:20px auto;-moz-box-shadow:0 0 3px 0px #888; -webkit-box-shadow:0 0 3px 0px #888; box-shadow:0 0 3px 0px #888;">
+  <div class="email_header" style="height:135px;background-color:#231f20;">
+    <%= image_tag "http://account.yestrak.com/yestrak_logo_email.png", size: "266x83", alt: "yestrak_logo", class: 'email_logo', style: 'padding-left:40px;padding-top:30px;' %>
+  </div>
+  <div class="email_content">
+    <p class="email_please" style="margin: 50px 50px 0px 50px;border-bottom:1px dashed #292929;color:#000000;">
+      Hi <%= @user.first_name %>,<br /><br />
+      webhook type <%= @kind %>,<br /><br />
+      time <%= @now %>,<br /><br />
+      Your subscription status has been changed from <span style="font-weight: bold;"><%= @old_status %></span> to <span style="font-weight: bold;"><%= @new_status %></span>
+      <br /><br />
+      Thanks!<br />
+      The Customer Service Team at YesTrak
+    </p>
+  </div>
+  <div class="email_footer">
+    <p style="color:#c9c9c9;font-size:20px;margin: 20px 50px;font-family: futuramedium;">
+      Delight your customers with a human touch, and get<br />back time to grow your business (or just reconnect with life).
+    </p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+%section.created_account_form
+  %h1
+    Create your Account
+    %span Please enter the information below to create your account.
+  %section.created_account_form_wrapper
+    %section.newAccountLogo
+      = image_tag "yestrak-logo-black.png", width: "187", alt: ""
+    %section.create_new_form
+      = form_for(resource, :as => resource_name, :url => confirm_path) do |f|
+        = raw devise_error_messages!.gsub('Subdomain ','') || flash[:error]
+        %ul
+          - if resource.class.name != 'PartnerMaster'
+            %li
+              %label.label First name:
+              = f.text_field :first_name, autofocus: true, placeholder: "First Name", type: "text", class: :input
+
+            %li
+              %label.label Last Name:
+              = f.text_field :last_name, placeholder: "Last Name", type: "text", class: :input
+
+            - if resource && resource.role?('OWNER') || !resource.present?
+              %li.create_subdomian
+                %span
+                  Create Your Subdomain:
+                  %b Please enter as one word.
+                %div.subdomian
+                  %p http://
+                  = f.text_field :subdomain, placeholder: "joesplumbing", type: "text", class: :input
+                  %p .yestrak.com
+
+          %li
+            %label.label Password:
+            = f.password_field :password, placeholder: "Must Contain at least 8 characters", type: "password", class: :input
+
+          %li
+            %label.label Password Confirmation:
+            = f.password_field :password_confirmation, type: "password", class: :input
+            = f.hidden_field :confirmation_token
+
+          - if resource.class.name != 'PartnerMaster'
+            %li
+              %label.label Timezone:
+              = time_zone_select "account", "timezone", ActiveSupport::TimeZone.us_zones,{:default => 'Pacific Time (US & Canada)'}, class: 'selectBar'
+              = hidden_field_tag "tenant_id", @tenant_id
+          %li.btn_signin
+            = f.button "Confirm Account", class: 'button green', style: 'padding: 3px; width: auto;'

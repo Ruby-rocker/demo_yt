@@ -1,0 +1,95 @@
+%section.container
+  %section.page_title
+    Billing info
+    -if @billing_info.errors.any?
+      #error_explanation
+        %ul
+          - @billing_info.errors.full_messages.each do |msg|
+            %li= msg
+  = form_for @billing_info, html: {id: :frm_update_billing_info}, url: path do |f|
+    = f.hidden_field :id
+    %section.billingInfo
+      %h2 Billing Contact
+      %section.billingForm
+        %ul
+          %li{style: "margin-bottom: 0px"}
+            %label First Name:
+            = f.text_field :first_name, placeholder: "Bill", class: :inputBar
+          %li
+            %label Last Name:
+            = f.text_field :last_name, placeholder: "Heyes", class: :inputBar
+          = f.fields_for :phone_number do |phone_number|
+            %li.phoneNumberInputbar
+              %label Phone Number:
+              %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                %tr
+                  %td.cal20 (
+                  %td.cal50
+                    = phone_number.text_field :area_code, placeholder: "123", maxlength: 3
+                  %td.cal20 )
+                  %td.cal50
+                    = phone_number.text_field :phone1, placeholder: "456", maxlength: 3
+                  %td.cal20 -
+                  %td.cal75
+                    = phone_number.text_field :phone2, placeholder: "7890", maxlength: 4
+          %li
+            %label Email:
+            = f.text_field :email, placeholder: "Email", class: :inputBar
+      %h2 Billing Address
+      = f.fields_for :address do |address|
+        %section.billingForm
+          %ul
+            %li{style: "margin-bottom: 0px"}
+              %label Street Address:
+              = address.text_field :street, placeholder: "1224 Happy Lane", class: :inputBar
+            %li
+              %label Suite/Floor:
+              = address.text_field :suite, placeholder: "1st floor", class: :inputBar
+            %li.phoneNumberInputbar{style: "margin-bottom: 0px"}
+              %label Country:
+              = address.select(:country, COUNTRIES.collect {|p| [ p.last, p.first ] },{prompt: 'Select Country'}, class: 'selectBar')
+            %li
+              %label City:
+              = address.text_field :city, placeholder: "Schaumburg", class: :inputBar
+            %li.phoneNumberInputbar
+              %label State/Province:
+              = select_tag(:us_state, options_for_select(US_STATES.collect {|p| [ p.last, p.first ] },@billing_info.address.state),{prompt: 'Select State/Province', class: 'selectBar us_states', style: "display: #{@billing_info.address.country.eql?('US') ? 'block' : 'none'};"})
+              = select_tag(:ca_state, options_for_select(CA_STATES.collect {|p| [ p.last, p.first ] },@billing_info.address.state),{prompt: 'Select State/Province', class: 'selectBar ca_states', style: "display: #{@billing_info.address.country.eql?('CA') ? 'block' : 'none'};"})
+              = text_field_tag :other_state, (@billing_info.address.country.eql?('US') || @billing_info.address.country.eql?('CA')) ? '' : @billing_info.address.state, class: 'inputBar other_states', style: "display: #{(@billing_info.address.country.eql?('US') || @billing_info.address.country.eql?('CA')) ? 'none' : 'block'};"
+            %li
+              %label Zip/Postal Code:
+              = address.text_field :zip_code, placeholder: "60166", class: :inputBar
+      %h2 Credit Card Information
+      %section.billingForm
+        %ul
+          %li
+            = f.select(:card_type, options_for_select([["Visa","VISA"],["MasterCard","MASTER"],["AmEx","AEXPRESS"],["Diners","DINERS"],["Discover","DISCOVERS"],["JSB","JSB"]],@billing_info.card_type), {include_blank: 'Select Card Type'}, class: 'selectBar')
+          %li.displayNone
+            %label> &nbsp;
+            \&nbsp;
+          %li{style: "margin-bottom: 0px"}
+            %label
+              = "Card Number: (#{@billing_info.last_4})"
+            = text_field_tag :last_4, "", placeholder: "xxxx-xxxx-xxxx-xxxx", class: :inputBar
+          %li.ccvInputBar
+            %label CCV:
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tr
+                %td.cal150
+                  = text_field_tag "ccv", nil, placeholder: "60166", class: :inputBar, maxlength: 4
+                %td.cal50
+                  %a{:href => "#"}
+                    = image_tag "icon_help@2x.png", alt: "", width: "20"
+          %li
+            %label Expiration Date:
+            = f.select(:expiration_month, options_for_select(Date::MONTHNAMES.each_with_index.to_a[1..-1].map { |month, index| [month, index.to_s.rjust(2, '0')]},@billing_info.expiration_month), {include_blank: 'Month'}, class: 'dateselectBar')
+            = f.select(:expiration_year, options_for_select(1976..2200,@billing_info.expiration_year), {include_blank: 'Year'}, class: 'dateselectBar')
+          %li
+            %label Name on card:
+            = f.text_field :cardholder_name, placeholder: "Bill Randazzo", class: :inputBar
+      %section.form_action
+        %ul
+          %li
+            = link_to raw('<span>Previous</span>'), settings_billings_path, :class => "prev_btn"
+          %li
+            = f.button "Save", disable_with: 'Wait..', :class => "save_btn"

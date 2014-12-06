@@ -1,0 +1,179 @@
+/ bof page title
+%section.page_title_step
+  %h2 STEP 4 of 4:
+  %h3 Final Details
+  / eof page title
+%section.routingNotifications
+  = nested_form_for @phone_script, url: complete_settings_phone_script_path(@phone_script), html: {id: 'phone_script_form', multipart: true} do |f|
+    = f.fields_for :phone_script_hour do |hours|
+      %section.businessHours
+        %p Please provide the business hours for this phone script:
+        %br
+        %section.normal_hours
+          -#= radio_button_tag 'normal', 'hours', true, :class => "normal_hours", :value => "normal"
+          = hours.radio_button :normal, true, :class => "normal_hours"
+          %span Normal Hours
+        %section.split_hours
+          -#= radio_button_tag 'normal', 'hours', false, :class => "split_hours", :value => "split"
+          = hours.radio_button :normal, false, :class => "split_hours"
+          %span Split Hours
+        %br
+        %br
+        %section.whiteBar
+          .hoursTable
+            .hoursTablehead
+              .morningHours
+                %p.mh Morning Hours:
+                %p.bh Business Hours:
+                %ul
+                  %li Day
+                  %li Open
+                  %li Close
+              .eveningHours
+                %p Afternoon/Evening Hours:
+                %ul
+                  %li Open
+                  %li Close
+            .hoursTablebody
+              - PhoneScriptHour::DAYNAMES.each do |day|
+                .rowTableBody
+                  .morningHours.datepair
+                    %ul
+                      %li
+                        %span= day.upcase
+                      %li
+                        = hours.text_field "first_#{day}_open", class: "#{day}_input timeInput time start", placeholder: '8:00am', autocomplete: 'off'
+                      %li
+                        = hours.text_field "first_#{day}_close", class: "#{day}_input timeInput time end", placeholder: '12:00pm', autocomplete: 'off'
+                  .eveningHours.datepair
+                    %ul
+                      %li
+                        = hours.text_field "second_#{day}_open", class: "#{day}_input2 timeInput time start", placeholder: '12:00pm', autocomplete: 'off'
+                      %li
+                        = hours.text_field "second_#{day}_close", class: "#{day}_input2 timeInput time end", placeholder: '5:00pm', autocomplete: 'off'
+                  .otherHours
+                    %span or
+                    = hours.select("#{day}_stat", PhoneScriptHour::DAY_STATUS,{}, class: 'day_status')
+      -#%section.businessHoursCalls#duringHoursCalls
+      -#  %h4 During business hours where should we send calls?
+      -#  .ysCC
+      -#    %p
+      -#      = hours.radio_button(:during_hours_call_center, true)
+      -#      = hours.label(:during_hours_call_center_true, 'YesTrak Call Center')
+      -#    %span or
+      -#  .callsNumber.during_hours_number
+      -#    = f.fields_for :during_hours_number do |during|
+      -#      %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+      -#        %tr
+      -#          %td.call25
+      -#            = hours.radio_button(:during_hours_call_center, false)
+      -#          %td.call15 (
+      -#          %td.call50
+      -#            = during.number_field :area_code, class: 'inputBar during_input', maxlength: 3
+      -#          %td.call15 )
+      -#          %td.call50
+      -#            = during.number_field :phone1, class: 'inputBar during_input', maxlength: 3
+      -#          %td.call15 -
+      -#          %td.call50
+      -#            = during.number_field :phone2, class: 'inputBar during_input', maxlength: 4
+      -#%section.businessHoursCalls#afterHoursCalls
+      -#  %h4 During after hours where should we send calls?
+      -#  .ysCC
+      -#    %p
+      -#      = hours.radio_button(:after_hours_call_center, true)
+      -#      = hours.label(:after_hours_call_center_true, 'YesTrak Call Center')
+      -#    %span or
+      -#  .callsNumber.after_hours_number
+      -#    = f.fields_for :after_hours_number do |after|
+      -#      %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+      -#        %tr
+      -#          %td.call25
+      -#            = hours.radio_button(:after_hours_call_center, false)
+      -#          %td.call15 (
+      -#          %td.call50
+      -#            = after.number_field :area_code, class: 'inputBar after_input', maxlength: 3
+      -#          %td.call15 )
+      -#          %td.call50
+      -#            = after.number_field :phone1, class: 'inputBar after_input', maxlength: 3
+      -#          %td.call15 -
+      -#          %td.call50
+      -#            = after.number_field :phone2, class: 'inputBar after_input', maxlength: 4
+    %section.monitoredCall
+      %span Legally, all callers need to be notified that a phone call is being monitored or recorded.
+      %span You can use our standard notification, or customize your own:
+      = f.fields_for :audio_file do |audio|
+        %section.columns.clearfix
+          %section.column.col-12
+            .notification
+              .left
+                = f.radio_button :has_audio, false
+              .right
+                = f.label :has_audio_false, 'I’ll use the standard notification.'
+                .audio_player
+                  %audio#default_audio{:controls => "control", :preload => "none", :src => "/defaults/message_records/default.mp3", :type => "audio/x-m4a"}
+          %section.column.col-12
+            .ownAudio
+              .left
+                = f.radio_button :has_audio, true
+              .right
+                = f.label :has_audio_true, 'I’ll use my own audio. Please upload this file*.'
+                .audio_player
+                  %audio#default_audio{:controls => "control", :preload => "none", :src => @phone_script.audio_file.try(:record), :type => "audio/x-m4a"}
+                = audio.file_field :record, value: @phone_script.audio_file.try(:record_file_name)
+                %a.note{:href => "#"} *NOTE: Acceptable formats are .wav or MP3 files.
+    %section.notifiedActivity
+      %h4 When do you want to be notified of activity?
+      %ul
+        %li
+          = f.check_box :call_receive
+          = f.label :call_receive, 'Upon all calls received'
+        %li
+          = f.check_box :agent_action
+          = f.label :agent_action, 'Upon any action taken by an agent'
+    %section.youWant
+      %h4 How do you want to be notified of activity?
+      %section.columns.clearfix#notification_input
+        %section.column.col-12
+          .email
+            %label Email:
+            - flag = true
+            %ul#email_id_fields
+              = f.fields_for :email_ids, :wrapper => false do |email|
+                %li.remove_email_id
+                  = email.email_field :emails, class: 'email_input'
+                  - if flag
+                    = f.link_to_add image_tag( "btn_plus@2x.png", width: '19'), :email_ids, data: { target: "#email_id_fields", nested_wrapper_class: 'email_ids-wrapper' },
+                       style: (@phone_script.email_ids.size >= TOTAL_SMS_EMAIL) ? 'display: none' : ''
+                  - else
+                    = email.link_to_remove image_tag( "btn_close@2x.png", width: '19'), id: 'remove_email_id'
+                  - flag = false
+        %section.column.col-12
+          - flag = true
+          .smsText#notify_numbers
+            %label sms/Text
+            = f.fields_for :notify_numbers, :wrapper => false do |sms|
+              .callsNumber.remove_notify_number
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                  %tr
+                    %td.call15 (
+                    %td.call50
+                      = sms.text_field :area_code, class: 'inputBar sms_input', maxlength: 3
+                    %td.call15 )
+                    %td.call50
+                      = sms.text_field :phone1, class: 'inputBar sms_input', maxlength: 3
+                    %td.call15 -
+                    %td.call50
+                      = sms.text_field :phone2, class: 'inputBar sms_input', maxlength: 4
+                    %td.call25
+                      - if flag
+                        = f.link_to_add image_tag( "btn_plus@2x.png", width: '19'), :notify_numbers, :data => { :target => "#notify_numbers" },
+                          style: (@phone_script.notify_numbers.size >= TOTAL_SMS_EMAIL) ? 'display: none' : ''
+                      - else
+                        = sms.link_to_remove image_tag( "btn_close@2x.png", width: '19'), id: 'remove_notify_number'
+                      - flag = false
+    %section.form_action
+      %ul
+        %li
+          = link_to raw('<span>Previous</span>'), set_script_settings_phone_script_path(@phone_script), :class => "prev_btn"
+        %li
+          = f.button 'Save', disable_with: 'Wait..', :class => "save_btn"

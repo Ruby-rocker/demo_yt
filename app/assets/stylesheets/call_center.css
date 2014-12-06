@@ -1,0 +1,68 @@
+@charset "utf-8";
+body{
+    margin: 0;
+}
+.container_call {width:225px;}
+
+/* #Calendar ApptView Page */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.calendar-apptview{
+    background:#ffffff; padding:10px; overflow:hidden;
+}
+.calendar-apptview .calendarView{
+    /*float:left; width:49%;*/
+    padding-bottom: 15px;
+}
+.calendar-apptview .calendarView .monthBar{border:1px solid #7A7B7C;}
+.calendar-apptview .calendarView .monthBar h2{height:33px; text-align:center; line-height:33px; color:#1e1e1f; font-size:16px;margin: 0;}
+.calendar-apptview .calendarView .monthBar a{display:block; padding:6px 5px 3px 5px;}
+.calendar-apptview .calendarView .monthBar a img {
+    border: none;
+}
+.calendar-apptview .calendarView .monthBar a.next{float:right;}
+.calendar-apptview .calendarView .monthBar a.prev{float:left;}
+.calendar-apptview .calendarView table{width:100%;}
+.calendar-apptview .calendarView table th{
+    background:#737577; color:#ffffff; font-size:12px; width:14%; height:25px;
+    text-align:center; vertical-align:middle; text-transform:uppercase; border-left:1px solid #7A7B7C;
+}
+.calendar-apptview .calendarView table td{
+    border:#7a7b7c solid 1px; text-align:center; vertical-align:middle;
+}
+.calendar-apptview .calendarView table td a{
+    display:block; color:#000000; height:25px; padding-top:10px; font-size:12px;
+    text-decoration: none;
+}
+.calendarView table td.prev_month a {
+    color: #999999;
+}
+.calendar-apptview .calendarView table td a:hover{background:#e5e5e6;}
+.calendar-apptview .calendarView table td a.active{background:#e5e5e6;}
+
+.calendar-apptview .availableAppointments{
+    /*float:right; width:49%;*/
+    display: none;
+}
+.calendar-apptview .availableAppointments .availableapptView{border:1px solid #7A7B7C; min-height:305px; overflow:hidden;}
+.calendar-apptview .availableAppointments .availableapptView h2{
+    text-align:center; color:#1e1e1f; font-size:16px; padding:5px 0;
+}
+.calendar-apptview .availableAppointments .availableapptView h2 span#date_text{
+    text-align:center; color:#1e1e1f; font-size:14px; padding:5px 0;
+}
+.calendar-apptview .availableAppointments .availableapptView h2 span.text{
+    display:block; color:#23b0d8; font-size:14px;
+}
+.calendar-apptview .availableAppointments .availableapptView ul{padding:0; margin:0;}
+.calendar-apptview .availableAppointments .availableapptView li{float:left; width:27%; margin:0 10px;list-style: none;}
+.calendar-apptview .availableAppointments .availableapptView li a{
+    overflow:hidden; background:url(dotted_border.gif) repeat-x bottom left; display:block; font-size:12px; padding:10px 0;
+    text-decoration: none;
+}
+
+.calendar-apptview .availableAppointments .availableapptView li a img {
+    border: none;
+}
+.calendar-apptview .availableAppointments .availableapptView li a b{float:left; color:#000000;}
+.calendar-apptview .availableAppointments .availableapptView li a i{float:right; display:block; height:15px;}
+.calendar-apptview .availableAppointments .availableapptView li a.active b{text-decoration:line-through;}

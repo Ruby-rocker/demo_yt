@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  phone_script: 
+  data_key: MyString
+  data_value: MyString
+
+two:
+  tenant: 
+  phone_script: 
+  data_key: MyString
+  data_value: MyString

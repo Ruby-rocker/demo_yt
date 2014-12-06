@@ -1,0 +1,76 @@
+%section.container
+  %section.container_wrapper.graphpage
+    %section.columns.clearfix
+      %section.column.col-34
+        = form_for @partner_master, html: {id: :frm_update_partner_master}, url: partners_account_update_path(@partner_master.id) do |f|
+          = f.hidden_field :id
+          %section.billingInfo
+            %h2 PARTNER PROFILE
+            %section.billingForm
+              %ul
+                %li{style: "margin-bottom: 0px"}
+                  %label.account_label First Name:
+                  = f.text_field :first_name, placeholder: "First Name", class: :inputBar
+                %li
+                  %label.account_label Last Name:
+                  = f.text_field :last_name, placeholder: "Last Name", class: :inputBar
+                = f.fields_for :phone_number do |phone_number|
+                  %li.phoneNumberInputbar{style: "margin-bottom: 0px"}
+                    %label.account_label Phone Number:
+                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                      %tr
+                        %td.cal20 (
+                        %td.cal50
+                          = phone_number.text_field :area_code, placeholder: "123", maxlength: 3, class: "account_short"
+                        %td.cal20 )
+                        %td.cal50
+                          = phone_number.text_field :phone1, placeholder: "456", maxlength: 3, class: "account_short"
+                        %td.cal20 -
+                        %td.cal75
+                          = phone_number.text_field :phone2, placeholder: "7890", maxlength: 4, class: "account_short"
+                %li
+                  %label.account_label Email:
+                  = f.text_field :email, placeholder: "Email", class: :inputBar
+                = f.fields_for :address do |address|
+                  %li{style: "margin-bottom: 0px"}
+                    %label.account_label Street Address:
+                    = address.text_field :street, placeholder: "1224 Happy Lane", class: :inputBar
+                  %li
+                    %label.account_label Suite/Floor:
+                    = address.text_field :suite, placeholder: "1st floor", class: :inputBar
+                  %li.phoneNumberInputbar{style: "margin-bottom: 0px"}
+                    %label.account_label Country:
+                    = address.select(:country, COUNTRIES.collect {|p| [ p.last, p.first ] },{prompt: 'Select Country'}, class: 'selectBar account_select')
+                  %li
+                    %label.account_label City:
+                    = address.text_field :city, placeholder: "Schaumburg", class: :inputBar
+                  %li.phoneNumberInputbar
+                    %label.account_label State/Province:
+                    = select_tag(:us_state, options_for_select(US_STATES.collect {|p| [ p.last, p.first ] },@partner_master.address.state),{prompt: 'Select State/Province', class: 'selectBar us_states account_select', style: "display: #{@partner_master.address.country.eql?('US') ? 'block' : 'none'};"})
+                    = select_tag(:ca_state, options_for_select(CA_STATES.collect {|p| [ p.last, p.first ] },@partner_master.address.state),{prompt: 'Select State/Province', class: 'selectBar ca_states account_select', style: "display: #{@partner_master.address.country.eql?('CA') ? 'block' : 'none'};"})
+                    = text_field_tag :other_state, (@partner_master.address.country.eql?('US') || @partner_master.address.country.eql?('CA')) ? '' : @partner_master.address.state, class: 'inputBar other_states', style: "display: #{(@partner_master.address.country.eql?('US') || @partner_master.address.country.eql?('CA')) ? 'none' : 'block'};"
+                  %li
+                    %label.account_label Zip/Postal Code:
+                    = address.text_field :zip_code, placeholder: "60166", class: :inputBar
+          = form_for @paypal_info, html: {id: :frm_update_paypa_info}, url: partners_account_update_path(@partner_master.id) do |form|
+            %section.billingInfo
+              %h2 PAYMENT  DISTRIBUTION
+              %section.billingForm
+                %ul
+                  %li
+                    %label.account_label Preferred method of payment:
+                    = select_tag(:payment_type, options_for_select(@paypal_type.map {|type|  [type]}, @paypal_info.payment_type),{prompt: 'Select Type of Payment', class: 'selectBar us_states account_select'})
+                  %li
+                    %label.account_label PayPal Email:
+                    = form.text_field :paypal_email, placeholder: "Email", class: :inputBar
+                  %li
+                    %label.account_label SSN / Tax ID:
+                    = form.text_field :ssn_for_us, class: :inputBar
+                  %li
+                    %label.account_label SSN / Tax ID:
+                    = form.text_field :ssn_for_non_us, class: :inputBar
+            %section.form_action
+              %ul
+                %li
+                  = link_to "Save", "javascript:;", disable_with: 'Wait..', :class => "save_btn", onclick: "frm_validate_partner_master()"
+                  =# f.button "Save", disable_with: 'Wait..'

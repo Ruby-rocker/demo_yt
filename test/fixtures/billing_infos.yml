@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  first_name: MyString
+  last_name: MyString
+  user: 
+  customer_id: MyString
+  email: MyString
+  expiration_month: MyString
+  expiration_year: MyString
+  last_4: MyString
+  card_type: MyString
+  cardholder_name: MyString
+
+two:
+  tenant: 
+  first_name: MyString
+  last_name: MyString
+  user: 
+  customer_id: MyString
+  email: MyString
+  expiration_month: MyString
+  expiration_year: MyString
+  last_4: MyString
+  card_type: MyString
+  cardholder_name: MyString

@@ -1,0 +1,5 @@
+- if rec_v.present?
+  - cal_timezone = Appointment.find(rec_path).calendar.timezone.to_s
+  - if curr_date.strftime('%H:%M') == rec_v['start_time'].in_time_zone(cal_timezone).strftime('%H:%M')
+    = link_to edit_appointment_path(rec_path), style: "color:#{rec_v['color']};", :class => "link fancybox.ajax fancybox" do
+      = "#{rec_v['name'][0,5] + ".."}#{rec_v['start_time'].in_time_zone(cal_timezone).strftime('%l:%M%P')}"

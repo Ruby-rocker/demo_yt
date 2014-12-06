@@ -1,0 +1,36 @@
+%section.container
+  %section.page_title{style: 'padding-bottom:20px;'}
+    User info
+    -if @user.errors.any?
+      #error_explanation
+        %ul
+          - @user.errors.full_messages.each do |msg|
+            %li= msg
+  = form_for @user, html: {id: :frm_update_user_info}, url: my_account_settings_users_path do |f|
+    %section.billingInfo
+      %section.billingForm
+        %ul
+          %li
+            %label First Name:
+            = f.text_field :first_name, placeholder: "Bill", class: :inputBar
+          %li
+            %label Last Name:
+            = f.text_field :last_name, placeholder: "Heyes", class: :inputBar
+          %li
+            %label Email:
+            %lable
+              = @user.email
+            -#= f.text_field :email, placeholder: "Email", class: :inputBar
+
+          %li
+            %label Timezone:
+            %lable
+              = time_zone_select "account", "timezone", ActiveSupport::TimeZone.us_zones, {:default => current_tenant.timezone}, class: 'selectBar'
+          %li
+            %label Click here to change password:
+            %lable
+              = link_to "Change Password", users_edit_user_password_path, class: 'change_password'
+      %section.form_action
+        %ul
+          %li
+            = f.button "Save"

@@ -1,0 +1,225 @@
+%section.container
+  / bof page title
+  %section.page_title_step
+    %h2
+      WELCOME
+      %span
+        = @user.full_name
+    %p Let’s renew your subscription and get you logged in.
+    / eof page title
+  / eof container
+%section.whiteBG
+  %section.container
+    / bof page title
+    %section.choose_your_plan
+      %h2 $25/month + Choose your plan:
+      %section.choose_your_plan_box
+        %ul
+          %li
+            .box_title
+              %h1 Pay-as-you-go
+            .box_mid
+              %h1 $1.50
+              %h2 per minute
+              %p &nbsp;
+              =# link_to "BUY", "jasvascript:;", class: "btn"
+              = image_tag "pricing-button-act1.png", class: "btn", id: "plan1"
+          %li
+            .box_title
+              %h1 200 minutes
+              %p of monthly talk time
+            .box_mid
+              %h1 $250
+              %h2 per month*
+              %p *Overage is $1.25/minute
+              = image_tag "pricing-button-act1.png", class: "btn", id: "plan2"
+          %li
+            .box_title
+              %h1 500 minutes
+              %p of monthly talk time
+            .box_mid
+              %h1 $500
+              %h2 per month*
+              %p *Overage is $1.00/minute
+              = image_tag "pricing-button-act1.png", class: "btn", id: "plan3"
+      %h3 No setup fees. Change plans any time. Cancel any time.
+      %p
+        %strong Each plan includes:
+        %span UNLIMITED
+        users, customized phone scripts, real-time notiﬁcations,
+      %p live calendar booking, desktop/tablet/mobile access & complimentary phone support.
+      %br/
+      %p
+        %strong> Add-on features:
+        Call recording, phone menu and voicemail.
+      / eof page title
+  / eof container
+%section.container
+  / bof page title
+  %section.page_title_step
+    %h2
+      ACCOUNT
+      %span INFORMATION
+    %p Please confirm the contact and billing information we have on file is correct:
+    / eof page title
+  .clear
+  %section.container
+    %section.account_infobg
+      %section.billingInfo
+        %h2 primary Contact
+        = form_for(@user, url: process_rejoin_registrations_path, html: {id: "rejoin_form"}, method: "POST") do |f|
+          = hidden_field_tag :selected_plan, ""
+          = hidden_field_tag :plan, "pay_as_you_go"
+          = f.hidden_field :authentication_token
+          %section.billingForm
+            %ul
+              %li
+                %label First Name
+                = f.text_field :first_name, class: "inputBar"
+              %li
+                %label Last Name
+                = f.text_field :last_name, class: "inputBar"
+              = fields_for @business do |business|
+                %li
+                  %label Company
+                  = business.text_field :name, class: "inputBar", disabled: true
+                = business.fields_for :phone_number do |p|
+                  %li.phoneNumberInputbar
+                    %label Phone number
+                    %table{border: "0", cellpadding: "0", cellspacing: "0"}
+                      %tr
+                        %td.cal20 (
+                        %td.cal50
+                          = p.text_field :area_code, class: "inputBar", maxlength: 3
+                        %td.cal20 )
+                        %td.cal50
+                          = p.text_field :phone1, class: "inputBar", maxlength: 3
+                        %td.cal20 -
+                        %td.cal75
+                          = p.text_field :phone2, class: "inputBar", maxlength: 4
+              %li
+                %label Email:
+                = f.text_field :email, class: "inputBar"
+          .clear
+          = f.fields_for :billing_info do |b|
+            %h2 Billing Contact
+            %section.billingForm
+              %ul
+                %li
+                  %label First Name:
+                  = b.text_field :first_name, class: "inputBar"
+                %li
+                  %label Last Name:
+                  = b.text_field :last_name, class: "inputBar"
+                %li.phoneNumberInputbar
+                  = b.fields_for :phone_number do |ph|
+                    %label Phone number
+                    %table{border: "0", cellpadding: "0", cellspacing: "0"}
+                      %tr
+                        %td.cal20 (
+                        %td.cal50
+                          = ph.text_field :area_code, class: "inputBar", maxlength: 3
+                        %td.cal20 )
+                        %td.cal50
+                          = ph.text_field :phone1, class: "inputBar", maxlength: 3
+                        %td.cal20 -
+                        %td.cal75
+                          = ph.text_field :phone2, class: "inputBar", maxlength: 4
+                %li
+                  %label Email:
+                  = b.text_field :email, class: "inputBar"
+            -#= b.fields_for :address do |a|
+          = fields_for @address do |a|
+            %h2 Billing Address
+            %section.billingForm
+              %ul
+                %li
+                  %label Street Address:
+                  = a.text_field :street, class: "inputBar"
+                %li
+                  %label Suite/Floor:
+                  = a.text_field :suite, class: "inputBar"
+                %li.phoneNumberInputbar
+                  %label Country:
+                  = a.select(:country, COUNTRIES.collect {|p| [ p.last, p.first ] },{prompt: 'Select Country'}, class: 'selectBar')
+                %li
+                  %label City:
+                  = a.text_field :city, class: "inputBar"
+                %li.phoneNumberInputbar
+                  %label State/Province:
+                  = a.select(:state, US_STATES.collect {|p| [ p.last, p.first ] },{prompt: 'Select State/Province'}, class: 'selectBar')
+                %li
+                  %label Zip/Postal Code:
+                  = a.text_field :zip_code, class: "inputBar"
+          %h2#credit_info Credit Card Information
+          %section.billingForm
+            %ul
+              %li
+                = f.select(:card_type, CARD_TYPE.collect{|c| [c, c.upcase]}, {prompt: 'Select Card type'}, class: 'selectBar dateselectBar')
+              %li.displayNone
+                %label
+                  &nbsp;
+                &nbsp;
+              %li
+                %label Card Number:
+                = f.text_field :card_number, class: "inputBar", placeholder: "xxxx-xxxx-xxxx-xxxx"
+              %li.ccvInputBar
+                %label CCV:
+                %table{border: "0", cellpadding: "0", cellspacing: "0"}
+                  %tr
+                    %td.cal150
+                      = f.text_field :ccv, class: "inputBar", placeholder: "60166"
+                    %td.cal50
+                      %a{href: "#"}
+                        = image_tag "icon_help@2x.png", width: "20px"
+                        / %img{alt: "", src: "images/icon_help@2x.png", width: "20"}/
+              %li.marginbtm-none
+                %label Expiration Date:
+                =# select_month(Date.today, "", class: 'selectBar dateselectBar') 
+                = select_month(Date.today, {}, {class: 'selectBar dateselectBar', name: "user[expiry_month]"})
+                = select_year(Date.today, {:start_year => Time.now.year, :end_year => Time.now.year + 15}, {class: 'selectBar dateselectBar', name: "user[expiry_year]"})
+                =# f.select(:expiry_month, month_names.collect{|m| [m.first, m.last]}, {}, class: 'selectBar dateselectBar')
+                =# f.select(:expiry_year, years_list.collect{|m| [m.first, m.last]}, {}, class: 'selectBar dateselectBar')
+              %li.marginbtm-none
+                %label Name on card:
+                = f.text_field :card_name, class: "inputBar", placeholder: "Bill Randazzo"
+          %section.couponcode
+            %h1 coupon code
+            %p
+              = link_to "if you have a coupon, click here", "javascript:;", onclick: "$(this).hide(); $('#user_coupen_code, #coupon_code_button').show();"
+              = f.text_field :coupen_code, class: "inputBar", placeholder: "if you have a coupon, enter it here", style: "display: none;"
+              = link_to "Apply", "javascript:;", onclick: "check_coupon_code()", style: "display: none;", id: "coupon_code_button", class: "coupon_btn"
+              = hidden_field_tag "discount_type"
+              = hidden_field_tag "discount_amount"
+              = hidden_field_tag "duration"
+          .clear
+          %section.purchase
+            %h1 purchase summary
+            %ul
+              %li.first
+                $25.00 Account Management Free (Monthly Recurring Charge)
+              %li.second{style: "display: none;"}
+                %span.money_span
+                  $500.00 
+                Monthly Talk Time Plan for 
+                %span.minute_span
+                  500 
+                Minutes (Monthly Recurring Charge)
+          %section.blackbg
+            %p
+              = hidden_field_tag "subtotal", 25
+              Today's Total: 
+              %span.subtotal
+                $25.00
+              %span 
+                (then
+                %span.total
+                  $25.00
+                at first renewal on 03/03/14)
+          .acpt
+            %p
+              = check_box_tag "acceptance", "i accept the term and condition"
+              %label
+                i accept the
+                %a{href: "#"} term and condition
+          = f.button "purchase now", class: "purchase_now", onclick: "frm_rejoin_validation()"

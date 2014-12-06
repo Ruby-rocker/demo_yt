@@ -1,0 +1,11 @@
+<% if @page == 2 %>
+	$('ul.list_of').html('<% notification_li_tags(@notifications) %>')
+	$(".nextPage").attr('href', '/?page=<%= @page.to_s%>&search[date]=<%= @search %>&search[date_from]=<%=@date_from%>&search[date_to]=<%=@date_to%>')
+<% else %>
+	$('ul.list_of').append('<% notification_li_tags(@notifications) %>')
+	<% if @page <= @page_no %>
+		$(".nextPage").attr('href', '/?page=<%= @page.to_s%>&search[date]=<%= @search %>&search[date_from]=<%=@date_from%>&search[date_to]=<%=@date_to%>')
+	<% else %>
+		$(".nextPage").hide()
+	<% end %>
+<% end %>

@@ -1,0 +1,82 @@
+/*@group calendar*/
+.calender_month .calendar {
+	/*overflow: hidden;*/
+}
+.calender_month .cal_row {
+	/*overflow: hidden;*/
+}
+.calender_month .cal_row > div {
+	width: 14%;
+	height: 100px;
+	float: left;
+	display: block;
+	background: #fff;
+	border-bottom: 1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	position:relative;
+}
+.calender_month .cal_row > div:hover {
+	cursor: pointer;
+	background: #f9f9f9;
+}
+.calender_month .day_names.cal_row > div {
+	background: none;
+	font-weight: bold;
+}
+.calender_month .day_names.cal_row > div:hover {
+	cursor: inherit;
+}
+.calender_month .cal_row > div:first-child,
+.calender_month .cal_row > div:nth-child(7n+8) {
+	border-left: 1px solid #e6e6e6;
+}
+.calender_month .day_names.cal_row > div {
+	height: auto;
+	text-align: center;
+	font-weight: bold;
+	padding: 5px 0;
+	border-right-color: #fff;
+	border-left-color: #fff;
+	background-color:#737577;
+	color:#ffffff;
+}
+.calender_month .cal_row .has_event {
+	background: #f9f9f9;
+}
+.calender_month .cal_row > div i {
+	padding: 2px 4px 0 0;
+	display: block;
+	text-align:right;
+	font-weight:bold;
+	color: #222;
+}
+.calender_month .cal_row > .prev_month i a,
+.calender_month .cal_row > .next_month i a {
+	color: #999 !important;
+}
+.calendarView table td.prev_month a{color: #999 !important;}
+.calender_month .cal_row > div a {
+	font-size: 11px;
+	padding:0 0 0 5px;
+	line-height: 6px;
+	/*background:url(../images/icon_round.png) no-repeat 5px center;*/
+}
+.calender_month .cal_row > div i a:hover {
+    color: #23b0d8 !important;
+}
+
+.week_event .week_event_head li b a:hover {
+    color: #23b0d8 !important;
+}
+@media only screen and (max-width: 600px) {
+	.day_names.cal_row > div span {
+		display: none;
+	}
+	.cal_row > div {
+		height: 60px;
+	}
+}
+/*@end calendar*/

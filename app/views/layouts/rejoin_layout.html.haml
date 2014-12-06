@@ -1,0 +1,15 @@
+!!! 5
+%html
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0", name: "viewport"}/
+    %title Yestrak
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = favicon_link_tag 'favicon.ico' 
+    = csrf_meta_tags
+  %body
+    %section.page-wrap
+      = render "layouts/header" unless (["devise/sessions", "devise/passwords", "devise/confirmations", "confirmations"].include? params[:controller]) || (params[:controller].eql?("users") && params[:action].eql?("new"))
+      = yield
+    = render 'layouts/footer'

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  business: 
+  calendar: 
+  status: MyString
+  xps_phone: MyString
+  campaign_id: MyString
+  is_deleted: false
+  has_audio: false
+
+two:
+  tenant: 
+  business: 
+  calendar: 
+  status: MyString
+  xps_phone: MyString
+  campaign_id: MyString
+  is_deleted: false
+  has_audio: false

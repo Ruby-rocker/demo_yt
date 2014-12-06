@@ -1,0 +1,39 @@
+%section.page_title
+  Calendars
+
+%section.businesses
+  %section.company_of_businesses
+    - if @calendars.present?
+      %div.head
+        %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+          %tr
+            %td.header_name Calendar Name
+            %td.header_actions
+              %span.ed_calendar Edit/Delete
+      - @calendars.each do |c|
+        %div.companys
+          %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+            %tr
+              %td.company_name{width: "72%"}
+                = c.name
+              %td{width: "18%"}
+                = link_to "Edit", edit_settings_calendar_path(c), class: "eidt"
+              %td{width: "10%"}
+                - if c.name != "General"
+                  = link_to (image_tag "btn_close@2x.png", width: "19", height: "19", alt: ""), settings_calendar_path(c), confirm: "Are you sure you want to delete this calendar?", method: :delete
+                - else
+                  %span{style: 'margin-right:19px;'}
+    - else
+      %div.head
+        %div.companys
+          %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+            %tr
+              %td.company_name{width: "72%", align: :center}
+                %span
+                  No Record Found
+    %div.add_new_business
+      %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+        %tr
+          %td.label{width: "72%"} Add New Calendar
+          %td{width: "28%"}
+            = link_to "Add", new_settings_calendar_path, class: "add", style: 'margin-right:19px;'

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  name: MyString
+  color: MyString
+  timezone: MyString
+  apt_length: MyString
+
+two:
+  tenant: 
+  name: MyString
+  color: MyString
+  timezone: MyString
+  apt_length: MyString

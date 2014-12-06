@@ -1,0 +1,37 @@
+%h1
+  = raw params[:h1_tag]
+  -#Displaying results for >>
+  -#%span 646
+  -#in
+  -#%span United States
+%ul
+  - if @numbers.any?
+    - @numbers.each do |number|
+      %li
+        .result_punber
+          = print_phone_line(number.friendly_name)
+          %span
+            %i
+              +1
+              = highlight_number(number.phone_number[2..-1], params[:area_code], params[:keyword])
+            -#%b= "#{number.rate_center}, #{number.region}"
+        = form_for [:choose_number, :settings, phone_number] do |f|
+          = hidden_field_tag 'number[phone_line]', number.phone_number
+          = hidden_field_tag 'number[friendly_name]', number.friendly_name
+          = hidden_field_tag 'number[iso_country]', number.iso_country
+          = hidden_field_tag 'number[toll_free]', tollfree
+          .choose_number{class: swap ? 'btn_process_swap' : 'btn_choose' }
+            -#= f.submit swap ? 'PROCESS SWAP' : 'Choose', class: 'choose_disable', onclick: '$("input[type=submit]").attr("disabled", "disabled");'
+            = f.button swap ? 'PROCESS SWAP' : 'Choose', class: 'choose_disable', onclick: "$('button[type=submit]').attr('disabled', 'disabled');$(this).html('Please Wait...');this.form.submit();"
+  - else
+    %li
+      .btn_process_swap
+        Hmm, nothing matched your search.
+        %br
+          Try something more general.
+
+-#.btn_prev
+-#  %a{:href => "#"}
+-#    %span>
+-#      = image_tag "arrow_left.png"
+-#    Previous

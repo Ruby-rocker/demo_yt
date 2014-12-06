@@ -1,0 +1,5 @@
+- appointments_cal.each do |a|
+  - if !a[0].repeat? && curr_date - ActiveSupport::TimeZone.new(a[0].calendar.timezone.to_s).utc_offset == a[0].start_at
+    = link_to edit_appointment_path(a[0].id)+"?time="+time+"&type="+type, class: 'link fancybox.ajax fancybox', style: "color:#{a[0].calendar.color}" do
+      - if (a[0].contact_id).present?
+        = "#{a[0].contact.first_name[0,5] + ".."}#{a[0].start_at.in_time_zone(a[0].calendar.timezone.to_s).strftime('%l:%M%P %Z')}"

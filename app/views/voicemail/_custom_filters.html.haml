@@ -1,0 +1,8 @@
+%ul.dateRange
+  %li Date Range:
+  %li
+    = collection_select(:voicemail_records_search, :date, CustomFilter::DATE_RANGE, :first, :last, :include_blank => 'All', :selected => '')
+    %input#search_date_from{name: "search[date_from]", type: "hidden"}/
+    %input#search_date_to{name: "search[date_to]", type: "hidden"}/
+  %li
+    = link_to 'Custom Range', daterange_selector_voicemail_index_path, remote: 'true', class: 'view fancybox fancybox.ajax'

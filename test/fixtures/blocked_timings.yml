@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tanent_id: 1
+  calendar_id: 1
+  appt_time: 2014-01-03 11:24:33
+  appt_date: 2014-01-03
+
+two:
+  tanent_id: 1
+  calendar_id: 1
+  appt_time: 2014-01-03 11:24:33
+  appt_date: 2014-01-03

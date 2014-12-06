@@ -1,0 +1,2 @@
+module Partners::PartnerHelpsHelper
+end

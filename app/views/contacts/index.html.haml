@@ -1,0 +1,41 @@
+%section.page_subtitle
+  Contacts
+%section.container_wrapper
+  = form_tag contacts_path, :method => 'get', :remote => true, :class => "contact_search_form", :id => "contacts_search" do
+    %section.columns.clearfix
+      %section.column.col-34
+        %section.search_contant
+          = autocomplete_field_tag :search, params[:search], autocomplete_contact_first_name_contacts_path, :update_elements => {}, class: :input
+          = image_tag "search.png", class: 'search'
+  %section.columns.clearfix
+    %section.column.col-34
+      %section.listofContent
+        %section.tableofContent
+          %section.tableheadContent
+            .fullName
+              .firstNamne First Name
+              .lastName Last Name
+            .phoneNumber Phone Number
+            .actionButton View/Edit/Delete
+          %section.contacts_table_body
+            %ul#contacts
+              = render partial: 'contacts', locals: {contacts: @contacts}
+          #paginator
+            = paginate @contacts, :theme => 'my-theme', :remote => true
+    = render partial: 'right_contact', locals: {statuslabels: @status_labels, tags: @tags}
+  = hidden_field_tag :page_hidden, params[:page]
+  = hidden_field_tag :limit_hidden, params[:limit]
+
+:javascript
+  $(document).ready(function() {
+     var id = "#{@id}";
+     $("#contact_"+id).fancybox({
+                                 helpers : {
+                                   overlay: {
+                                     css: {
+                                       'background' : 'rgba(0,0,0, .5)'
+                                     } // css
+                                   } // overlay
+                                 } // helpers
+                               }).trigger('click');
+  });

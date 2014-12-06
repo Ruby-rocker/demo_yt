@@ -1,0 +1,157 @@
+%section.container
+  %section.page_title
+    Calendar Settings
+  %section.calendar_settings
+    = form_for @calendar, html: {id: :frm_save_calendar_settings, multipart: true}, url: path do |f|
+      = f.hidden_field :id
+      %section.columns.clearfix
+        %section.col-12.column
+          %section.calendarName
+            %label Calendar Name:
+            = f.text_field :name, placeholder: "Name"
+        %section.col-12.column
+          %section.calendarColor
+            %label Calendar Color:
+            %ul
+              - Contact::COLORS.each do |c|
+                %li
+                  %a{style: "background-color: #{c};cursor:pointer", id: "#{c}", onclick: "calendar_radio_button_selection(this.id, '#{c}')", class: @calendar.color == c ? "selected required" : "required"}
+                    = f.radio_button :color, c
+            %span.color_from_to_row.errorPlace
+      %section.timeZone.business
+        %label Business:
+        = f.select :business_id, @business.map{|business| [ business.name, business.id ]}
+
+      %section.timeZone
+        %label Time Zone:
+        = f.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones,{:default => 'Pacific Time (US & Canada)'}, class: 'selectBar', disabled: @calendar.appointments_present?
+      - index_hours = 0
+      %section.workingHours
+        %p Working Hours:
+        %section.workingHoursForm
+          = f.fields_for :calendar_hours do |ch|
+            - if @calendar_hours.present?
+              - if @calendar_hours[index_hours].hours_type == "hours"
+                = ch.hidden_field :hours_type, value: "hours"
+                %ul
+                  - CalendarHour::DAYS_NAME.each do |day_name|
+                    %li
+                      = check_box_tag "calendar[calendar_hours_attributes][0][week_days][]",day_name, @calendar_hours[index_hours].week_days.include?(day_name), class: "required"
+                      = label_tag day_name
+                %table.inputTime.datepair{border: "0", cellpadding: "0", cellspacing: "0"}
+                  %tr
+                    %td{width: "60"}
+                      = ch.text_field :start_time, placeholder: "9:00AM", class: "time start"
+                    %td{style: "text-align:center;", width: "50"} to
+                    %td{width: "60"}
+                      = ch.text_field :close_time, placeholder: "5:00PM", class: "time end"
+                %span NOTE: Only the Working Hours will be visible on the calendar.
+              - index_hours += 1
+            - else 
+              = ch.hidden_field :hours_type, value: "hours"
+              %ul
+                - CalendarHour::DAYS_NAME.each do |day_name|
+                  %li
+                    = check_box_tag "calendar[calendar_hours_attributes][0][week_days][]", day_name, class: "required"
+                    = label_tag day_name
+              %table.inputTime.datepair{border: "0", cellpadding: "0", cellspacing: "0"}
+                %tr
+                  %td{width: "60"}
+                    = ch.text_field :start_time, placeholder: "9:00AM", class: "time start"
+                  %td{style: "text-align:center;", width: "50"} to
+                  %td{width: "60"}
+                    = ch.text_field :close_time, placeholder: "5:00PM", class: "time end"
+              %span NOTE: Only the Working Hours will be visible on the calendar.
+        %a{href: "#"}
+          = image_tag "icon_help@2x.png", width: "20"
+      %section.appointmentLength
+        %label Appointment Length:
+        = f.select :apt_length, Calendar::APT_LENGTH.map{|key, value| [ value, key ]}, {default: "15 minutes"}
+      %section.appointmentWindow
+        %p Appointment Window(s):
+        - index = 0
+        - child_index = 0
+        = f.fields_for :calendar_hours do |ch|
+          - if @calendar_hours.present?
+            - if @calendar_hours[index].hours_type == "windows"
+              %section.appointmentRow
+                %section.formSection
+                  = hidden_field_tag "index_value", "#{index_hours + index}", class: "index_count"
+                  = ch.hidden_field :hours_type, value: "windows"
+                  %ul
+                    - CalendarHour::DAYS_NAME.each do |day_name|
+                      %li
+                        = check_box_tag "calendar[calendar_hours_attributes][#{index_hours + index}][week_days][]", day_name, @calendar_hours[index].week_days.include?(day_name), class: "required"
+                        = label_tag day_name
+                  %table.inputTime.datepair{border: "0", cellpadding: "0", cellspacing: "0"}
+                    %tr
+                      %td{width: "60"}
+                        = ch.text_field :start_time, placeholder: "9:00AM", class: "time start required"
+                      %td{style: "text-align:center;", width: "50"} to
+                      %td{width: "60"}
+                        = ch.text_field :close_time, placeholder: "5:00PM", class: "time end required"
+                  - if child_index == 0
+                    %a.action{"data-remote" => "true", href: "javascript:;", onclick: "add_appointment_detail()"}
+                      = image_tag "btn_plus@2x.png", width: "25"
+                      - child_index = 1
+                  - else 
+                    %a.action{"data-remote" => "true", href: "javascript:;", onclick: "remove_appointment_detail(this)"}
+                      = ch.hidden_field :id
+                      = image_tag "btn_close@2x.png", width: "25"
+            - index += 1
+          - else
+            %section.appointmentRow
+              %section.formSection
+                = hidden_field_tag "index_value", "1", class: "index_count"
+                = ch.hidden_field :hours_type, value: "windows"
+                %ul
+                  - CalendarHour::DAYS_NAME.each do |day_name|
+                    %li
+                      = check_box_tag "calendar[calendar_hours_attributes][1][week_days][]", day_name, class: "required"
+                      = label_tag day_name
+                %table.inputTime.datepair{border: "0", cellpadding: "0", cellspacing: "0"}
+                  %tr
+                    %td{width: "60"}
+                      = ch.text_field :start_time, placeholder: "9:00AM", class: "time start required"
+                    %td{style: "text-align:center;", width: "50"} to
+                    %td{width: "60"}
+                      = ch.text_field :close_time, placeholder: "5:00PM", class: "time end required"
+                %a.action{"data-remote" => "true", href: "javascript:;", onclick: "add_appointment_detail()"}
+                  = image_tag "btn_plus@2x.png", width: "25"
+        %span NOTE: Only the Appointments Windows will show as available times on the calendar.
+      %section.calendarCommenBox
+        %label Import a Calendar by uploading the file here:
+        %section.boxContent
+          %input{name: "file", type: "file"}/
+          %span NOTE: Acceptable format is .iCal
+        %a.halpLink{href: "#"}
+          = image_tag "icon_help@2x.png", width: "20"
+      %section.calendarCommenBox
+        %label Subscribe to a Calendar by using the following URL:
+        %section.boxContent
+          - if @calendar.calendar_auth_token.present?
+            = link_to ical_settings_calendars_path(:only_path => false, :protocol => "webcal")+"?auth="+"#{@calendar.calendar_auth_token}", ical_settings_calendars_path(:only_path => false,:protocol => "webcal")+"?auth="+"#{@calendar.calendar_auth_token}", target: "_blank", style: "color: #000000; text-decoration: underline;"
+          - else
+            = "No calendar is subscribed."
+        %a.halpLink{href: "#"}
+          = image_tag "icon_help@2x.png", width: "20"
+      %section.calendarCommenBox
+        %label This Calendar is currently synced with:
+        %section.boxContent
+          - if @calendar.google_authentication_name.present?
+            = @calendar.google_authentication_name + "'s Google Calendar"
+            = check_box_tag "cancel_sync"
+            = "Cancel this sync"
+          - else
+            =# link_to "Sync with Google Calendar", (STAGING_SERVER + "/auth/google_oauth2?state=#{@calendar.id},#{current_user.id}"), class: 'sync'
+            = link_to "Sync with Google Calendar", (APP_CONFIG['site_url'] + "/auth/google_oauth2?state=#{@calendar.id},#{current_user.id}"), class: 'sync'
+            =# "No calendar is synced yet."
+        %a.halpLink{href: "#"}
+          = image_tag "icon_help@2x.png", width: "20"
+      %section.form_action
+        %ul
+          %li
+            = link_to raw('<span>Previous</span>'), settings_calendars_path, :class => "prev_btn"
+          %li
+            = f.button "Save", onclick: "return frm_validate_calendar_settings()", disable_with: 'Wait..', :class => "save_btn"
+            =# f.submit "Save", onclick: "return frm_validate_calendar_settings()"

@@ -1,0 +1,69 @@
+%section.created_account_form
+  %section.page_title_step
+    %h3 HOW CAN WE HELP YOU?
+  %section.created_account_form_wrapper
+    %section.helpform_title_form
+      %h1 YesTrak Help Form
+      %h2 This form will help us route your Question to the appropriate department.
+      -if @help.errors.any?
+        #error_explanation
+          %ul
+            - @help.errors.full_messages.each do |msg|
+              %li= msg
+    %section.create_new_form
+      %ul
+        = form_for @help, html: {id: :form_save_help}, :url => { :action => :create, :controller => :help } do |f|
+          %li
+            %label.label
+              Question:
+              %span *
+            = f.text_field :question, class: :input
+          %li
+            %label.label
+              Details:
+              %span *
+            = f.text_area :details, rows: 0, cols: 0, class: :input
+            -#%p#instruct2.instruct
+            -#  %small Fill in the details of your question here. Please try to be as specific as possible. For example: "I need help syncing my iCal calendar with the YesTrak system."
+          %li
+            %label.label
+              First Name:
+              %span *
+            = f.text_field :first_name, class: :input
+          %li
+            %label.label
+              Last Name:
+              %span *
+            = f.text_field :last_name, class: :input
+          %li
+            %label.label
+              Phone Number:
+              %span *
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "189"}
+              %tr
+                %td{:style => "width:53px;"}
+                  = f.text_field :area_code, maxlength: 3, class: :phone_input
+                %td{:align => "center", :style => "width:10px; color:#23B0D8"} -
+                %td{:style => "width:53px;"}
+                  = f.text_field :phone1, maxlength: 3, class: :phone_input
+                %td{:align => "center", :style => "width:10px; color:#23B0D8"} -
+                %td{:style => "width:53px;"}
+                  = f.text_field :phone2, maxlength: 4, class: :phone_input
+              %tr
+                %td{:align => "center", :style => "width:36px; color:#23B0D8"} ###
+                %td{:align => "center", :style => "width:10px; color:#23B0D8"} &nbsp;
+                %td{:align => "center", :style => "width:36px; color:#23B0D8"} ###
+                %td{:align => "center", :style => "width:10px; color:#23B0D8"} &nbsp;
+                %td{:align => "center", :style => "width:36px; color:#23B0D8"} ####
+          %li
+            %label.label
+              Email:
+              %span *
+            = f.text_field :email, class: :input
+          %li.btn_signin
+            = f.button "Submit"
+
+  %section.help_number
+    %span.text WANT TO CALL US?
+    %span.number
+      = link_to "800-620-5877", "call:800-620-5877"

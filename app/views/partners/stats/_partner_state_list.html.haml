@@ -1,0 +1,31 @@
+=# partner_state(partner_state, uniques, commission)
+- $total = 0
+- $comm = 0
+- $total_click = 0
+- partner_state.each do |ps|
+  %section.recordingsbodytable.row
+    %section.col1 
+      = ps.updated_at.to_date
+    %section.col2 
+      = ps.clicks
+      - $total_click += ps.clicks.to_i 
+    %section.col3 
+      - uniques.each do |key, value|
+        - if key == ps.ip_address
+          = value
+          - $total += value.to_i
+    / %section.col4 
+    /   - commission.each do |comm|
+    /     - if ps.updated_at.to_date == comm.updated_at.to_date
+    /       = number_to_currency(comm.commission)
+    /       - $comm += comm.commission.to_i
+    /     - else
+    /       = ""
+%section.tfoot.row
+  %section.col1 TOTALS
+  %section.col2 
+    = $total_click
+  %section.col3 
+    = $total
+  / %section.col4 
+  /   = number_to_currency($comm)

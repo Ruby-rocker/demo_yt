@@ -1,0 +1,2 @@
+$(".statusTableBody").append("<%= escape_javascript(render('status_label'))%>")
+$(".rowWrap").first().find(".rowAction a").attr("href", "/settings/contacts/add_status_label?index="+<%= @index.to_i+1%>)

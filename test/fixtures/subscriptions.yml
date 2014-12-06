@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  plan_bid: MyString
+  status: MyString
+  user: 
+  subscribable: 
+  customer_id: MyString
+
+two:
+  tenant: 
+  plan_bid: MyString
+  status: MyString
+  user: 
+  subscribable: 
+  customer_id: MyString

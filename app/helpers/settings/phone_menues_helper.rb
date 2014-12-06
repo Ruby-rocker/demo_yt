@@ -1,0 +1,2 @@
+module Settings::PhoneMenuesHelper
+end

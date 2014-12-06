@@ -1,0 +1,42 @@
+%section.container_wrapper
+  %section.columns.clearfix
+    = render "header_calendar", path: calendars_path(calendar_id: params[:calendar_id])
+  .view_calendar_name
+    - if @cal_name.eql? "All"
+      = "#{@cal_name} Calendars"
+    - else
+      = "#{@cal_name} Calendar"
+  %section.columns.clearfix
+    %section.column.col-34#ajax_view
+      %section.calender_month
+        %table.month_title{border: "0", cellpadding: "0", cellspacing: "0", width: "98%"}
+          %tr
+            %td{height: "30", valign: "middle"}
+              = link_to image_tag("arrow_l_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), calendars_path((@date-1.month).year,(@date-1.month).month, calendar_id: params[:calendar_id])
+            %td{align: "center", height: "30", valign: "middle"}
+              = @date.strftime("%B %Y")
+            %td{align: "right", height: "30", valign: "middle"}
+              = link_to image_tag("arrow_r_gray@2x.png", size: "18x18", alt: "arrow_l_gray"), calendars_path((@date+1.month).year,(@date+1.month).month, calendar_id: params[:calendar_id])
+        .calendar
+          .day_names.cal_row
+            %div
+              Sunday
+            %div
+              Monday
+            %div
+              Tuesday
+            %div
+              Wednesday
+            %div
+              Thursday
+            %div
+              Friday
+            %div
+              Saturday
+          .cal_row
+            - @calendar.each do |cal|
+              - cal.each_pair do |day,month|
+                %div{class: "#{"prev_month" unless @date.month.eql?(month)}", "data-popup" => "appointment_details", id: "cal_cell_#{day.to_s + '_' + month.to_s}"}
+                  = render partial: 'appointment_month', locals: {calendar_id: @calendar_id, day: day, month: month}
+        .clear
+    = render :partial => "right_calendar", locals: {calendars: @calendars}

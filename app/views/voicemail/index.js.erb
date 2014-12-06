@@ -1,0 +1,11 @@
+$("#search_date_from").val("")
+$("#search_date_to").val("")
+<% if @recordings.present? %>
+	$('section.recordingsbodytable').html('<% voicemail_recording_inner_records(@recordings) %>')
+	$('#span_currenty_viewing').text('<%=@displaying_range %>')
+<% else %>
+	$('section.recordingsbodytable').html('<% voicemail_recordings_no_records %>')
+	$('#span_currenty_viewing').text('<%=@displaying_range%>')
+<% end %>
+
+// $('#span_currenty_viewing').append(<%=@displaying_range%>+"-"+<%= Time.new.strftime("%Y-%m-%d %H:%M:%S") %>)

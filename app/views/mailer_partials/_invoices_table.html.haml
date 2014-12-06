@@ -1,0 +1,23 @@
+%tr
+  %td
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr
+        %td{:colspan => "2", :style => "font:bold 15px Arial, Helvetica, sans-serif; color:#21afd7; text-transform:uppercase;"} Invoice:
+      %tr
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;", :width => "16%"} Transaction ID:
+        %td{:style => "font:normal 15px/25px Arial, Helvetica, sans-serif; color:#1e1e1f;", :width => "84%"}= @transaction.transaction_bid
+      %tr
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Plan ID:
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= @user.plan_bid
+      %tr
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Amount:
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= number_to_currency(@transaction.amount)
+      %tr
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Status:
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= @subscription.status
+      %tr
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Start Date:
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= @transaction.billing_period_start_date.strftime("%d %b %Y")
+      %t
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} End Date:
+        %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= @transaction.billing_period_end_date.strftime("%d %b %Y")

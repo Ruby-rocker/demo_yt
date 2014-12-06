@@ -1,0 +1,16 @@
+- @contacts.each do |contact|
+  %section.tablebodyContent{contact_id: contact.id}
+    %section.tablelineContent
+      .fullName
+        .firstNamne_new
+          = contact.first_name
+        .lastName_new
+          = contact.last_name
+      .phoneNumber_new
+        - if contact.phone_numbers.present?
+          = [contact.phone_numbers.first.area_code, contact.phone_numbers.first.phone1, contact.phone_numbers.first.phone2].join(".") 
+        - else
+          = '-'
+      .actionButton
+        = link_to "View Contact", edit_contact_path(contact), :class => "view fancybox fancybox.ajax", :id => "contact_#{contact.id}"
+        = link_to (image_tag "btn_close@2x.png", width: "19", onclick: "return warn_contact_del(#{contact.appointments.count}, #{contact.id})", class: 'button yellow'), "javascript:;", class: "btnDelete"

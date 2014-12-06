@@ -1,0 +1,28 @@
+%section.container_wrapper
+  %section.columns.clearfix
+    %section.column.col-34
+      %section.columns.clearfix
+        %section.column.col-12
+          = render partial: 'custom_filters'
+        / %section.column.col-12
+        /   = render partial: 'phone_script_filters'
+  %section.columns.clearfix
+    %section.recordings
+      = render partial: 'currently_viewing', locals: {displaying_range: @displaying_range}
+      %section.recordings_table
+        %section.recordingsheadtable
+          .threeColum
+            .play
+              = "Play"
+            .caller
+              = "caller"
+            .date_time
+              = "Date/Time"
+          .lenthcall
+            = "Length"
+          .phoneScriptCall
+            = "Voicemail"
+        = render partial: 'voicemail_recording_list', locals: {voicemail_recordings: @recordings}
+        #paginator
+          = paginate @recordings, :theme => 'my-theme', :remote => true
+        

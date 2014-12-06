@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  request: MyText
+  suggestion: MyText
+  reason_master: 
+  user: 
+
+two:
+  tenant: 
+  request: MyText
+  suggestion: MyText
+  reason_master: 
+  user: 

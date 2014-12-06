@@ -1,0 +1,15 @@
+#viewContactDetails
+  .viewContactDetails
+    .formNotes
+      %h1 ALL NOTES
+      - notes.each do |n|
+        %section.tablebodyContent{note_id: n.id}
+          .noteswrap
+            %a.btnDelete{href: "#"}
+              = link_to (image_tag "btn_close@2x.png", width: "19"), destroy_note_contacts_path(n), confirm: 'Are you sure you want to delete this note?', remote: true, class: 'button', style: "float:right;"
+            %p
+              = n.content
+            %span
+              = n.created_at.strftime('%B %-d, %Y')
+              %i
+                = n.full_name

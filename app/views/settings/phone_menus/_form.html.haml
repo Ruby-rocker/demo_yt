@@ -1,0 +1,92 @@
+/ bof page title
+%section.page_title
+  Phone Menu
+  / eof page title
+%section.phoneMenuSetting
+  = nested_form_for [:settings, @phone_menu], html: {id: :phone_menu_form} do |f|
+    %section.likeName
+      %h3 What business are your callers calling?
+      = f.collection_select :business_id, @businesses, :id, :name, prompt: 'Select business name'
+    %section.likeName
+      %h3 What would you like to name this phone menu?
+      = f.hidden_field :id
+      = f.text_field :name
+    %section.callersDirected
+      %h3 Where will callers be directed?
+      %section.tableCaller
+        %section.tableCallerTableHead
+          %ul
+            %li.phoneKey Phone Key
+            %li.depName Department Name
+            %li.depNumber Department Number
+        %section.tableCallerTableBody
+          - flag = true
+          #phone_number_fields
+            = f.fields_for :digit_keys, :wrapper => false do |digit_key|
+              .rowNumber.remove_digit_key
+                .phoneKey
+                  = digit_key.collection_select :digit, PhoneMenuKey::PHONE_KEY, :first, :last, {}, class: 'KeyDigit'
+                = digit_key.fields_for :phone_number, :wrapper => false do |phone_number|
+                  .depName
+                    = phone_number.text_field :name, class: 'DepName'
+                  .depNumber.phoneKey
+                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                      %tr
+                        %td.call15 (
+                        %td.call50
+                          = phone_number.text_field :area_code, class: 'inputBar DepNumber', maxlength: 3
+                        %td.call15 )
+                        %td.call50
+                          = phone_number.text_field :phone1, class: 'inputBar DepNumber', maxlength: 3
+                        %td.call15 -
+                        %td.call50
+                          = phone_number.text_field :phone2, class: 'inputBar DepNumber', maxlength: 4
+                        %td.call25{:align => "center"}
+                    %table
+                      %tr
+                        %td{:align => "center"}
+                          or
+                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                      %tr
+                        %td
+                          = digit_key.grouped_collection_select(:route_to, @routable, :last, :first, :last, :first, {include_blank: 'Please Select'}, {class: 'route_number'})
+                          - unless flag
+                            = digit_key.link_to_remove image_tag( "btn_close@2x.png", width: '19'), id: 'remove_digit_key'
+                          - flag = false
+          .rowNumber#digit_keys_fields_add_link{style: (@phone_menu.digit_keys.size >= PhoneMenu::TOTAL_DIGIT_KEYS) ? 'display: none' : ''}
+            = f.link_to_add image_tag( "btn_plus@2x.png", width: '19') + '<span>Add another phone key</span>'.html_safe,
+             :digit_keys, class: 'addNewKey', data: { target: "#phone_number_fields" }
+          .rowNumber
+            = f.fields_for :other_key, :wrapper => false do |other_key|
+              .phoneKey
+                %a.otherHelp{:href => "#"} Other
+              = other_key.fields_for :phone_number, :wrapper => false do |phone_number|
+                .depName
+                  = phone_number.text_field :name, class: 'DepName'
+                .depNumber
+                  %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                    %tr
+                      %td.call15 (
+                      %td.call50
+                        = phone_number.text_field :area_code, class: 'inputBar DepNumber', maxlength: 3
+                      %td.call15 )
+                      %td.call50
+                        = phone_number.text_field :phone1, class: 'inputBar DepNumber', maxlength: 3
+                      %td.call15 -
+                      %td.call50
+                        = phone_number.text_field :phone2, class: 'inputBar DepNumber', maxlength: 4
+                      %td.call25{:align => "center"} &nbsp;
+    %section.uploadAudio
+      %h3 Upload the audio file for your phone menu here:
+      = f.fields_for :audio_file do |audio|
+        %section.fileWrap
+          .audio_player
+            %audio#default_audio{:controls => "control", :preload => "none", :src => @phone_menu.audio_file.try(:record), :type => "audio/x-m4a"}
+          = audio.file_field :record, value: @phone_menu.audio_file.try(:record_file_name)
+          %span *Note: Acceptable formats are .wav or MP3 files.
+    %section.form_action
+      %ul
+        %li
+          = link_to raw("<span>Previous</span>"), settings_phone_menus_path, :class => "prev_btn"
+        %li
+          = f.button 'Save', disable_with: 'Wait..'

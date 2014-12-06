@@ -1,0 +1,75 @@
+!!! 5
+%html
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0", name: "viewport"}/
+    %title Yestrak
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = favicon_link_tag 'favicon.ico'
+    = csrf_meta_tags
+  %body#partner
+    %section.page-wrap
+      %header
+        %section.container.clearfix
+          %h1.logo
+            = link_to (image_tag 'partners/yestrak-logo.png', size: '171x41', alt: ''), root_path
+          %section.head_right
+            %a.toggleMenu{:href => "#"} Menu
+            %ul.nav
+              %li
+                -#%a{:href => "dashboard.html"} DASHBOARD
+                = link_to "DASHBOARD", partners_dashboard_index_path
+              %li
+                -#%a{:href => "stats.html"} STATS
+                = link_to "STATS", partners_stats_path
+              %li
+                -#%a{:href => "statements.html"} STATEMENTS
+                = link_to "STATEMENTS", partners_statements_path
+              %li
+                -#%a{:href => "account.html"} ACCOUNT
+                = link_to "ACCOUNT", partners_account_index_path(id: current_partner_master.id)
+              %li
+                -#%a{:href => "custome_links.html"} CUSTOM LINKS
+                = link_to "CUSTOM LINKS", partners_custom_links_path(id: current_partner_master.id)
+              %li.userInfo
+                %a{:href => "#"}= current_partner_master.first_name + ' ' + current_partner_master.last_name
+                %ul
+                  %li
+                    %a{:href => partner_users_edit_user_password_path } Change Password
+                  %li
+                    = link_to "Help", partners_partner_helps_path
+                  %li
+                    = link_to "Log Out", destroy_partner_master_session_path, method: :delete
+      %section.container
+        - if notice
+          %p.notice= notice
+        - if alert
+          %p.alert= alert
+        = yield
+    %footer.site-footer
+      %section.container
+        %section.left
+          %ul
+            %li
+              = image_tag 'footer-logo.png', width: '37', height: '35', alt: ''
+            %li.footer_links
+              -#%a{:href => "#"} DASHBOARD
+              = link_to "DASHBOARD", partners_dashboard_index_path
+              %span
+                |
+              -#%a{:href => "#"} STATS
+              = link_to "STATS", partners_stats_path
+              %span
+                |
+              -#%a{:href => "#"} STATEMENTS
+              = link_to "STATEMENTS", partners_statements_path
+              %span
+                |
+              -#%a{:href => "#"} ACCOUNT
+              = link_to "ACCOUNT", partners_account_index_path(id: current_partner_master.id)
+              %span
+                |
+              -#%a{:href => "#"} CUSTOM LINKS
+              = link_to "CUSTOM LINKS", partners_custom_links_path(id: current_partner_master.id)
+        %section.right &copy; 2013 All Rights Reserved.

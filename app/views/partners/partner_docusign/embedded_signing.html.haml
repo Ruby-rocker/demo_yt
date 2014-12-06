@@ -1,0 +1,23 @@
+-# DocuSign
+%iframe{:src => "#{@url['url']}", :width => "990", :height => "800"}
+
+-# EchoSign
+-#%script{:language => "JavaScript", :src => "https://secure.echosign.com/public/widget?f=8SQQLU4W5W3U4E", :type => "text/javascript"}
+
+-# HelloSign
+-#%script{:src => "//s3.amazonaws.com/cdn.hellofax.com/js/embedded.js", :type => "text/javascript"}
+-#:javascript
+-#  HelloSign.init("#{HelloSign.client_id}");
+-#  HelloSign.open({
+-#      url: "#{raw @sign_url}",
+-#      allowCancel: true,
+-#      skipDomainVerification: true,
+-#      messageListener: function(eventData) {
+-#          if (eventData.event == HelloSign.EVENT_SIGNED) {
+-#              document.location = "#{PARTNER_URL}partners/partner_docusign/docusign_response?event="+eventData["event"]+"&signature_id="+eventData["signature_id"]+"&signature_request_id="+"#{@signature_request_id}";
+-#          }
+-#          else if (eventData.event == HelloSign.EVENT_CANCELED) {
+-#            document.location = "#{PARTNER_URL}partners/partner_docusign/docusign_response?event="+eventData["event"]+"&signature_id="+eventData["signature_id"];
+-#          }
+-#      }
+-#  });

@@ -1,0 +1,190 @@
+- current_charges = 0
+- @billing_transactions.each do |billing_transaction|
+  - if !billing_transaction.amount.nil?
+    - current_charges += billing_transaction.amount
+%section.container
+  %section.invoiceWrapper
+    %section.invoiceHeader
+      .logoLeft
+        = image_tag "yestrak-logo.png", alt: "", width: "150"
+      .invoiceHeaderAddress One Meadowlands Plaza   |   Suite 200   |   East Rutherford, NJ 07073
+    %section.invoiceBody
+      %section.invoiceNumber
+        %div
+          = Date.today.strftime("%-m/%-d/%y")
+          %br
+            %span invoice #:
+            = @subscription.id
+      %section.invoiceAdd
+        %section.invoiceBill
+          .billLabel
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+              %tr
+                %td{:align => "center"} Bill to:
+                %td
+                  - @billing_info.each do |b|
+                    = b.first_name + " " + b.last_name
+                    %br
+                      = b.address.suite + " " + b.address.street
+                      %br
+                      = b.address.city + ', ' + b.address.state + ' ' + b.address.zip_code
+        %section.invoiceAccountBalance
+          .greyBG
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tr
+                %td.cal50{:rowspan => "13"} &nbsp;
+                %td &nbsp;
+                %td &nbsp;
+                %td.cal50{:rowspan => "13"} &nbsp;
+              %tr
+                %td{:colspan => "2"}
+                  %h3 INVOICE:
+              %tr
+                %td &nbsp;
+                %td &nbsp;
+              %tr
+                %td{:align => "left", :height => "25"} Current Charges
+                %td{:align => "right"}
+                  = "$ " + number_with_precision(current_charges,precision: 2).to_s
+              %tr
+                %td{:align => "left", :height => "25"} Taxes
+                %td{:align => "right"}
+                  = "0.00"
+              %tr
+                %td{:align => "left", :height => "25"} Amount Paid Automatically
+                %td{:align => "right"}
+                  = "$ " + number_with_precision(current_charges,precision: 2).to_s
+              %tr
+                %td{:align => "left", :height => "25"} Total Current Charges
+                %td{:align => "right"}
+                  = "0.00"
+              %tr
+                %td{:align => "left"} &nbsp;
+                %td{:align => "right"} &nbsp;
+              %tr
+                %td{:align => "left", :bgcolor => "#2e2e2e", :colspan => "2", :height => "2"}
+              %tr
+                %td{:align => "left"} &nbsp;
+                %td{:align => "right"} &nbsp;
+              %tr
+                %td.total{:align => "left", :height => "25"} ACCOUNT BALANCE:
+                %td.total{:align => "right"}
+                  = "$ " + number_with_precision(current_charges,precision: 2).to_s
+              %tr
+                %td{:height => "25"}
+                  = "as of " + Date.today.strftime("%-m/%-d/%y")
+                %td &nbsp;
+              %tr
+                %td &nbsp;
+                %td &nbsp;
+      %section.curentCharges
+        %h4 Current charges:
+        %section.curentChargesTable
+          %section.curentChargesTableHead
+            .cal30
+              .cal20 id
+              .cal80 Service item
+            .cal70
+              .cal25 Date Range
+              .cal25 Unit Price
+              .cal25 Quantity
+              .cal25 Total Due
+          %section.curentChargesTableBody
+            %section.curentChargesTableBodyRow
+              .cal30
+                .cal20
+                  = @subscription.id
+                .cal80
+                  = "Monthly Subscription"
+              .cal70
+                .cal25
+                  = @subscription.billing_period_start_date.strftime("%-m/%-d/%y") + "-" + @subscription.billing_period_end_date.strftime("%-m/%-d/%y")
+                .cal25
+                  = "$ 25.00"
+                .cal25 1
+                .cal25
+                  = "$ 25.00"
+            - curr_charge = 0
+            - if @billing_transactions.present?
+              - @billing_transactions.each do |billing_transaction|
+                %section.curentChargesTableBodyRow
+                  .cal30
+                    .cal20
+                      = billing_transaction.id
+                    .cal80
+                      = service_item(billing_transaction)
+                  .cal70
+                    .cal25
+                      - if billing_transaction.billing_period_start_date.present? && billing_transaction.billing_period_end_date.present?
+                        = billing_transaction.billing_period_start_date.strftime("%-m/%-d/%y") + "-" + billing_transaction.billing_period_end_date.strftime("%-m/%-d/%y")
+                      - else
+                        = "-"
+                    .cal25
+                      - if !billing_transaction.billable_type.nil? && billing_transaction.billable_type.include?("Tenant")
+                        = "$ " + number_with_precision(@subscription.price, precision: 2).to_s
+                      - else
+                        = "$ " + number_with_precision(billing_transaction.amount,precision: 2).to_s
+                    .cal25 1
+                    .cal25
+                      - if !billing_transaction.billable_type.nil? && billing_transaction.billable_type.include?("Tenant")
+                        = "$ " + number_with_precision(@subscription.price, precision: 2).to_s
+                      - else
+                        = "$ " + number_with_precision(billing_transaction.amount,precision: 2).to_s
+                  - if !billing_transaction.amount.nil?
+                    - curr_charge += billing_transaction.amount
+              - if @tenant_configs.present?
+                - @tenant_configs.each do |tenant_config|
+                  %section.curentChargesTableBodyRow
+                    .cal30
+                      .cal20
+                        = tenant_config.id
+                      .cal80
+                        - if tenant_config.discount_minutes.present?
+                          = 'Admin gave ' + tenant_config.discount_minutes.to_s + ' minutes'
+                        - else
+                          = 'Admin gave 0 minutes'
+                    .cal70
+                      .cal25 -
+                      .cal25 $ 0.0
+                      .cal25 -
+                      .cal25 $ 0.0
+          %section.curentChargesTableFooter
+            .cal60 Total Current Charges:
+            .cal40
+              = "$ " + number_with_precision(curr_charge,precision: 2).to_s
+      %section.curentCharges
+        %h4 Payment:
+        %section.curentChargesTable
+          %section.curentChargesTableHead
+            .cal25 Date
+            .cal25 Payment Type
+            .cal25 Details
+            .cal25 Amount
+          %section.curentChargesTableBody
+            %section.curentChargesTableBodyRow
+              .cal25
+                = Date.today.strftime("%-m/%-d/%y")
+              .cal25 Credit Card Charge
+              .cal25
+                - if !@last_4_details.nil?
+                  = "xxxxxxxxx" + @last_4_details
+              .cal25
+                = "$ " + number_with_precision(current_charges,precision: 2).to_s
+      %section.curentCharges
+        %h4 Aging Invoice Balance:
+        %section.curentChargesTable
+          %section.curentChargesTableHead
+            .cal16 CURRENT
+            .cal16 1-30 DAYS
+            .cal16 30-60 DAYS
+            .cal16 60-90 DAYS
+            .cal16 90-120 DAYS
+            .cal16 120+ DAYS
+          %section.curentChargesTableBody
+            %section.curentChargesTableBodyRow
+              .cal16 $0.00
+              .cal16 $0.00
+              .cal16 $0.00
+              .cal16 $0.00
+              .cal16 $0.00
+              .cal16 $0.00

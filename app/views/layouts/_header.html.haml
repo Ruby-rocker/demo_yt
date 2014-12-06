@@ -1,0 +1,46 @@
+%header
+  %section.container.clearfix
+    %h1.logo
+      = link_to (image_tag 'yestrak-logo.png', size: '171x41', alt: ''), root_path
+    - if service_user_signed_in?
+      %section.head_right
+        = link_to "Menu", '#', class: 'toggleMenu'
+        %ul.nav
+          %li
+            = link_to "Calendar", calendars_path
+          %li
+            = link_to "Contacts", contacts_path
+          %li.voicemail
+            = link_to "Recordings", call_recordings_path
+            %ul
+              %li
+                = link_to "Voicemail", voicemail_index_path
+          %li.userInfo
+            = link_to current_user.full_name, settings_dashboard_index_path
+            %ul
+              - if current_user.is_owner?
+                %li
+                  = link_to "My Account", edit_settings_user_path(current_user.id)
+              - if current_user.is_super_user?
+                %li
+                  = link_to "Settings", settings_dashboard_index_path
+              - if !current_user.is_owner?
+                %li
+                  = link_to "Change Password", users_edit_user_password_path
+              %li
+                = link_to "Help", help_index_path
+              %li
+                = link_to "Log Out", destroy_user_session_path, method: :delete
+              -#%li
+              -#  = link_to "800-483-9190",'call:800-483-9190'
+
+        %section.notification.notification_world
+          %a#notification_icon.notification_icon{href: '#'}
+            - if @unread_notice && !@unread_notice.zero? && current_user.is_super_user?
+              %span
+                = @unread_notice
+            = image_tag 'notification.png', alt: 'Notification'
+          %div#notification_panel.notification_wrapper
+            = image_tag "arrow_top.png", alt: "", class: "noti_top_arrow"
+            %ul#content_1
+              = unread_notifications(@notice_list) if current_user.is_super_user?

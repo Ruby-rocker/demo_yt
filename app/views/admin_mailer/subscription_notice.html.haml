@@ -1,0 +1,87 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+      %title YesTrak - Welcome
+      :css
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body, html {
+            background: #f2f2f2;
+            font: normal 14px Arial, Helvetica, sans-serif;
+        }
+    %body
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "background:#f2f2f2; text-align:center;", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+            = render partial: 'mailer_partials/email_header'
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width:800px; margin:0 auto;"}
+                  %tr
+                    %td{:style => "height:45px; line-height:0; font-size:0;"}
+                  %tr
+                    %td{:style => "background:#ffffff; text-align:center;"}
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                        %tr
+                          %td{:style => "width:27px;"}
+                          %td{:style => "width:70px; vertical-align:top;"}
+                            %img{:alt => "", :src => "#{APP_CONFIG['image_url']}icon_01.png", :width => "70"}/
+                          %td{:style => "width:32px;"}
+                          %td{:style => "width:644px; vertical-align:top; text-align:left;"}
+                            - if @user.tenant.plan_bid == "pay_as_you_go"
+                              - plan_name = "Pay As You Go"
+                            - elsif @user.tenant.plan_bid == "200minutes"
+                              - plan_name = "200 Minutes per Month"
+                            - elsif @user.tenant.plan_bid == "500minutes"
+                              - plan_name = "500 Minutes per Month"
+                            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                              %tr
+                                %td{:style => "font:normal 25px Arial, Helvetica, sans-serif; color:#21afd7; text-transform:uppercase;"} Welcome
+                              %tr
+                                %td{:style => "font:italic 14px Arial, Helvetica, sans-serif; color:#a1c53e;"}= @user.created_at.in_time_zone(@user.tenant.timezone).strftime("%B %d, %Y at %l:%M%P")
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  Congratulations on signing up for YesTrak with
+                                  %span{style: "font-weight: bold;"}
+                                    #{plan_name}
+                                  plan.
+                              %tr
+                                %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  = link_to 'Login as Admin', ADMIN_URL, style: "color:#21afd7; text-decoration:underline;"
+                              %tr
+                                %td{:style => "height:50px; line-height:0; font-size:0;"}
+                              %tr
+                                %td
+                                  %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                                    %tr
+                                      %td{:colspan => "2", :style => "font:bold 15px Arial, Helvetica, sans-serif; color:#21afd7; text-transform:uppercase;"} User Information:
+                                    %tr
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;", :width => "16%"} ID:
+                                      %td{:style => "font:normal 15px/25px Arial, Helvetica, sans-serif; color:#1e1e1f;", :width => "84%"}= @user.id
+                                    %tr
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Name:
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= @user.first_name + ' ' + @user.last_name
+                                    %tr
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Email:
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                        %a{:href => "mailto:#{@user.email}", :style => "color:#1e1e1f; text-decoration:underline;"}= @user.email
+                                    %tr
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Status:
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= @user.tenant.status
+                                    %tr
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"} Plan:
+                                      %td{:style => "font:normal 15px/22px Arial, Helvetica, sans-serif; color:#1e1e1f;"}= plan_name
+                              = render partial: 'mailer_partials/dotted_line'
+                              = render partial: 'mailer_partials/tag_line'
+                              = render partial: 'mailer_partials/social_links'
+                          %td{:style => "width:27px;"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                  = render partial: 'mailer_partials/unsubscribe_line'

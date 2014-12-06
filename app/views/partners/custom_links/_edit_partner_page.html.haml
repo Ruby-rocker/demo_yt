@@ -1,0 +1,9 @@
+#partner
+  .editpartnerpage
+    = form_for :partnerlanding, url: edit_partner_page_partners_custom_links_path do |f|
+      .currentPackage
+        Edit the copy for your partner page below and hit the UPDATE button:
+      %span
+        = f.cktext_area :content, :rows => 22, :value => @partner_landing.content, :cols => 10, :class => "ckeditor", :ckeditor => {:toolbar => "LandingPage"}
+      .btnSubmit
+        = f.button "UPDATE", disable_with: 'Wait..'

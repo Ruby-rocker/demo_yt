@@ -1,0 +1,4 @@
+%ul.actionType
+  %li Phone Scripts:
+  %li
+    = collection_select(:call_record_search, :phone_script, Recording.all_phone_script_names, :name, :name, :include_blank => 'All', :selected => '')

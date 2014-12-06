@@ -1,0 +1,66 @@
+%section.bigAns
+  %section.bigavtar
+    = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      Hello, my name is (xxxxxx), and my job is to get you scheduled for your
+    = f.text_field :appointment_type, placeholder: 'INSERT APPOINTMENT TYPE HERE.'
+    %b &rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please start with your phone number in case we get disconnected?&rdquo;
+    %input.sm_input{:disabled => '', :type => 'text', :value => 'CALLER PROVIDES PHONE NUMBER'}
+      %span &ldquo;Thank you.&rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please have your first name?&rdquo;
+    %input.sm_input{:disabled => '', :type => 'text', :value => 'CALLER PROVIDES FIRST NAME'}
+      %span &ldquo;Thank you.&rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please have your last name?&rdquo;
+    %input.sm_input{:disabled => '', :type => 'text', :value => 'CALLER PROVIDES LAST NAME'}
+      %span &ldquo;Thank you.&rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+  %section.andInput
+    %span &ldquo;What day were you looking to schedule your
+    %input{:disabled => '', :type => 'text', :value => @phone_script.appointment_type || 'APPOINTMENT TYPE.'}
+      %b &rdquo;
+  .clear
+%section.calendarAppoin
+  %section.bigAns
+    %section.andInput
+      %label
+        Please choose a calendar to book these appointments on:
+        = link_to 'Please create calendar for the business:', settings_calendars_path if @calendars.blank?
+      = f.collection_select :calendar_id, @calendars, :id, :name, prompt: 'Select calendar'
+    .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+  %section.andInput
+    %span &ldquo; Thank you. You are all set for (day/time). My name is (xxxxxx), and it’s been a pleasure assisting you. Is there anything else I can do for you today? Thanks for calling and have a great day! &rdquo;
+  .clear
+%section.bigAns
+  %section.andInput
+    %label Are there any key alerts our agents should be aware of?
+    = f.text_field :buss_alerts, placeholder: 'INSERT KEY BUSINESS ALERTS HERE'
+  .clear
+%section.bigAns
+  %section.andInput
+    %label How should our agents handle any objection a caller may raise?
+    = f.text_area :caller_objection, placeholder: 'INSERT THE EXACT RESPONSE DESIRED HERE.'
+  .clear

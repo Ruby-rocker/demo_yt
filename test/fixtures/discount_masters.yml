@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  coupon_code: MyString
+  partner: 
+  active: false
+  notes: MyText
+  duration: MyString
+
+two:
+  coupon_code: MyString
+  partner: 
+  active: false
+  notes: MyText
+  duration: MyString

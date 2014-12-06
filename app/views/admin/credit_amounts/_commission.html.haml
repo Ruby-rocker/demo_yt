@@ -1,0 +1,7 @@
+= semantic_form_for @commission, :url => save_correction_commissions_path, :method => :post do |f|
+  = f.inputs do
+    = f.hidden_field :commission_id, :value => @commission_id
+    -#= f.input :amount
+    = f.input :adjustment, :as => :number, :input_html => { :min => 0, max: 9999 }
+  = f.actions
+  = link_to 'Cancel', commissions_path

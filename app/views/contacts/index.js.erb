@@ -1,0 +1,2 @@
+$('#contacts').html("<%=j render partial: 'contacts', locals: {contacts: @contacts} %>");
+$('#paginator').html('<%= escape_javascript(paginate(@contacts, :theme => "my-theme", :remote => true).to_s) %>');

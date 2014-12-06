@@ -1,0 +1,10 @@
+<html>
+<%= link_to content_tag(:h2, "Add New Contact"), new_contact_path, :class => "view fancybox fancybox.ajax" %>
+<%=  = link_to "Status", "#" %>
+<% @status_labels.each do |status| %>
+
+    <%= status.name %>
+    
+<% end %>
+<%=  = link_to "Tags", "#" %>
+</html>

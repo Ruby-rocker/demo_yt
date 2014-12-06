@@ -1,0 +1,26 @@
+%section.column.col-34
+  %section.columns.clearfix
+    %section.column.col-12
+      %section.search_contant
+        = form_tag path, :method => 'get' do
+          = text_field_tag :appointment_search_date, params[:appointment_search_date], class: 'input'
+          - if params[:calendar_id].kind_of?(Array) && params[:calendar_id].present?
+            - params[:calendar_id].each do |calendar_id|
+              = hidden_field_tag "calendar_id[]", calendar_id
+          - else
+            = hidden_field_tag :calendar_id, params[:calendar_id]
+          = image_submit_tag "search.png", class: 'search'
+    %section.column.col-12
+      %ul.selectCalendarView
+        %li
+          = link_to "Day", daily_path(calendar_id: params[:calendar_id])
+        %li
+          = link_to "Week", weekly_path(calendar_id: params[:calendar_id])
+        %li
+          = link_to "Month", calendars_path(calendar_id: params[:calendar_id])
+        %li
+          = form_for :calendar, url: appoint_view_calendars_path do
+            = select_tag("view_type", options_for_select(["Month" , "Week"], params[:view_type]), { prompt: 'List View', class: 'selectBar', onchange: "this.form.submit();"})
+        / %li
+        /   %select{name: ""}
+        /     %option More

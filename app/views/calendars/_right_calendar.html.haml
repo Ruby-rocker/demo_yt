@@ -1,0 +1,41 @@
+%section.column.col-14
+  %div
+    - if params[:calendar_id].present?
+      - calendar_id = params[:calendar_id]
+    - else
+      - calendar_id = 0
+
+  %div{id: "dialog-confirm", title: "Confirm sync cancellation", style: "display: none;"}
+    %p
+      %span{class: "ui-icon ui-icon-alert", style: "float: left; margin: 0 7px 130px 0;"}
+      Are you sure you want to stop syncing
+      %span{style: "font-weight: bold;"}
+        - if @synced_cal.present?
+          #{@synced_cal.google_authentication_name} 
+      with your YesTrak calendar? <br /><br />
+      YesTrak will no longer automatically see new data added to the Google calendar currently set to sync, or vice-versa, if you continue with this process. Please be sure this is what you want; this step is final and irreversible.
+  %section.syncCalenderSidebar
+    %ul
+      %li
+        = link_to "View All Calendars", "javascript:;", onclick: "select_all_calendar()"
+      = form_tag list_calendars_appointments_calendars_path, id: "calendar_form" do |f|
+        = hidden_field_tag "action_type", params[:action]
+        = hidden_field_tag "appointment_search_date", params[:appointment_search_date]
+        = hidden_field_tag "appointment_date", params[:date]
+        - calendars.each do |calendar|
+          = fields_for "calendars[#{calendar.id}]", calendar do |cal|
+            %li
+              = cal.check_box :id, checked: @calendar_id.include?(calendar.id.to_s) ? true : false, value: calendar.id, class: "view_cal calendar_selector", onclick: "submit_for_appointments()"
+              %label{for: 'calendars_'+"#{calendar.id}"+'_id',style: "background-color:#{calendar.color};margin:12px 5px;"}
+                %span
+              - if params[:appointment_search_date]
+                = calendar_checkbox(calendar, params[:appointment_search_date])
+              - else
+                = calendar_checkbox(calendar)
+
+              %span
+                - if params[:calendar_id].present? && @calendar_id.include?(calendar.id.to_s)
+                  - if !calendar.google_authentication_token.nil?
+                    =# link_to "Sync with #{calendar.google_authentication_name}", ("http://#{current_tenant.subdomain}.yestrak.com" + "/auth/google/callback?state=#{calendar.id},#{current_user.id}"), class: 'sync'
+                    = link_to "Sync with #{calendar.google_authentication_name}", (APP_CONFIG['site_url'] + "/auth/google_oauth2?state=#{calendar.id},#{current_user.id}"), class: 'sync'
+                    -#= link_to "Cancel sync with #{calendar.google_authentication_name}", "javascript:void(0);", class: 'sync_icon_cancel sync_cancel', id: 'cancel_google_sync'

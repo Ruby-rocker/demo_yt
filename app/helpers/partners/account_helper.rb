@@ -1,0 +1,2 @@
+module Partners::AccountHelper
+end

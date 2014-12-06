@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  calendar: 
+  type: 
+  week_days: MyString
+  start_time: MyString
+  close_time: MyString
+
+two:
+  tenant: 
+  calendar: 
+  type: 
+  week_days: MyString
+  start_time: MyString
+  close_time: MyString

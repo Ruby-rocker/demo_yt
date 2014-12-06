@@ -1,0 +1,41 @@
+/ bof page title
+%section.page_title_step
+  %h2 STEP 2 of 4:
+  %h3 the phone number
+/ eof page title
+/ bof pick number Boxes
+%section.pick-number
+  %section.current_number
+    %label The current phone number for this script is:
+    = text_field_tag nil, @twilio_number.try(:print_phone_line), disabled: true
+  %section.swap_number
+    %span Do you need to swap out this phone number?
+    %ul
+      %li
+        = radio_button_tag(:phone_number_swap, 'false', true)
+        = label_tag(:phone_number_swap_false, 'No')
+      %li
+        = radio_button_tag(:phone_number_swap, 'true')
+        = label_tag(:phone_number_swap_true, 'Yes')
+  %p.pnBox
+    If yes, please pick a new phone number for this script:
+    -#%span (This is where callers will be routed to hear your voicemail box).
+  = render partial: 'settings/shared/search_number', locals: {phone_number: @phone_script, toll_free: @toll_free, swap: true}
+  / bof Displaying results
+  %section.displaying_results#displaying_results_local
+  %section.displaying_results#displaying_results_tollfree
+    -#= render partial: 'settings/shared/number_list', locals: {swap: true}
+  / eof Displaying results
+  / eof pick number Boxes
+%section.form_action
+  %ul
+    %li
+      = link_to raw('<span>Previous</span>'), edit_settings_phone_script_path(@phone_script), :class => "prev_btn"
+    %li
+      = link_to raw('<span>Next</span>'), set_script_settings_phone_script_path(@phone_script), :class => "next_btn"
+/ eof container
+
+:javascript
+  $(document).ready(function() {
+    $("div#tab-container :input").attr("disabled", $('input#phone_number_swap_false').is(':checked'));
+  });

@@ -1,0 +1,23 @@
+/ bof page title
+%section.page_title phone scripts
+/eof page title
+
+/ bof Voicemail Boxes
+%section.voicemail-boxes
+  %p.vmBox Here is a list of your current phone scripts:
+  %section.list_voicemail
+    %section.table_head
+      %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+        %tr
+          %th{width: "32%"} phone script Name
+          %th{width: "37%"} Phone Number
+          %th{width: "31%"} Edit/Delete
+    = render partial: 'settings/shared/index_table', locals: {phone_numbers: @phone_scripts}
+    %section.table_body
+      %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+        %tr
+          %td.menuName{width: "32%"} Add New phone script
+          %td{width: "37%"} &nbsp;
+          %td{width: "31%"}
+            = link_to "Add", new_settings_phone_script_path, class: "add", data: { confirm: 'Are you sure want to add Phone Script?' }
+/ eof Voicemail Boxes

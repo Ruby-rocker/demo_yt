@@ -1,0 +1,117 @@
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.css.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+// Overriding any non-variable SASS must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   body.active_admin {
+//      .status_tag { background: #6090DB; }
+//   }
+//
+// Notice that Active Admin CSS rules are nested within a
+// 'body.active_admin' selector to prevent conflicts with
+// other pages in the app. It is best to wrap your changes in a 
+// namespace so they are properly recognized. You have options
+// if you e.g. want different styles for different namespaces:
+//
+// .active_admin       applies to any Active Admin namespace
+// .admin_namespace    applies to the admin namespace (eg: /admin)
+// .other_namespace    applies to a custom namespace named other (eg: /other)
+
+.footer {
+	display: none;
+}
+
+.ck_box_page {
+	color: #5E6469;
+	display: block;
+	float: left;
+	font-size: 1em !important;
+	font-weight: bold !important;
+	width: 20%;
+	padding-left:10px !important;
+}
+
+.table_tools {
+	display: none !important;
+}
+
+body.active_admin {
+  .cke_top {padding: 6px 8px 2px;}
+  .cke_toolgroup {margin: 0 6px 5px 0;}
+  .cke_toolbar {
+    .cke_button {
+      padding: 4px 6px;
+    }
+  }
+  .cke_toolbar_separator{margin: 5px 2px 0;}
+  .cke_dialog {width: auto;}
+  .cke_dialog_tabs {margin: 5px 0 0;}
+  a.cke_dialog_tab {padding: 4px 8px;margin-right: 3px;outline: none;border: 1px solid #BFBFBF;}
+  .cke_dialog_contents {border-top: 1px solid #BFBFBF; margin-top: 30px;padding: 15px 10px 5px;width: auto;}
+  .cke_dialog_footer_buttons{margin: 5px; width: auto;vertical-align: middle;}
+  a.cke_dialog_ui_button {padding: 3px 0;}
+  span.cke_dialog_ui_button {padding: 0 12px;}
+}
+
+body.active_admin body {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cke_chrome {
+  width: 76% !important;
+  overflow: hidden;
+}
+body.active_admin #header ul.tabs > li a {
+    border-radius: 10px;
+    padding: 6px 3px 4px;
+    position: relative;
+    text-decoration: none;
+}
+body.active_admin #header {
+    background: -moz-linear-gradient(-90deg, #6A7176, #4D5256) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #44484B;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+    height: 22px;
+    overflow: visible;
+    padding: 25px 30px;
+    position: inherit;
+    text-shadow: 0 1px 0 #000000;
+    z-index: 900;
+}
+.search_contant .input{
+  border:#a09d9d solid 1px;
+  float:left;
+  border-right:0;
+  padding:0 !important;
+  height:29px;
+  margin:0;
+  -moz-box-shadow:inset 0 0 5px #cccccc;
+  -webkit-box-shadow:inset 0 0 5px #cccccc;
+  box-shadow:inset 0 0 5px #cccccc;
+  -webkit-padding-after: 0.55em;
+
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+}
+body.active_admin form input[type=text] {
+  width: 56%;
+  border: 1px solid #99a2aa;
+  box-shadow: 0 0 4px #99a2aa;
+  -moz-box-shadow: 0 0 4px #99a2aa;
+  -webkit-box-shadow: 0 0 4px #99a2aa;
+}

@@ -1,0 +1,39 @@
+%section.container
+  %section.container_wrapper.graphpage
+    %section.columns.clearfix
+      %section.column.col-34
+        %section.columns.clearfix
+          %ul.dateRange
+            %li Select the period you want to view:
+            %li
+              = render partial: 'custom_filters'
+      %section.column.col-14.balance_info
+        %section
+          %label Your Current Balance:
+          - if $total_commi1.present? 
+            = number_to_currency($total_commi1.to_i + $paid_bonus.to_i)
+          - else
+            $0.00
+        %section
+          %label Amount Paid To Date:
+          - if $total_paid2.present? 
+            = number_to_currency($total_paid2.to_i + $total_bonus.to_i)
+          - else
+            $0.00
+    %section.columns.clearfix
+      %section.whitebox
+        %section.graph_table.balance.clearfix
+          %section.recordingsheadtable.thead.row
+            %section.col1 PAID
+            %section.col2 DATE
+            %section.col3 SALE
+            %section.col3 TYPE
+            / %section.col4 COMMISION
+            %section.col4 ADJUSTMENT
+            %section.col5 PAYMENT
+            %section.col6 OWED
+            %section.col7 PAID
+          - if @statement.present?
+            = render partial: 'partner_statement_list'
+          - else
+            = render partial: 'partner_statement_not_found'

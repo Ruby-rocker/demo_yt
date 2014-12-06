@@ -1,0 +1,13 @@
+= form_tag change_tenant_tenants_path, :method => :get do
+	%section.columns.clearfix
+		%section.column.col-34
+			%section.search_contant	
+				= autocomplete_field_tag :search, params[:search], autocomplete_tenant_subdomain_tenants_path, :update_elements => {}, class: :input, selected: session[:selected_tenant]
+				= button_tag(image_tag("search.png", style: "height: 22px; vertical-align: middle;"), class: "search")
+%form#q_search.filter_form{"accept-charset" => "UTF-8", action: "/tenants/change_tenant", method: "get", onsubmit: "return chkTenant();"}
+	.filter_form_field.search_contant
+		.select
+			= collection_select :tenant, :subdomain, Tenant.confirmed, :subdomain, :title, {prompt: 'Select Tenant', selected: session[:selected_tenant]}
+		%br
+		.actionButton
+			= submit_tag(value = "Activate")

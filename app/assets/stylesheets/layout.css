@@ -1,0 +1,561 @@
+@charset "utf-8";
+
+/*********************************************/
+/* content columns                           */
+/*********************************************/
+.columns {position: relative; overflow: hidden;}
+.column{position: relative; float: left; padding: 0; margin: 0 4% 0 0;}
+.columns > .column {margin: 0 0 0 4%}
+.columns > .column:first-child,	.column.no-margin, .column.first {margin: 0}
+.column.last {margin-right: 0 !important}
+.column.last + * {clear: both}
+
+.columns.count-2 > div,	.columns.count-2 > .column, .col-12 {width: 48%}
+.columns.count-3 > div, .columns.count-3 > .column, .col-13 {width: 30.6%}
+.col-23 {width: 65.2%}
+
+.col-3{width:33.3%; margin-left:0 !important;}
+
+.columns.count-4 > div, .columns.count-4 > .column, .col-14 {width: 22%}
+.col-34 {width: 74%}
+
+.col14 {width: 25%; margin:0 !important;}
+.col34 {width:78%; margin:0 !important;}
+.col44 {width: 22%; margin:0 !important;}
+
+.columns.count-5 > div, .columns.count-5 > .column, .col-15 {width: 16.8%}
+.col-25 {width: 37.6%}
+.col-35 {width: 58.4%}
+.col-45 {width: 79.2%}
+
+.columns.count-6 > div, .columns.count-6 > .column, .col-16 {width: 13.3%}
+.col-56 {width: 82.5%}
+.tab-pane .column.first { clear:left;}
+.layout-center{text-align:center;}
+
+/*jeet*/
+.add_new .btn_search{
+    /*display: inline-block;*/
+    font-size: 15px;
+    padding: 5px 25px;
+}
+.reset{
+	background: none repeat scroll 0 0 #23B0D8;
+  color: #FFFFFF;
+  display: inline-block;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  padding: 5px 25px;
+  text-align: center;
+  text-transform: uppercase;
+}
+/*Jeet*/
+
+@media only screen and (min-width: 1281px) {
+	.container{width:1160px; margin:0 auto;}
+}
+/** IPAD **/
+@media only screen and (max-width: 1024px) {
+	.container{width:960px; margin:0 auto;}
+}
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.container{width:750px; margin:0 auto;}
+	/**/
+	.loginBar{margin-bottom:25px;}
+	/**/
+	.tablefooterContent .tableFooterLeft{width:180px;}
+	.tablefooterContent .tableFooterRight{width:180px;}
+	/**/
+	ul.selectCalendarView li a{padding:3px 9px;}
+	ul.selectCalendarView li select{margin:0;}
+	/**/
+	.statusTable .statusTableBody .rowWrap .stSection{width:35%;}
+	.statusTable .statusTableBody .rowWrap .colorSection{width:50%;}
+
+	.tagTable .tagTableBody .rowWrap .stSection{width:35%;}
+	.tagTable .tagTableBody .rowWrap .colorSection{width:50%;}
+	/*Jeet*/
+	.add_new_contact{top:40px; left:-10px;}
+	.add_new_contact .action{
+		position:static; text-align:center; padding:10px 0 0 150px; margin:10px 0 0 0;
+		background:url(border_bottom.gif) repeat-x top left;
+	}
+	.custom_range_main .custom_range_popup { width:300px !important;}
+	.custom_range_main .custom_range_popup .custom_range_div_main label.label2 {
+	  font-weight: bold;font-size:12px;
+	  left: 65px;
+	  position: absolute;
+	  top: 295px;
+	}
+	.custom_range_main .custom_range_popup .custom_range_datepicker #custom_range_from{float: none;padding-bottom: 40px;}
+	.custom_range_main .custom_range_popup .custom_range_datepicker #custom_range_to{float: none;}
+	/*Jeet*/
+
+	/**/
+	.manageUsers .addUser form .inputBar{width:63%;}
+	.manageUsers .addUser form .inputBar input{width:44%;}
+	.manageUsers .manageUserTable .manageUserTablebody .row .rowName{width:30%;}
+	/**/
+	.calendar-apptview .availableAppointments .availableapptView li{margin:0 8px;}
+	/**/
+	.apptviewWeek .apptviewWeekTable .apptviewWeekbody li a b{display:block; float:none;}
+	.apptviewWeek .apptviewWeekTable .apptviewWeekbody li a i{float:none;}
+	/**/
+	.routingNotifications .monitoredCall .notification .right{width:90%;}
+	.routingNotifications .monitoredCall .ownAudio .right{width:90%;}
+	/**/
+	.callRecording .likeRecordedCall .likeCallTable .likeCallTableHead li{padding:3px 5px 3px 4px;}
+	/**/
+	.phoneMenuSetting .callersDirected .tableCaller .tableCallerTableHead li.depNumber{width:43%;}
+	/**/
+	.cancellationWrap{width:100%;}
+    .listofContent .tableofContent .fullName{width:44%;}
+    .listofContent .tableofContent .phoneNumber{width: 22%;}
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (max-width: 767px) {
+	.container{width:470px; margin:0 auto; /*background:blue;*/}
+	.columns > div,	.columns .column {width: 100% !important; margin-left: 0; margin-right: 0;}
+	.column + .column{margin-top: 20px}
+		/**/
+	.toggleMenu{margin:19px 10px 0 0;float:right;}
+	.nav{position:absolute; right:0px; background:#000000; width:10em;}
+	.head_right li{border-bottom:#666 solid 1px; border-right:0px; border-left:0px;}
+	.head_right li a{line-height:40px;}
+	.head_right li.userInfo{padding:0;}
+    .head_right li.userInfo a {line-height: 20px; padding-top: 15px; padding-bottom: 15px; margin-right: 5px;}
+	/**/
+	.site-footer .right{width:100%; float:none; text-align:center;}
+	.site-footer .left{width:100%;}
+	.site-footer .left ul{text-align:center;}
+	.site-footer .left li{display:inline-block; float:none; vertical-align:middle;} 
+	.site-footer .left li.footer_links{line-height:35px;}
+    .site-footer span{margin: 0px 5px;}
+	/**/
+	.business_info_form form .selectBar{width:92%; text-overflow: ellipsis;}
+	.business_info_form form .inputBar{width:89%;}
+	.business_info_form form .textareaBar{width:90%;}
+	/**/
+	.notification_wrapper .noti_top_arrow{right:58px;}
+	.notification_wrapper ul{width:310px;}
+	.notification_wrapper li{width:270px; border:0;}
+	/**/
+	.businesses{width:460px;}
+	/**/
+	ul.list_of li .list_of_info_date_time{float:none; text-align:left;}
+	ul.list_of li .list_of_info_date_time br{display:none;}
+	/**/
+	.loginBar{width:auto; margin-bottom:25px;}
+	/**/
+	.forgot_popup{width:300px;}
+	.created_account_form .created_account_form_wrapper{width:auto;}
+	/**/
+	.pick-number{width:100%;}
+	.tab-container .panel-container{width:auto;}
+	.search_phone_number_input{width:100%; margin:0 0 10px 0; overflow:hidden; float:none;}
+	.search_phone_number_input .phone_wrapper table{width:225px;}
+	.search_phone_number_input .phone_wrapper .area_code{width:50px;}
+	.search_phone_number_input .phone_wrapper .digits_phrases{width:155px;}
+		.search_phone_number_input .phone_wrapper .area_code input{width:40px;}
+	.search_phone_number_input .phone_wrapper .digits_phrases input{width:145px;}
+	.btn_search{width:100%;}
+	.area_code_notes{float:none; width:100%; padding:0; margin:0; background:none;}
+	.digits_phrases_notes{float:none; width:100%; padding:0; margin:0; background:none;}
+	/**/
+	.voicemail-boxes-edit .voicemail_name input{width:90%;}
+	.voicemail-boxes-edit .voicemail_recordings li input{width:80%;}
+	.voicemail-boxes-edit .voicemail_transcribed li{width:45%;}
+	.voicemail-boxes-edit .voicemail_upload .upload_file{width:100%;}
+    .voicemail-boxes-edit .voicemail_name select {width: 100%;}
+	.form_action li a{min-width:120px;}
+	.form_action li input{min-width:120px;}
+	.form_action li button{min-width:120px;}
+	/**/
+	.listofContent .tableofContent .tableheadContent{display:none;}
+	.listofContent .tableofContent .fullName{width:30%;}
+	.listofContent .tableofContent .fullName .firstNamne{width:100%; float:none;}
+	.listofContent .tableofContent .fullName .lastName{width:100%; float:none;}
+	.listofContent .tableofContent .phoneNumber{width:30%;margin-top: 10px;}
+	.listofContent .tableofContent .actionButton{float:right; margin:5px 0 0 0;}
+	/**/
+	.tablefooterContent .tableFooterLeft{float:left; width:50%; text-align:left;}
+	.tablefooterContent .tableFooterRight{float:right; width:50%; text-align:right; padding:0;}
+	.tablefooterContent .tableFooterMid{width:100%; padding:10px 0 0 0;}
+	/*Jeet*/
+	.add_new_contact{top:40px; left:-10px;}
+	.add_new_contact .add_new_popup{width:445px;}
+	.add_new_contact .action{
+	  position:static; text-align:center; padding:10px 0 0 150px; margin:10px 0 0 0;
+	  background:url(border_bottom.gif) repeat-x top left;
+	}
+  	/*Jeet*/
+	.viewContactDetails{width:375px; padding:10px;}
+	.viewContactDetails form li .input{width:225px;}
+	.viewContactDetails form li .input input{width:200px;}
+	.viewContactDetails form li .select{width:245px;}
+	.viewContactDetails form li .select select{width:213px;}
+	.viewContactDetails form li .phoneBar{width:225px;}
+
+	.viewContactDetails form li .event_time{width:110px !important;}
+	.viewContactDetails form li .event_time input{width:88px !important;}
+	.viewContactDetails form li .cls_to {float: left; width: 25px; margin-top: 5px}
+
+	/*tag input in contact new/edit */
+	.tag_input{
+		float: left !important;
+		width: 270px !important;
+	}
+	/**/
+	.viewContactDetails form .actionButton li{width: 105px;}
+	.viewContactDetails form .actionButton li button{font-size: 13px;}
+	.viewContactDetails form .actionButton li a{font-size: 13px;}
+
+	/**/
+	.recordings_table .recordingsheadtable{display:none;}
+	.audio_player_wrapper{padding:10px 0;}	
+	.recordings_table .threeColum{width:100%;}
+	.recordings_table .lenthcall{display:none;}
+	.recordings_table .phoneScriptCall{display:none;}
+	/**/
+	/*.search_contant{margin:0;}*/
+	.search_contant{margin-bottom:15px;}
+	.search_contant .input{width:89%;}
+	ul.selectCalendarView{margin:0 0 15px 0; float:none; text-align:center;}
+	ul.selectCalendarView li{display:inline-block; float:none;}
+	/**/
+	.dashboard ul li{ margin:3% 2% ;}
+	.dashboard ul li a .dash_img{width:130px; height:130px;}	
+	.dashboard{padding-top:20px; }	
+	/**/
+	.outComeStepOne{width:100%;}
+    .phoneMenuSetting .likeName select{width:100%;}
+    .phoneMenuSetting .likeName input{width:95%;}
+    .phoneMenuSetting .uploadAudio .fileWrap{width:100%;}
+	/**/
+	.composeScripts{width:100%;}
+	/**/
+	.statusTable .statusTableBody .rowWrap .stSection{width:95%; min-height:32px;}
+	.statusTable .statusTableBody .rowWrap .colorSection {width:75%;}
+	.contact_setting .tagSection li input{width:80%;}
+	.tagTable .tagTableBody .rowWrap .stSection{width:95%; min-height:32px;}
+	.tagTable .tagTableBody .rowWrap .colorSection {width:75%;}
+	.contact_setting .uploadFile .fileUploadField{width:79%;}
+	/**/
+	.calendar_settings .workingHours .workingHoursForm{width:78%;}
+	.calendar_settings .appointmentWindow .appointmentRow{width:90%;}
+	.calendar_settings .timeZone select{text-overflow: ellipsis;}
+	/*Jeet*/
+	.custom_range_main .custom_range_popup{width:300px !important;}
+  .custom_range_main .custom_range_popup .custom_range_div_main label.label2 {
+      font-weight: bold;font-size:12px;
+      left: 65px;
+      position: absolute;
+      top: 290px;
+  }
+  .custom_range_main .custom_range_popup .custom_range_datepicker #custom_range_from{float: none;padding-bottom: 40px;}
+  .custom_range_main .custom_range_popup .custom_range_datepicker #custom_range_to{float: none;}
+   /*Jeet*/
+   /**/
+	.calendar_settings .workingHours .workingHoursForm{width:78%;}
+	.calendar_settings .appointmentWindow .appointmentRow{width:90%;}
+	.calendar_settings .calendarCommenBox .boxContent{width:78%;}
+	.calendar_settings .timeZone select{text-overflow: ellipsis;}
+	/**/
+	.manageUsers .addUser form .inputBar{width:100%;}
+	.manageUsers .addUser form .inputBar input{width:95%; margin:0 0 10px 0;}
+	.manageUsers .addUser form .actionButton{float:right;}
+	.manageUsers .manageUserTable .manageUserTableHead{display:none;}
+	.manageUsers .manageUserTable .manageUserTablebody .row .rowName{width:100%; margin-bottom:10px;}
+	.manageUsers .manageUserTable .manageUserTablebody .row .rowEmail{width:100%;margin-bottom:10px;}
+	.manageUsers .manageUserTable .manageUserTablebody .row .rowType{width:58%;}
+	/**/
+	.calendar-apptview .calendarView{float:none; width:100%; margin-bottom:20px;}
+	.calendar-apptview .availableAppointments{float:none; width:100%;}
+	.calendar-apptview .availableAppointments .availableapptView li{margin:0 9px;}
+	/**/
+	.apptviewWeek .apptviewWeekTable .apptviewWeekbody li a b{display:block; float:none;}
+	.apptviewWeek .apptviewWeekTable .apptviewWeekbody li a i{float:none;}
+	/**/
+	.viewContactDetails form li .event_repeats{width: 100%;}
+	.viewContactDetails form li .event_repeats .datepair{width: 50%;}
+
+	.routingNotifications .hoursTable .hoursTablehead{display:none;}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .morningHours{
+		width:100%; margin-bottom:10px;
+	}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .eveningHours{
+		width:65%; margin:0 0 10px 33%;
+	}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .otherHours{
+		float:right; margin:0 8px 0 0;
+	}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .otherHours select{width:121px;}
+	.routingNotifications .businessHoursCalls .ysCC{float:none; width:100%; margin-bottom:10px;}
+	.routingNotifications .businessHoursCalls .callsNumber{float:none; width:100%;}
+	/**/
+	.callRecording{width:auto;}
+	.callRecording .activateCall li{width:100%; margin-bottom:10px; text-align:left;}
+	.callRecording .activateCall li label{width:30%;}
+	.callRecording .likeRecordedCall .likeCallTable .likeCallTableBody .rowBody li{width:100%; margin-bottom:10px; text-align:left;}
+	.callRecording .likeRecordedCall .likeCallTable .likeCallTableBody .rowBody li label{width:30%;}
+	.callRecording .likeRecordedCall .likeCallTable .likeCallTableHead{display:none;}
+	/**/
+	.phoneMenuSetting .callersDirected .tableCaller .tableCallerTableHead{display:none;}
+	.phoneMenuSetting .callersDirected .tableCaller .tableCallerTableBody .rowNumber .phoneKey{width:50%; margin-bottom:10px;}
+	.phoneMenuSetting .callersDirected .tableCaller .tableCallerTableBody .rowNumber .depName{width:50%; margin-bottom:10px;}
+	.phoneMenuSetting .callersDirected .tableCaller .tableCallerTableBody .rowNumber .phoneKey select{text-overflow: ellipsis;}
+	/**/
+	.billingOverview .myAccount .myAccountbody{padding:40% 0 0 0;}
+	.billingOverview .myAccount .myAccountbody .leftBar{width:100%;}
+	.billingOverview .myAccount .myAccountbody .rightBar{margin-left:0;}
+	.billingOverview .myAccount .myAccountbody .rightBar .currentPackage span{padding:20px 0 0 0; text-align:center;}
+	.billingOverview .myAccount .myAccountbody .rightBar .currentPackage span i{width:100%;}
+	.billingOverview .billingBox .billingInfo{width:100%; margin-bottom:10px;}
+	.billingOverview .billingBox .recentInvoices{width:100%; margin:0;}
+	/**/
+	.cancellationWrap{width:100%;}
+	.cancellationWrap .subscription select{width:80%;}
+	/**/
+	.billingInfo .billingForm li{width:100%; float:none;}
+	.billingInfo .billingForm li.displayNone{display:none;}
+	/**/
+	.invoiceWrapper .invoiceAdd .invoiceBill{width:100%; margin-bottom:35px;}
+	.invoiceWrapper .invoiceAdd .invoiceAccountBalance table .cal50{width:10px;}
+	/**/
+	.invoiceWrapper .curentCharges .curentChargesTable .curentChargesTableHead{display:none;}
+	.invoiceWrapper .curentCharges .curentChargesTable .cal30{width:100%; margin-bottom:10px;}
+	.invoiceWrapper .curentCharges .curentChargesTable .cal70{ width:100%;}
+	.invoiceWrapper .curentCharges .curentChargesTable .cal25{overflow:hidden; text-overflow:ellipsis;}
+	.invoiceWrapper .curentCharges .curentChargesTable .curentChargesTableFooter{width:96%;}
+
+    /**/
+    .recentInvoices .recentInvoicesTabel .recentInvoicesTabelHead{display:none;}
+    .recentInvoices .recentInvoicesTabel .recentInvoicesTabelbody .rowRI li{width:33%;}
+    /**/
+    .helpScript{width:100%;}
+    .width83{width:83% !important;}
+    .optionalOpportunityHead h2{width:100%;}
+    /**/
+    .callIncludes{padding:135px 0 0 0}
+    .callIncludes ul{padding:0 0 25px 0;}
+    /**/
+    .voicemailIncludeWrap .voicemailBox{padding:135px 0 0 0;}
+    .help .callIncludes {padding: 135px 0 0;}
+    /**/
+    .optionalOpportunity .optionalSection{width:100%;}
+    .normal_hours{width: 45%;padding-right: 0px;}
+    .ed_calendar{
+        margin-right: 35px;
+    }
+
+    .ed_business{
+        margin-right: 35px;
+    }
+}
+@media only screen and (max-width:479px) {
+	.container{width:310px;}
+	/**/
+	.site-footer .left li.footer_links{width:100%; line-height:25px; height:auto; text-align:left;margin:15px 0px;}
+	.site-footer .right{width:100%; float:none; text-align:left;margin-bottom: 10px;}
+    .site-footer span{display:none;}
+    .site-footer a{display:block; padding:5px 0}
+    .site-footer .left li{float:left;}
+	/**/
+	.business_info_form form .selectBar{width:93%;}
+	.business_info_form form .textareaBar{width:89%;}
+	.form_action li a{min-width:66px;}
+	.form_action li input{min-width:120px;}
+	.form_action li button{min-width:120px;}
+    .routingNotifications,.calendar_settings, .voicemail-boxes-edit,.phoneMenuSetting{ width:95%;}
+    .normal_hours{width: 45%;padding-right: 0px;}
+	/**/
+	.businesses{width:300px;}
+	/*Jeet*/
+	/* @add_new_contact_popup */
+	.add_new_contact{top:40px; left:-10px;}
+	.add_new_contact .add_new_popup{width:290px;}
+	.add_new_contact .action{
+	  position:static; text-align:center; padding:10px 0 0 80px; margin:10px 0 0 0;
+	  background:url(border_bottom.gif) repeat-x top left;
+	}
+  /*Jeet*/
+	.created_account_form .created_account_form_wrapper .create_new_form li.create_subdomian .subdomian input{width:85px;}
+	/**/
+	.list_voicemail .table_body a.close_btn{margin-top:10px; display:block;}
+	.list_voicemail .table_head th{height:28px; vertical-align:middle; padding-top: 10px; padding-bottom: 10px;}
+	/**/
+	.pick-number{width:100%;}
+	.tab-container .panel-container{width:auto;}
+	.search_phone_number_input{width:100%; margin:0 0 10px 0; overflow:hidden; float:none;}
+	.search_phone_number_input .phone_wrapper table{width:225px;}
+	.search_phone_number_input .phone_wrapper .area_code{width:50px;}
+	.search_phone_number_input .phone_wrapper .digits_phrases{width:155px;}
+		.search_phone_number_input .phone_wrapper .area_code input{width:40px;}
+	.search_phone_number_input .phone_wrapper .digits_phrases input{width:145px;}
+	.btn_search{width:100%;}
+	.area_code_notes{float:none; width:100%; padding:0; margin:0; background:none;}
+	.digits_phrases_notes{float:none; width:100%; padding:0; margin:0; background:none;}
+	/**/
+	.displaying_results li .result_punber{width:100%; margin-bottom:15px;}
+	/**/
+	.listofContent .tableofContent .tableheadContent{display:none;}
+	.listofContent .tableofContent .fullName{width:100%; float:none; margin-bottom:10px; overflow: hidden;}
+	.listofContent .tableofContent .fullName .firstNamne{width:50%; float:left;}
+	.listofContent .tableofContent .fullName .lastName{width:50%; float:left;}
+	.listofContent .tableofContent .phoneNumber{width:40%;margin-top: 10px;}
+	/**/
+	.tablefooterContent .tableFooterLeft{float:none; width:100%; text-align:center;}
+	.tablefooterContent .tableFooterRight{float:none; width:100%; text-align:center; padding:10px 0;}
+	.tablefooterContent .tableFooterMid{width:100%; padding:0;}
+	/**/
+	.viewContactDetails{padding:5px; width:235px;}
+	.viewContactDetails form li .input{width:200px;}
+	.viewContactDetails form li .input input{width:180px;}
+	.viewContactDetails form li .select{width:200px;}
+	.viewContactDetails form li .select select{width:180px;}
+	.viewContactDetails form li .phoneBar{width:auto;}
+	.viewContactDetails form li label{width:100%;}
+	.viewContactDetails form li .event_time{width:85px !important;}
+	.viewContactDetails form li .event_time input{width:65px !important;}
+	.viewContactDetails form li .cls_to {float: left; width: 25px; margin-top: 5px}
+	#periodically span{float: left;}
+	#periodically select{width: 79%;}
+	#periodically input{width: 74%;}
+	#weekly label {display: none;}
+	#weekly select{width: 80%;}
+	#monthly span{float: left;}
+	#monthly select{width: 80%;}
+	#monthly label {display: none;}
+	#periodically label {display: none;}
+
+	/*tag input in contact new/edit */
+	.tag_input{
+		float: left !important;
+		width: 180px !important;
+	}
+
+    .ed_calendar{
+        /*margin-right: 27px;*/
+        margin-left: 7px;
+        margin-right: 0px;
+    }
+    .ed_business{
+        /*margin-right: 27px;*/
+        margin-left: 7px;
+        margin-right: 0px;
+    }
+    .company_of_businesses .head {height: 35px;}
+    .company_of_businesses .head td.header_name{width: 50%;padding-top: 5px;}
+    .company_of_businesses .head td.header_actions{width: 50%;padding-top: 5px;}
+	/**/
+	.dashboard ul li{ margin:3% 2% ;}
+	.dashboard ul li a .dash_img{width:140px; height:135px;}
+
+	.search_contant .input{width:83%;}
+	/**/
+	.calendar_week .week_event .week_event_head li b{display:none;}
+	.calendar_week .week_event .week_event_head li span{display:block; font-size:10px;}
+	.calendar_week .week_event .week_event_head li{width:13%; padding:6px 0 5px 0;}
+	.calendar_week .week_event .week_event_bot .week_event_wrap{width:13%;}
+	.calendar_week .week_event .week_event_head li b{display:none;}
+	.calendar_week .week_event .week_event_head li span{display:block; font-size:10px;}
+	.calendar_week .week_event .week_event_head li{width:13%; padding:6px 0 5px 0;}
+	.calendar_week .week_event .week_event_bot .week_event_wrap{width:13%;}
+	/*Jeet*/
+	.custom_range_main .custom_range_popup { width:300px !important;}
+  .custom_range_main .custom_range_popup .custom_range_div_main label.label1 {
+      display: block;
+      padding-bottom: 10px;
+      padding-right: 140px;
+  }
+  .custom_range_main .custom_range_popup .custom_range_div_main label.label2 {
+    font-weight: bold;font-size:12px;
+    left: 60px;
+    position: absolute;
+    top: 280px;
+  }
+  .custom_range_main .custom_range_popup .custom_range_datepicker #custom_range_from{float: none;padding-bottom: 40px;}
+  .custom_range_main .custom_range_popup .custom_range_datepicker #custom_range_to{float: none;}
+  /*Jeet*/
+  /**/
+	.apptviewWeek .apptviewWeekTable .apptviewWeekbody li{width:13.8%;}
+	/**/
+	.routingNotifications .hoursTable .hoursTablehead{display:none;}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .morningHours{
+		width:100%; margin-bottom:10px;
+	}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .eveningHours{
+		width:65%; margin:0 0 10px 33%;
+	}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .otherHours{
+		float:right; margin:0 8px 0 0;
+	}
+	.routingNotifications .hoursTable .hoursTablebody .rowTableBody .otherHours select{width:121px;}
+	.routingNotifications .monitoredCall .notification .right{width:75%;}
+	.routingNotifications .monitoredCall .ownAudio .right{width:85%;}
+	/**/
+	.completeScript li{margin:35px 0;}
+	/**/
+	.billingOverview{width:100%;}
+	.billingOverview .myAccount .myAccountbody{padding:60% 0 0 0;}
+	.billingOverview .myAccount .myAccountbody .rightBar .currentPackage a{padding:5px 0; font-size:14px;}
+	/**/
+	.invoiceWrapper .invoiceAdd .invoiceAccountBalance table{width:auto;}
+    /**/
+    .width84{width:84% !important;}
+    /**/
+    .recordingAccount form ul{text-align:left;}
+    .recordingAccount form li{display:block; width:100%;}
+    .recordingAccount form li label{font-size:16px;}
+    /**/
+    .voicemailIncludeWrap .voicemailBox{margin:0;}
+    /**/
+    .optionalOpportunity .optionalSection .ques{padding:0 0 25px 0;}
+    .optionalOpportunity .optionalSection .ques span{line-height:20px !important;}
+    .optionalOpportunity .optionalSection .ques a{bottom:0; top:auto;}
+
+    .head_right li.userInfo a {line-height: 20px; padding-top: 15px; padding-bottom: 15px; margin-right: 5px;}
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:2), only screen and (min--moz-device-pixel-ratio:2) {
+	.add_new_contact h2{
+		background-image:url(icon_add_new@2x.png);
+		-webkit-background-size:16px 16px;
+		background-size:16px 16px;
+	}
+	/*.add_new_contact li a{
+		background-image:url(arrow_right@2x.png);
+		background-repeat: no-repeat;
+		-webkit-background-size:7px 12px;
+		background-size:7px 12px;
+	}*/
+	.syncCalenderSidebar h2 a{
+		background-image:url(icon_help@2x.png);
+		-webkit-background-size:17px 17px;
+		background-size:17px 17px;
+	}
+	.syncCalenderSidebar h2{
+		background-image:url(icon_sync@2x.png);
+		-webkit-background-size:11px 11px;
+		background-size:11px 11px;
+	}
+	.composeScripts .bigAns .agent_message{
+		background-image:url(icon_phone@2x.png);
+		-webkit-background-size:28px 28px;
+		background-size:28px 28px;
+	}
+	
+}
+
+.notification .notification_wrapper li.active{
+	background: none repeat scroll 0 0 #D1D1D1; 
+}
+li.see_more{
+	background: none;
+}
+li.see_more a{
+	font: 14px/0px 'Arial';
+	color: #737577;
+}

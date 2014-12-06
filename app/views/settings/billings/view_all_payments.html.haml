@@ -1,0 +1,35 @@
+%section.container
+  %section.page_title
+    Recent Invoices
+  %section.recentInvoices
+    %section.recentInvoicesTabel
+      %section.recentInvoicesTabelHead
+        %ul
+          %li Date
+          %li Invoice #
+          %li Payment Type
+          %li Amount
+          %li Status
+          %li Invoice
+      %section.recentInvoicesTabelbody
+        - @billing_transactions.each do |bt|
+          %section.rowRI
+            %ul
+              %li
+                = bt.created_on.strftime("%-m/%d/%Y")
+              %li
+                = bt.transaction_bid
+              %li
+                = bt.card_number
+              %li
+                = number_to_currency(bt.amount)
+                -#= "$" + number_with_precision(bt.amount,precision: 2).to_s
+              %li{class: bt.show_status.eql?('PAID') ? :colorGreen : :colorRed}
+                = bt.show_status
+                -#- if bt.subscription_id.present?
+                -#  = bt.subscription.status
+                -#- else
+                -#  = "active"
+              %li
+                = link_to "View", view_invoice_settings_billings_path(bt)
+      -#= link_to ("Download PDF as of " + Date.today.strftime("%-m/%-d/%Y")), download_invoice_settings_billings_path(format: 'pdf'), style: "text-decoration: underline;padding-top:10px;display:block;", target: "_blank"

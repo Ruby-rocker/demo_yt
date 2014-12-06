@@ -1,0 +1,136 @@
+- if params[:from].present? && params[:from] == "call_center"
+  = stylesheet_link_tag "application", :media => "all"
+  = javascript_include_tag "application"
+= javascript_include_tag "datepair"
+= javascript_include_tag "appointments"
+#viewContactDetails
+  .viewContactDetails
+    %h1 APPOINTMENT DETAILS
+    .app_availability_error
+    = form_for(@appointment, html: {class: :frm_appointment}) do |f|
+      = hidden_field_tag "from_call_center", params[:from]
+      = hidden_field_tag "call_center_auth", params[:auth]
+      = f.hidden_field :id
+      = fields_for @contact do |contact|
+        = contact.hidden_field :id
+        = contact.fields_for :address do |address|
+          = address.hidden_field :timezone
+          %ul
+            %li
+              %label First Name:
+              .input{ id: "contact_name_text"}
+                = contact.text_field :first_name, placeholder: "Charlie"
+            %li
+              %label Last Name:
+              .input{ id: "contact_name_text"}
+                = contact.text_field :last_name, placeholder: "Customer"
+            .event_from_to.datepair
+              %li
+                %label Date:
+                .input
+                  = text_field_tag :from_date, appointment_date, class: 'date start'
+              = hidden_field_tag :type, type
+              .event_from_to_row.datepair
+                %li
+                  %label
+                    Time:
+                    = hidden_field_tag :time, appointment_time
+                  .input.event_time
+                    - if type =="daily" or type == "weekly"
+                      = text_field_tag :from_time, appointment_time_start.present? ? appointment_time_start : appointment_time, placeholder: '8:00am', maxlength: '7', class: 'time start'
+                    - else
+                      = text_field_tag :from_time, appointment_time_start.present? ? appointment_time_start :  appointment_time, placeholder: '8:00am', maxlength: '7', class: 'time end'
+                  %div.cls_to
+                    To
+                  .input.event_time
+                    = text_field_tag :to_time, appointment_time_end, placeholder: '9:00am', maxlength: '7', class: 'time end'
+            .cls_contact_phone_number
+              - index = 0
+              = contact.fields_for :phone_numbers do |phone_number|
+                - index += 1
+                %li
+                  %label Phone:
+                  .phoneBar
+                    = hidden_field_tag "index_phone_value", "#{index}", class: "index_phone_count"
+                    %table{border: "0", cellpadding: "0", cellspacing: "0"}
+                      %tr
+                        %td{width: "89"}
+                          = phone_number.select :name, options_for_select(PHONE_TYPE, selected: (@phone_numbers[index-1][:name] if @phone_numbers.present?)), class: 'selectBar'
+                        %td{width: "10"} (
+                        %td{width: "45"}
+                          = phone_number.text_field(:area_code, placeholder: "123", maxlength: 3, class: :inputBar)
+                        %td{align: "left", width: "10"})
+                        %td{width: "55"}
+                          = phone_number.text_field(:phone1, placeholder: "456", maxlength: 3, class: :inputBar)
+                        %td{width: "10"} -
+                        %td{width: "55"}
+                          = phone_number.text_field(:phone2, placeholder: "7891", maxlength: 4, class: :inputBar)
+                  .action_add_delete
+                    - if index.eql? 1
+                      = image_tag "btn_plus@2x.png", width: "19", onclick: 'add_phone_to_contact()', class: :cr_point
+                    - else
+                      = image_tag "btn_close@2x.png", width: "19", :onclick => "hard_remove_raw_contacts(#{@phone_numbers[index-1][:id]}, this, 'destroy_phone', 'contact_phone_numbers_attributes_#{index-1}_id')", class: :cr_point
+            .cls_contact_email_id
+              - index = 0
+              = contact.fields_for :email_ids do |email|
+                - index += 1
+                %li
+                  %label Email:
+                  = hidden_field_tag "index_email_value", "#{index}", class: "index_email_count"
+                  .input
+                    = email.text_field :emails, placeholder: "charlie@newclient.com", class: :inputBar
+                  .action_add_delete
+                    - if index.eql? 1
+                      = image_tag "btn_plus@2x.png", width: "19", onclick: 'add_email_to_contact()', class: :cr_point
+                    - else
+                      = image_tag "btn_close@2x.png", width: "19", :onclick => "hard_remove_raw_contacts(#{@email_ids[index-1][:id]}, this, 'destroy_email', 'contact_email_ids_attributes_#{index-1}_id')", class: :cr_point
+            %li
+              %label Calendar:
+              .select
+                - if params[:from].present? && params[:from] == "call_center"
+                  = label_tag Calendar.find(params[:cal_id]).name
+                  = hidden_field_tag "appointment[calendar_id]", params[:cal_id]
+                - else
+                  = f.select(:calendar_id, Calendar.all.collect {|c| [ c.name, c.id ] })
+            %li
+              %label Repeat:
+              .select
+                = f.select(:recurring, options_for_select([["Never","never"], ["Daily","daily"], ["Periodically","periodically"], ["Weekly","weekly"], ["Monthly","monthly"], ["Yearly","yearly"]],recurring_select(@appointment)[0]), {})
+              %span#span_weekly{style: "display: none; color:#666666;"} on
+              %span#span_monthly{style: "display: none; color:#666666;"} on
+            #event_repeats.event_repeats{style: "display: #{recurring_select(@appointment)[1].present? ? 'block' : 'none'};"}
+              %ul
+                %li#periodically{style: "display: #{(recurring_select(@appointment)[0].eql? "periodically") ? 'block' : 'none'};"}
+                  %label  
+                  = f.text_field :periodically, value: recurring_select(@appointment)[1], style: ''
+                  %span{style: "color:#666666;font-size: 12px;"} days after appointment
+                %li#weekly{style: "display: #{(recurring_select(@appointment)[0].eql? "weekly") ? 'block' : 'none'};"}
+                  %label  
+                  = f.select(:weekly, options_for_select(DAYS,recurring_select(@appointment)[1]))
+                %li#monthly{style: "display: #{(recurring_select(@appointment)[0].eql? "monthly") ? 'block' : 'none'};"}
+                  %label  
+                  = f.select(:monthly, options_for_select(DATES_MONTH,recurring_select(@appointment)[1]))
+                  %span{style: "color:#666666;font-size: 12px;"} of the month
+            %li
+              %label Ends on:
+              .event_repeats
+                .event_cal_icon
+                  - if @appointment.schedule[:rrules] && @appointment.schedule[:rrules][0][:until].present?
+                    = check_box_tag('ends_on_never', false, false, :onclick => "return chkEndonNever()")
+                  - else
+                    = check_box_tag('ends_on_never', nil, true, :onclick => "return chkEndonNever()")
+                  %span{style: "color:#666666;font-size: 12px;"} Never or
+                #ends_on_div.event_repeats.datepair{style: "display: #{recurring_terminating(@appointment).present? ? 'block' : 'none'}"}
+                  - until_var = @appointment.schedule[:rrules][0][:until][:time].strftime("%m/%d/%Y") rescue nil
+                  = f.text_field :ends_on, value: until_var ? until_var : "", style: "height:25px;border:1px solid #A6A6A6;", class: 'date start'
+      = render :partial => "contacts/show_notes" if @notes.present?
+      .addNoteTextarea
+        %label Add your new note:
+        = text_area_tag "content", "", cols: "", rows: ""
+      .actionButton
+        %ul
+          %li
+            = link_to "Save Appointment", "javascript:;", class: "greenButton", onclick: "frm_validate_appointment()"
+          - if @del_path.present?
+            %li
+              = link_to "Cancel Appointment", @del_path, class: :cancelButton, method: :delete, confirm: 'Are you sure you want to delete this appointment?'

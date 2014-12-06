@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  billable: 
+  subscription: 
+  status: MyString
+  user: 
+  customer_id: MyString
+
+two:
+  tenant: 
+  billable: 
+  subscription: 
+  status: MyString
+  user: 
+  customer_id: MyString

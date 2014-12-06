@@ -1,0 +1,40 @@
+/ bof page title
+%section.page_title Voicemail Boxes
+/eof page title
+
+/ bof Voicemail Boxes
+%section.voicemail-boxes
+  %p.vmBox Here is a list of your current voicemail boxes:
+  %section.list_voicemail
+    %section.table_head
+      %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+        %tr
+          %th{width: "32%"} Menu Name
+          %th{width: "37%"} Phone Number
+          %th{width: "31%"} Edit/Delete
+    = render partial: 'settings/shared/index_table', locals: {phone_numbers: @voicemails}
+    %section.table_body
+      %table{width: "100%", border: "0", cellspacing: "0", cellpadding: "0"}
+        %tr
+          %td.menuName{width: "32%"} Add New Voicemail Box
+          %td{width: "37%"} &nbsp;
+          %td{width: "31%"}
+            - if @free_voicemail
+              = link_to "Add", new_settings_voicemail_path, class: "add"
+            - else
+              %span.priceBuy
+                %b
+                  $10/
+                  %i month
+                = link_to "Buy", new_settings_voicemail_path, data: { confirm: 'Are you sure want to buy Voicemail?' }
+  %section.voicemailIncludeWrap
+    .voicemailBox
+      .boxIcon
+        = image_tag "icon_voicemail@2x.png", :width => "115px"
+      %h2 YesTrak Voicemail Boxes Include:
+      %ul
+        %li Quick and easy setup.
+        %li Personalize the greeting in your own voice, and easily change it whenever necessary from your smartphone.
+        %li Real-time notifications via text or email so you never miss an opportunity.
+        %li Pick up messages your way — on the go, or at your desk.
+/ eof Voicemail Boxes

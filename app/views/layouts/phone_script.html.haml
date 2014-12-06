@@ -1,0 +1,21 @@
+!!! 5
+%html
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0", name: "viewport"}/
+    %title Yestrak
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %section.page-wrap
+      = render "layouts/header"
+      %section.container
+        - if notice
+          %p.notice= notice
+        - if alert
+          %p.alert= alert
+        %section.breadcrumbs
+          = render_breadcrumbs :separator => "<span class='breadcrumb_separator'>>></span>"
+      = yield
+    = render 'layouts/footer'

@@ -1,0 +1,87 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+      %title YesTrak - Welcome
+      :css
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body, html {
+            background: #f2f2f2;
+            font: normal 14px Arial, Helvetica, sans-serif;
+        }
+    %body
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "background:#f2f2f2; text-align:center;", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+            = render partial: 'mailer_partials/email_header'
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width:800px; margin:0 auto;"}
+                  %tr
+                    %td{:style => "height:45px; line-height:0; font-size:0;"}
+                  %tr
+                    %td{:style => "background:#ffffff; text-align:center;"}
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                        %tr
+                          %td{:style => "width:27px;"}
+                          %td{:style => "width:70px; vertical-align:top;"}
+                            %img{:alt => "", :src => "#{APP_CONFIG['image_url']}icon_12.png", :width => "70"}/
+                          %td{:style => "width:32px;"}
+                          %td{:style => "width:644px; vertical-align:top; text-align:left;"}
+                            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                              %tr
+                                %td{:style => "font:normal 25px Arial, Helvetica, sans-serif; color:#21afd7; text-transform:uppercase;"} Minutes Are Running Low
+                              %tr
+                                %td{:style => "font:italic 14px Arial, Helvetica, sans-serif; color:#a1c53e;"}= Time.now.in_time_zone(@tenant.timezone).strftime("%B %d, %Y at %l:%M%P")
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              - if @plan.eql? PackageConfig::PAY_AS_YOU_GO
+                                %tr
+                                  %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                    You've used 90 minutes this month, which probably means we're helping your business grow. Congratulations!
+                                %tr
+                                  %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                                %tr
+                                  %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                    In order to get our most efficient pricing for your usage pattern, consider upgrading to our 200 Minute plan and save yourself some money. Your price per minute would drop from $1.50 to $1.25 at our next package level. Remember, you can upgrade or downgrade at any time to fit your monthly needs; it's totally up to you.
+                                %tr
+                                  %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              - elsif @plan.eql? PackageConfig::PAY_AS_YOU_GO or @plan.eql? PackageConfig::MINUTE_200
+                                %tr
+                                  %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                    Wow! You've used 350 minutes this month. Business must be booming, and we're happy to be a small part of your success.
+                                %tr
+                                  %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                                %tr
+                                  %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                    In order to get our most efficient pricing for your usage pattern, consider upgrading to our 500 Minute plan to save yourself some money. Your would lock in our lowest rate, $1.00 per minute for live agent handling. Remember, you can upgrade or downgrade at any time to fit your monthly needs; it's totally up to you.
+                                %tr
+                                  %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+
+                              %tr
+                                %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  You have #{@days} days left until the end of your monthly billing cycle on your current plan.
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  You can upgrade in a few clicks at the link below, or call us at 800-620-5877 if you have any questions.
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  = link_to 'Click here to upgrade your minutes.', 'http://'+@tenant.subdomain+'.yestrak.com/settings/billings', style: "color:#000000; text-decoration:underline; font-weight:bold;"
+
+
+                              = render partial: 'mailer_partials/dotted_line'
+                              = render partial: 'mailer_partials/tag_line'
+                              = render partial: 'mailer_partials/social_links'
+                          %td{:style => "width:27px;"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                  = render partial: 'mailer_partials/unsubscribe_line'

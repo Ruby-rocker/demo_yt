@@ -1,0 +1,18 @@
+/ bof page title
+%section.page_title_step
+  %h2
+    STEP 3 of 4:
+    -#= @phone_script.script_id
+  %h3 Help us with the Script
+  / eof page title
+%section.composeScripts.clearfix
+  = form_for @phone_script, url: update_script_settings_phone_script_path(@phone_script), html: {id: :phone_script_form} do |f|
+    = render partial: @phone_script.script_id, locals: {f: f}
+    %section.form_action
+      %ul
+        %li
+          = link_to raw('<span>Previous</span>'), pick_number_settings_phone_script_path(@phone_script), :class => "prev_btn"
+        %li
+          -#= f.button 'Next', disable_with: 'Wait..', :class => "next_btn"
+          = button_tag :class => 'next_btn', disable_with: 'Wait..' do
+            %span Next

@@ -1,0 +1,50 @@
+/ bof page title
+%section.page_title
+  Call Recording
+  / eof page title
+%section.callRecording
+  = form_tag update_recordings_settings_call_recordings_path, method: :put do
+    %section.activateCall
+      %ul
+        %li Activate call recording?
+        %li
+          %label
+            = radio_button_tag 'tenant[record_call]', true, @tenant.record_call
+            Yes
+          %label
+            = radio_button_tag 'tenant[record_call]', false, !@tenant.record_call
+            No
+      %span NOTE: Call Recording is billed at a rate of $10 for every 100 minutes of call recording. Call Recordings are stored securely for one full year.
+    %section.likeRecordedCall
+      %h3 Please select the phone scripts you would like to have recorded?
+      %section.likeCallTable
+        %section.likeCallTableHead
+          %ul
+            %li Phone Script
+            %li Call REcording Status
+        %section.likeCallTableBody
+          - @phone_scripts.each do |phone_script|
+            .rowBody
+              %ul
+                %li
+                  %h2
+                    = phone_script.name.upcase
+                    %span= phone_script.script_name
+                %li
+                  %label
+                    = radio_button_tag "phone_script[#{phone_script.id}]", false, !phone_script.record_call
+                    Off
+                  %label
+                    = radio_button_tag "phone_script[#{phone_script.id}]", true, phone_script.record_call
+                    On
+          - if @phone_scripts.blank?
+            .rowBody
+              %ul
+                %li
+                  %label No phone script available
+    %section.form_action
+      %ul
+        %li
+          = link_to 'Previous', settings_dashboard_index_path
+        %li
+          = button_tag 'Save'

@@ -1,0 +1,102 @@
+- #$total = 0
+- $total_commission = 0
+- #$total_commission1 = 0
+- $total_commission2 = 0
+- $total_correction = 0
+- $total_commi1 = 0
+- $total_paid2 = 0
+- $total_paid1 = 0
+- $total_sale = 0
+- $total_bonus = 0
+- $paid_bonus = 0
+- $ownd_bonus = 0
+- @statement.each_with_index do |state, index|
+  %section.recordingsbodytable.row
+    %section.col1
+      - @commission.each do |commission, index| 
+        - if commission.user_id == state.id
+          = button_to 'PAID', paid_commission_partners_statements_path(commission.id), style: "background: #A1C53E; border: 0 none; padding: 5px; color: #ffffff;text-transform: uppercase;"
+    %section.col2 
+      = state.created_at.to_date
+    %section.col3 
+      - $total = 0
+      - @sale.each do |key, index|
+        - key.each do |k, value|
+          - if k.to_date == state.created_at.to_date
+            - $total += value.to_i
+          - else
+            = ""
+      = $total
+      - $total_sale += $total.to_i
+    %section.col3 
+      - @commission.each do |commission, index| 
+        - if commission.user_id == state.id
+          = state.plan_bid
+    
+    %section.col4
+      - @commission.each do |commission, index| 
+        - if commission.user_id == state.id && commission.is_paid == false
+          = number_to_currency(commission.adjustment)
+          - $total_correction += commission.adjustment.to_i
+    %section.col5
+      - @commission.each do |commission, index|
+        - if commission.user_id == state.id && commission.is_paid == false
+          = number_to_currency(commission.commission)
+          - $total_commission2 += commission.commission.to_i     
+    %section.col6 
+      - $total_commission1 = 0
+      - @commission.each do |commission, index|
+        - if commission.user_id == state.id && commission.is_paid == false
+          - $total_commission1 = commission.commission.to_i + commission.adjustment.to_i
+          = number_to_currency($total_commission1)
+          - $total_commi1 += $total_commission1.to_i
+    %section.col7
+      - $total_paid1 = 0
+      - @commission.each do |commission, index|
+        - if commission.user_id == state.id && commission.is_paid == true
+          - $total_paid1 = commission.commission.to_i + commission.adjustment.to_i
+          = number_to_currency($total_paid1)
+          - $total_paid2 += $total_paid1.to_i
+%section.recordingsbodytable.row
+  - if @bonus.present?
+    %section.col1
+      = button_to 'PAID', paid_bonus_partners_statements_path, style: "background: #A1C53E; border: 0 none; padding: 5px; color: #ffffff;text-transform: uppercase;"
+    %section.col2
+      = @bonus.created_at.to_date
+    %section.col3 0
+    %section.col4 
+      = "10 Sign-up Bonus"
+    %section.col4 $0.00
+    %section.col5
+      - if @bonus.is_paid == false
+        = number_to_currency(@bonus.bonus)
+        - $paid_bonus = @bonus.bonus
+      - else
+        $0.00
+        - $paid_bonus = 0
+    %section.col6
+      - if @bonus.is_paid == false
+        = number_to_currency(@bonus.bonus)
+      - else 
+        $0.00
+    %section.col7
+      - if @bonus.is_paid == true
+        = number_to_currency(@bonus.bonus)
+        - $total_bonus = @bonus.bonus.to_i
+      - else
+        $0.00
+        - $total_bonus = 0
+%section.tfoot.row
+  %section.col1 TOTALS
+  %section.col2 &nbsp;
+  %section.col3 
+    = $total_sale
+  %section.col3 &nbsp;
+  %section.col4 
+    = number_to_currency($total_correction)
+  %section.col5 
+    = number_to_currency($total_commission2.to_i + $paid_bonus.to_i)
+  %section.col6
+    = number_to_currency($total_commi1.to_i + $paid_bonus.to_i)
+  %section.col7 
+    = number_to_currency($total_paid2.to_i + $total_bonus.to_i)

@@ -1,0 +1,30 @@
+/* Forgot Password page */
+.forgot_pass_title{
+	background:#ffffff;
+}
+.forgot_pass_title h1{color:#737577; font-size:19px; font-family:'futura_std_bookbold'; text-transform:uppercase;}
+
+/* Remove padding from change password form */
+.remove_padding{
+	padding: 0px;
+}
+
+/* Cursor Pointer*/
+.cr_point
+{
+	cursor: pointer;
+}
+
+/* Overwrite tag css */
+.viewContactDetails form .token-input-input-token-facebook{
+	margin-bottom: 0px !important; 
+}
+.viewContactDetails form #token-input-contact_tag_tokens{
+	border: 0px !important;
+}
+
+/*tag input in contact new/edit */
+.tag_input{
+  float: left;
+  width: 270px;
+}

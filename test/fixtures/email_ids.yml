@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  mailable: 
+  emails: MyText
+
+two:
+  tenant: 
+  mailable: 
+  emails: MyText

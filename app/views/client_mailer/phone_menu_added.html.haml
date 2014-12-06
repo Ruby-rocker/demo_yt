@@ -1,0 +1,56 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+      %title YesTrak - Welcome
+      :css
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body, html {
+            background: #f2f2f2;
+            font: normal 14px Arial, Helvetica, sans-serif;
+        }
+    %body
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "background:#f2f2f2; text-align:center;", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+            = render partial: 'mailer_partials/email_header'
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width:800px; margin:0 auto;"}
+                  %tr
+                    %td{:style => "height:45px; line-height:0; font-size:0;"}
+                  %tr
+                    %td{:style => "background:#ffffff; text-align:center;"}
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                        %tr
+                          %td{:style => "width:27px;"}
+                          %td{:style => "width:70px; vertical-align:top;"}
+                            %img{:alt => "", :src => "#{APP_CONFIG['image_url']}icon_07.png", :width => "70"}/
+                          %td{:style => "width:32px;"}
+                          %td{:style => "width:644px; vertical-align:top; text-align:left;"}
+                            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                              %tr
+                                %td{:style => "font:normal 25px Arial, Helvetica, sans-serif; color:#21afd7; text-transform:uppercase;"} Phone Menu Added
+                              %tr
+                                %td{:style => "font:italic 14px Arial, Helvetica, sans-serif; color:#a1c53e;"}= @phone_menu.updated_at.in_time_zone(@phone_menu.tenant.timezone).strftime("%B %d, %Y at %l:%M%P")
+                              %tr
+                                %td{:style => "height:27px; line-height:0; font-size:0;"} &nbsp;
+                              %tr
+                                %td{:style => "font:normal 15px/30px Arial, Helvetica, sans-serif; color:#1e1e1f;"}
+                                  A Phone Menu named
+                                  %span{style: 'font-weight:bold;'}
+                                    #{@phone_menu_name}
+                                  has been added to your account for $10/month.
+
+                              = render partial: 'mailer_partials/dotted_line'
+                              = render partial: 'mailer_partials/tag_line'
+                              = render partial: 'mailer_partials/social_links'
+                          %td{:style => "width:27px;"}
+                        %tr
+                          %td{:colspan => "5", :style => "height:30px; line-height:0; font-size:0;"}
+                  = render partial: 'mailer_partials/unsubscribe_line'

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant: 
+  notifiable: 
+  is_read: false
+  title: MyString
+  content: MyText
+  notify_on: 2013-12-11 19:32:23
+
+two:
+  tenant: 
+  notifiable: 
+  is_read: false
+  title: MyString
+  content: MyText
+  notify_on: 2013-12-11 19:32:23

@@ -1,0 +1,11 @@
+.rowWrap
+  .stSection
+    = text_field_tag "tag[name][]", "", placeholder: "Tag", class: :inputBar
+  .colorSection
+    %ul
+      - Contact::COLORS.each do |c|
+        %li
+          %a{style: "background-color: #{c};cursor:pointer", id: "#{c}_#{@index.to_i+1}", onclick: "radio_button_selection(this.id, '#{c}')"}
+          %input{ type: "hidden", value: "", id: "color_#{c}_#{@index.to_i+1}", name: "color_tag_new[#{@index.to_i+1}][]" }
+  .rowAction
+    = link_to (image_tag "btn_close@2x.png", width: "19"), "#", :onclick => "remove_raw_contacts_settings(this)"

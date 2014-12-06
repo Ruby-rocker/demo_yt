@@ -1,0 +1,35 @@
+<%# The container tag
+  - available local variables
+    current_page:  a page object for the currently displayed page
+    total_pages:   total number of pages
+    per_page:      number of items to fetch per page
+    remote:        data-remote
+    paginator:     the paginator that renders the pagination tags inside
+-%>
+
+<section class="tablefooterContent clearfix">
+  <div class="tableFooterLeft">
+    Total <%= @record[:name] %>: <%= @total_record %>
+  </div>
+  <div class="tableFooterRight">
+    <%= form_tag @record[:path], :method => 'get', :remote => @record[:remote], :class => "contact_pagination_form", :id => "contacts_pagination" do %>
+      <%= select_tag :limit, options_for_select([['View 10/Page',10],['View 20/Page',20],['View 30/Page',30]], selected: session[:limit]), :onchange => "$('#contacts_pagination').submit();" %>
+    <% end %>
+  </div>
+  <div class="tableFooterMid">
+    <ul>
+    <%= paginator.render do -%>
+        <li><%= prev_page_tag unless current_page.first? %></li>
+        <li>Page:</li>
+        <% each_page do |page| -%>
+          <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
+            <li><%= page_tag page %></li>
+          <% elsif !page.was_truncated? -%>
+            <%= gap_tag %>
+          <% end -%>
+        <% end -%>
+        <li><%= next_page_tag unless current_page.last? %></li>
+    <% end -%>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,7 @@
+%li
+  %label Email:
+  = hidden_field_tag "index_email_value", "#{count.to_i + 1}", class: "index_email_count"
+  .input
+    = text_field_tag "contact[email_ids_attributes][#{count.to_i + 1}][emails]", email, placeholder: "charlie@newclient.com", class: :inputBar
+  .action_add_delete
+    = image_tag "btn_close@2x.png", width: "19", :onclick => "remove_raw_contacts(this)", class: :cr_point

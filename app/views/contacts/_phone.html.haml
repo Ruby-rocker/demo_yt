@@ -1,0 +1,19 @@
+%li
+  %label Phone:
+  .phoneBar
+    = hidden_field_tag "index_phone_value", "#{count.to_i + 1}", class: "index_phone_count"
+    %table{border: "0", cellpadding: "0", cellspacing: "0"}
+      %tr
+        %td{width: "89"}
+          = select_tag "contact[phone_numbers_attributes][#{count.to_i + 1}][name]", options_for_select(PHONE_TYPE), class: 'selectBar'
+        %td{width: "10"} (
+        %td{width: "45"}
+          = text_field_tag "contact[phone_numbers_attributes][#{count.to_i + 1}][area_code]", "", placeholder: "123", maxlength: 3, class: :inputBar
+        %td{align: "left", width: "10"} )
+        %td{width: "55"}
+          = text_field_tag "contact[phone_numbers_attributes][#{count.to_i + 1}][phone1]", "", placeholder: "456", maxlength: 3, class: :inputBar
+        %td{width: "10"} -
+        %td{width: "55"}
+          = text_field_tag "contact[phone_numbers_attributes][#{count.to_i + 1}][phone2]", "", placeholder: "7891", maxlength: 4, class: :inputBar
+  .action_add_delete
+    = image_tag "btn_close@2x.png", width: "19", :onclick => "remove_raw_contacts(this)", class: :cr_point

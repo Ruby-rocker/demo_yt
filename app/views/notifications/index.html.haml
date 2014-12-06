@@ -1,0 +1,21 @@
+%section.container_wrapper
+  %section.columns.clearfix
+    %section#custom_filters.column.col-34
+      = render partial: 'custom_filters'
+  %section.columns.clearfix
+    / bof leftside
+    %section#notification_list.column.col-34
+      = render partial: 'notification_list', locals: {notifications: @notifications}
+      - if @total_record > 10
+        = link_to 'SHOW NEXT 10', root_path(page: 2), class: 'nextPage', remote: true
+      / eof leftside
+    %section.column.col-14
+      %section.our_blog
+        %h1 Our Blog
+        - @blogs.each do |blog|
+          %article
+            = image_tag (blog.image_url), alt: ""
+            %span 
+              = truncate(blog.description.html_safe, length: 150, separator: ' ', omission: '...' ).html_safe
+            %a{:href => blog.blog_url, target: "_blank"} More
+        %a.viewAll{:href => "http://www.yestrak.com/blog", target: "_blank"} View All

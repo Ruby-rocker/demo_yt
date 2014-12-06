@@ -1,0 +1,158 @@
+%section.container
+  / bof page title
+  %section.page_title_step
+    %h2 STEP 3 of 4:
+    %h3 Help us with the Script
+    / eof page title
+  / eof container
+= form_for @phone_script, url: update_script_settings_phone_script_path(@phone_script), html: {id: :phone_script_form} do |f|
+  %section.container
+    %section.helpScript
+      .bigAns
+        %section.bigavtar
+          = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+        %section.andInput
+          %h2
+            %b> “
+            Hi, my name is (agent name).
+            %span I’m part of the answering team for
+          = f.text_field :buss_name, placeholder: 'ENTER YOUR BUSINESS NAME', class: :width84
+          %b ”
+          %a{:href => "#"}
+            = image_tag 'icon_help@2x.png', width: '17'
+          .clear
+      .bigAns
+        %section.bigavtar
+          = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+        %section.andInput
+          %h2
+            %b> “
+            My job is to get some quick information from you so we can get you scheduled for
+          .clear
+          .textareabar
+            = f.text_area :appointment_type, placeholder: "ENTER THE MEETING/APPOINTMENT TYPE, including details if it's appropriate.", class: :width83
+            %b ”
+            %a{:href => "#"}
+              = image_tag 'icon_help@2x.png', width: '17'
+      .bigAns
+        %section.bigavtar
+          = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+        %section.andInput
+          %h2 “May I please start with your phone number in case we get disconnected? ”
+          %input.width84.sm_input{:disabled => "", :type => "text", placeholder: 'CALLER PROVIDES PHONE NUMBER'}
+            .clear
+            %h2 “ Great. ”
+      .bigAns
+        %section.bigavtar
+          = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+        %section.andInput
+          %h2 “ May I please have your first name? ”
+          %input.width84.sm_input{:disabled => "", :type => "text", placeholder: 'CALLER PROVIDES FIRST NAME'}
+            .clear
+            %h2 “ Thank you. ”
+      .bigAns
+        %section.bigavtar
+          = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+        %section.andInput
+          %h2 “ May I please have your last name? ”
+          %input.width84.sm_input{:disabled => "", :type => "text", placeholder: 'CALLER PROVIDES LAST NAME'}
+            .clear
+      .bigAns
+        %section.bigavtar
+          = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+        %section.andInput
+          %h2 “ Thanks. Now that we have your contact info, what day were you looking to schedule? ”
+          %p Agent then uses your YesTrak calendar to select an appointment day/time with the caller.
+          .clear
+      .calendarAppointments
+        .andInput
+          %label Please choose a calendar to book these appointments on:
+          = f.collection_select :calendar_id, @calendars, :id, :name, prompt: 'Select calendar'
+        .thankYou Thank you. I have you in the calendar for (day/time of appointment). Is that correct?
+
+  %section.optionalOpportunity
+    .container
+      .optionalSection
+        .ques
+          %span OPTIONAL SECTION - Would you like to ask more questions?
+          = link_to 'If yes, click Here', 'javascript:void(0);', onclick: "$('div#optionalQuestions').toggle();"
+    .container#optionalQuestions{style: 'display: none;'}
+      .helpScript
+        .optionalWrap
+          %section.addQue
+            %section.bigavtar
+              = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+            %section.andInput
+              = f.text_field :question_1, placeholder: 'ENTER QUESTION #1(optional)', class: :biginput
+              %a{:href => "#"}
+                = image_tag 'icon_help@2x.png', width: '17'
+            .clear
+          %section.addQue
+            %section.bigavtar
+              = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+            %section.andInput
+              %input.sminput{:disabled => "", :type => "text", :value => 'CALLER ANSWERS QUESTION'}
+            .clear
+          %section.top_space_40
+            %section.addQue
+              %section.bigavtar
+                = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+              %section.andInput
+                = f.text_field :question_2, placeholder: 'ENTER QUESTION #2(optional)', class: :biginput
+                %a{:href => "#"}
+                  = image_tag 'icon_help@2x.png', width: '17'
+              .clear
+          %section.addQue
+            %section.bigavtar
+              = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+            %section.andInput
+              %input.sminput{:disabled => "", :type => "text", :value => 'CALLER ANSWERS QUESTION'}
+            .clear
+          %section.top_space_40
+            %section.addQue
+              %section.bigavtar
+                = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+              %section.andInput
+                = f.text_field :question_3, placeholder: 'ENTER QUESTION #3(optional)', class: :biginput
+                %a{:href => "#"}
+                  = image_tag 'icon_help@2x.png', width: '17'
+              .clear
+          %section.addQue
+            %section.bigavtar
+              = image_tag 'sm_avtar@2x.jpg', class: 'img-35'
+            %section.andInput
+              %input.sminput{:disabled => "", :type => "text", :value => 'CALLER ANSWERS QUESTION'}
+            .clear
+
+  %section.container
+    %section.helpScript
+      .bigAns
+        %section.bigavtar
+          = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+        %section.andInput
+          %h2 Great &ndash; thanks for your help.
+          .clear
+          .textareabar
+            = f.text_area :next_step, class: :width83, placeholder: "DESCRIBE THE NEXT STEP FOR YOUR CALLER. For example, 'you can expect a call from the office in the nect hour.' or 'Don't forget to download the forms on our website.'"
+      .bigAns
+        %section.bigavtar
+          = image_tag 'big_avtar@2x.jpg', class: 'img-60'
+        %section.andInput
+          %h2
+            “ My name is (agent name), and it’s been a pleasure assisting you. Is there anything else we can do for you today?
+            %span Thanks for calling and have a great day! ”
+          .clear
+      .bigAns
+        %section.andInput
+          %p
+            OBJECTION RESPONSE: I’m sorry, we’re just the answering service. The best thing I can do is get
+            your message over to office so the right person can call you back shortly. How does that sound?
+          .clear
+      %section.form_action
+        %ul
+          %li
+            = link_to raw('<span>Previous</span>'), pick_number_settings_phone_script_path(@phone_script), :class => "prev_btn"
+          %li
+            -#= f.submit 'Next', disable_with: 'Wait..'
+            = button_tag :class => 'next_btn', disable_with: 'Wait..' do
+              %span Next

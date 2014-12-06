@@ -1,0 +1,2 @@
+module Settings::CalendarsHelper
+end

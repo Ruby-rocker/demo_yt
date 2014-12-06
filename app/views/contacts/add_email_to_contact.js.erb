@@ -1,0 +1,8 @@
+if($(".cls_contact_email_id").find("li").length < 3)
+{
+	$(".cls_contact_email_id").append("<%=j render 'email', count: @count %>")
+}
+else
+{
+	alert("You cannot add more than 3 emails")
+}

@@ -1,0 +1,20 @@
+- time_array.each_slice(index_limit) do |time_ar|
+  %ul
+    %li
+      - time_ar.each do |time|
+        %span
+          - date = params[:date].split("-")
+          - available = (@working_hour.week_days.include?(Date.new(date[0].to_i, date[2].to_i, date[1].to_i).strftime('%a').upcase) ? "" : "active")
+          - available = check_appt_window(time, Date.new(date[0].to_i, date[2].to_i, date[1].to_i).strftime('%a').upcase) if available.blank?
+          - available = check_availability(time, @blocked_hash) if available.blank?
+          - block = BlockedTiming.find_by_appt_time_and_appt_date_and_calendar_id_and_status(time.strftime("%I:%M%P"), params[:date], params[:calendar_id], [0, 1])
+          - (available = block.status == 1 ? "" : "active") if block.present?
+          - if check_working_hours(time, @working_hour) == ""
+            = content_tag(:a, href: "javascript:;", onclick: "set_availability('#{params[:date]}', '#{time.strftime("%I:%M%P")}', this)", class: "#{available}") do  
+              %b
+                = time.strftime("%I:%M%P")
+              %i
+                - if available == "active"
+                  = image_tag("btn_close@2x.png", width: "15")
+                - else
+                  = image_tag("btn_plus@2x.png", width: "15")

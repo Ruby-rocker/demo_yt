@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+#partner .nav ul{ width:11.79em;}
+
+@media only screen and (min-width: 1281px) {
+    #partner .container{width:1160px; margin:0 auto;}
+}
+/** IPAD **/
+@media only screen and (max-width: 1024px) {
+    #partner .container{width:960px; margin:0 auto;}
+}
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    #partner .container{width:750px; margin:0 auto;}
+    #partner .nav > li {float: left;}
+    #partner .head_right li a{ padding:0 5px; font-size:12px;}
+    #partner .head_right li.userInfo{ width:150px;}
+    #partner .nav ul{ width:100%;}
+    #partner .dashboard{ width:auto}
+    #partner .quick_status label{ display:block}
+    #partner .quick_status span{ float:none;}
+    #partner .quick_status .search_contant .input{ width:60%;}
+    #partner .partner_page_copy{width: 60%;}
+
+}
+@media only screen and (max-width: 767px){
+    #partner .container{width:470px; margin:0 auto; /*background:blue;*/}
+    #partner .nav{ top:64px; background:#A1C53E;}
+    #partner .toggleMenu{background:#000000 url(nav.png) no-repeat center center;}
+    #partner .head_right li{border-bottom:#666 solid 1px; border-right:0px; border-left:0px;}
+    #partner .head_right li.userInfo{ width:150px;}
+    #partner .head_right li a{ padding:0 5px;line-height: 40px;}
+    #partner .head_right li.userInfo a,.head_right li.userInfo a:hover{background: url(icon_setting.png) no-repeat 120px center rgba(0, 0, 0, 0);}
+    #partner .dashboard{ width:auto}
+    #partner .quick_status .search_contant .input{ width:87px;}
+    #partner .nav ul{ width:100%;}
+    #partner .visit .row section.col2, #partner .visit .row section.col3, #partner .visit .row section.col6{ display:none}
+    #partner .balance .row section.col3, #partner .balance .row section.col5, #partner .balance .row section.col7{ display:none}
+    #partner .balance_info span{ float:none; margin-left:10px;}
+    #partner .partner_page_copy{width: 75%;}
+}
+@media only screen and (max-width: 479px){
+    #partner .container{width:310px;}
+    #partner .visit .row section.col5{ display:none}
+    #partner .balance .row section.col4{ display:none}
+    #partner .whitebox{ padding:10px 5px;}
+    #partner .graphpage ul.dateRange{ text-align:center}
+    #partner .graphpage ul.dateRange li{ float:none}
+    #partner .partner_page_copy{width: 95%;}
+}
+
+

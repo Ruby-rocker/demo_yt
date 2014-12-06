@@ -1,0 +1,139 @@
+%section.bigAns
+  %section.bigavtar
+    = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      Hello, my name is (agent name),
+      %br
+      %br I'm part of the answering team for
+    = f.text_field :buss_name, placeholder: 'ENTER YOUR BUSINESS NAME'
+    %b &rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      My job is to get some quick information from you so
+    = f.text_area :desired_action, placeholder: 'ENTER THE DESIRED OUTCOME OF THE CALL, including details if its appropriate'
+    %b &rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please start with your phone number in case we get disconnected?&rdquo;
+    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES PHONE NUMBER"}
+      %span &ldquo;Great.&rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please have your first name?&rdquo;
+    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES FIRST NAME"}
+      %span &ldquo;Thank you.&rdquo;
+  .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+  %section.andInput
+    %span &ldquo;May I please have your last name?&rdquo;
+    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES LAST NAME"}
+      -#%span &ldquo;Thank you.&rdquo;
+  .clear
+-#%section.bigAns
+-#  %section.bigavtar
+-#    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+-#  %section.andInput
+-#    %span &ldquo;May I please have your email address?&rdquo;
+-#    %input.sm_input{:disabled => "", :type => "text", :placeholder => "CALLER PROVIDES PHONE NUMBER"}
+-#      %span &ldquo;Thank you.&rdquo;
+-#  .clear
+
+%section.addQue
+  %section.bigavtar
+    = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      Thanks, Now that we have your contact info, let me ask you a few questions:
+    = f.text_field :question_1, placeholder: 'ENTER QUESTION #1', class: :biginput
+  .clear
+%section.addQue
+  %section.bigavtar
+    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+  %section.andInput
+    %input.sminput{:disabled => "", :type => "text", :value => 'CALLER ANSWERS QUESTION'}
+  .clear
+    %span &ldquo;Thank you&rdquo;
+%section.top_space_40
+  %section.addQue
+    %section.bigavtar
+      = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+    %section.andInput
+      = f.text_field :question_2, placeholder: 'ENTER QUESTION #2(optional)', class: :biginput
+    .clear
+%section.addQue
+  %section.bigavtar
+    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+  %section.andInput
+    %input.sminput{:disabled => "", :type => "text", :value => 'CALLER ANSWERS QUESTION'}
+  .clear
+    %span &ldquo;Thank you&rdquo;
+%section.top_space_40
+  %section.addQue
+    %section.bigavtar
+      = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+    %section.andInput
+      = f.text_field :question_3, placeholder: 'ENTER QUESTION #3(optional)', class: :biginput
+    .clear
+%section.addQue
+  %section.bigavtar
+    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+  %section.andInput
+    %input.sminput{:disabled => "", :type => "text", :value => 'CALLER ANSWERS QUESTION'}
+  .clear
+    %span &ldquo;Thank you&rdquo;
+
+%section.top_space_40
+  %section.addQue
+    %section.bigavtar
+      = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+    %section.andInput
+      %span &ldquo;Great. One last question: what is the best time to reach you by phone?&rdquo;
+    .clear
+%section.addQue
+  %section.bigavtar
+    = image_tag "sm_avtar_2@2x.jpg", class: 'img-35'
+  %section.andInput
+    %input.sminput{:disabled => "", :type => "text", :value => 'CALLER PROVIDES BEST TIME TO RETURN CALL'}
+  .clear
+%section.top_space_40
+  %section.bigAns
+    %section.bigavtar
+      = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+    %section.andInput
+      %span
+        %i> &ldquo;
+        Thanks for providing us with this information, I'll send your answers through now, and you can expect
+      = f.text_area :next_step, placeholder: "DESCRIBE THE NEXT STEP FOR YOUR CALLER. For example, 'you can expect a call from the office in the nect hour.' or 'Don't forget to download the forms on our website.'"
+      %b &rdquo;
+    .clear
+%section.bigAns
+  %section.bigavtar
+    = image_tag "big_avtar_2@2x.jpg", class: 'img-60'
+  %section.andInput
+    %span
+      %i> &ldquo;
+      My name is (agent name), and it's been a pleasure assisting you. Is there anything else we can do for you today?
+      %br
+      %br
+        Thanks for calling and have a great day!
+        %b &rdquo;
+      %br
+      %br
+        OBJECTION RESPONSE: I'm sorry, we're just the answering service. The best thing I can do is get your message over to office so the right person can call you back shortly. How does that sound?
+  .clear

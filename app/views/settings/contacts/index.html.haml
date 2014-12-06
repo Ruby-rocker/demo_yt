@@ -1,0 +1,102 @@
+%section.container
+  %section.page_title
+    Contact Settings
+  %section.contact_setting
+    %a.statusLink{href: "#"} Status Labels:
+    = form_for @status_label, html: {id: :frm_save_contact_settings, multipart: true}, method: 'post', url: settings_contacts_path do |f|
+      %section.statusTable
+        %section.statusTableHead
+          %ul
+            %li Status Label
+            %li Color
+        %section.statusTableBody
+          - if @status_labels.present?
+            - @status_labels.each_with_index do |sl, index|
+              .rowWrap
+                .stSection
+                  = text_field_tag "status[#{sl.id}]", sl.name, placeholder: "Label", class: :inputBar
+                .colorSection
+                  %ul.test_class
+                    - Contact::COLORS.each do |c|
+                      %li
+                        %a{style: "background-color: #{c};cursor:pointer", id: "#{c}_#{index}_status", onclick: "radio_button_selection(this.id, '#{c}')", class: ((sl.color == c) ? "selected" : "")}
+                        %input{ type: "hidden", value: ((sl.color == c) ? c : ""), id: "color_code#{c}_#{index}", name: "color_code[#{index}][]" }
+                .rowAction
+                  - if index.eql? 0
+                    = link_to (image_tag "btn_plus@2x.png", width: "19"), add_status_label_settings_contacts_path(index: @status_labels.length), remote: true
+                  - else
+                    = link_to (image_tag "btn_close@2x.png", width: "19", :onclick => "remove_raw_status_contacts_settings(this, #{sl.id})"), "javascript:;"
+          - else
+            .rowWrap
+              .stSection
+                = text_field_tag "status[st_name][]", '', placeholder: "Label", class: :inputBar
+              .colorSection
+                %ul.test_class
+                  - Contact::COLORS.each do |c|
+                    %li
+                      %a{style: "background-color: #{c};cursor:pointer", id: "status_#{c}_0", onclick: "radio_button_selection(this.id, '#{c}')"}
+                      %input{ type: "hidden", value: "", id: "color_code#{c}_#{0}", name: "color_code_new[0][]" }
+              .rowAction
+                = link_to (image_tag "btn_plus@2x.png", width: "19"), add_status_label_settings_contacts_path(index: 0), remote: true
+
+      %section.tagSection
+        %a.tagLink{href: "#"} Tags:
+        = fields_for @tag do |f|
+          %section.tagTable
+            %section.tagTableHead
+              %ul
+                %li Tags
+                %li Color
+            %section.tagTableBody
+              - if @tags.present?
+                - @tags.each_with_index do |tag, index|
+                  .rowWrap{:id => "tag"}
+                    .stSection
+                      = text_field_tag "tag[#{tag.id}]", tag.name, placeholder: "Tag", class: :inputBar
+                    .colorSection
+                      %ul.test_class
+                        - Contact::COLORS.each do |c|
+                          %li
+                            %a{style: "background-color: #{c};cursor:pointer", id: "#{c}_#{index}_tag", onclick: "radio_button_selection(this.id, '#{c}')", class: ((tag.color == c) ? "selected" : "")}
+                            %input{ type: "hidden", value: ((tag.color == c) ? c : ""), id: "color_#{c}_#{index}", name: "color[#{index}][]" }
+                    .rowAction{:id => "tag_action"}
+                      - if index.eql? 0
+                        = link_to (image_tag "btn_plus@2x.png", width: "19"), add_tag_settings_contacts_path(index: @tags.length), remote: true
+                      - else
+                        = link_to (image_tag "btn_close@2x.png", width: "19", :onclick => "remove_raw_tag_contacts_settings(this, #{tag.id})"), "javascript:;"
+              - else
+                .rowWrap
+                  .stSection
+                    = text_field_tag "tag[name][]", '', placeholder: "Tag", class: :inputBar
+                  .colorSection
+                    %ul.test_class
+                      - Contact::COLORS.each do |c|
+                        %li
+                          %a{style: "background-color: #{c};cursor:pointer", id: "#{c}_0", onclick: "radio_button_selection(this.id, '#{c}')"}
+                          %input{ type: "hidden", value: "", id: "color_tag_new#{c}_#{0}", name: "color_tag_new[0][]" }
+                  .rowAction
+                    = link_to (image_tag "btn_plus@2x.png", width: "19"), add_tag_settings_contacts_path(index: 0), remote: true
+
+
+      %section.uploadFile
+        %label Import a Contact list by uploading the file here:
+        %section.fileUploadField
+          = file_field_tag "contact_csv"
+          %span NOTE: Acceptable format is CSV file.
+        %a.iconHelp{href: "#"}
+          = image_tag("icon_help@2x.png", width: "17")
+      %section.uploadFile
+        %label Export your Contacts by clicking here:
+        %section.fileUploadField
+          = link_to "EXPORT NOW", export_contacts_settings_contacts_path(format: "csv")
+          %span NOTE: Your contacts will be exported as a CSV file.
+        %a.iconHelp{href: "#"}
+          = image_tag("icon_help@2x.png", width: "17")
+
+      %section.form_action
+        %ul
+          %li
+            = link_to raw('<span>Previous</span>'), settings_dashboard_index_path, :class => "prev_btn"
+          %li
+            = f.button "Save", onclick: "frm_validate_contact_settings()", disable_with: 'Wait..', :class => "save_btn"
+            =# f.submit "Save", onclick: "frm_validate_contact_settings()"

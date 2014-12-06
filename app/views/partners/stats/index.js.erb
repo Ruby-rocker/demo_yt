@@ -1,0 +1,12 @@
+$('section.recordingsbodytable').remove()
+$("#search_date_from").val("")
+$("#search_date_to").val("")
+<% if @partner_state.present? %>
+	$('section.tfoot.row').remove()
+	$("<%= escape_javascript(render(:partial => 'partner_state_list', :locals => { partner_state: @partner_state, uniques: @uniques, commission: @commission })) %>").insertAfter('section.recordingsheadtable')
+<% else %>
+	$('section.tfoot.row').remove()
+	$("<%= escape_javascript(render(:partial => 'partner_state_not_found')) %>").insertAfter('section.recordingsheadtable')
+<% end %>
+
+// $('#span_currenty_viewing').append(<%=@displaying_range%>+"-"+<%= Time.new.strftime("%Y-%m-%d %H:%M:%S") %>)
